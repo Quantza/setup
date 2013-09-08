@@ -39,6 +39,9 @@ fi
 if [ -d .emacs.d/ ]; then
     mv .emacs.d .emacs.d~
 fi
+if [ -d .tmux/ ]; then
+    mv .tmux .tmux~
+fi
 git clone git@github.com:Quantza/dotfiles.git
 ln -sb dotfiles/.screenrc .
 ln -sb dotfiles/.tmux .
