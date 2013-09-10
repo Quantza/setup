@@ -38,6 +38,7 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 npm install restler
 npm install commander
 npm install cheerio 
+npm install express
 
 # git pull and install dotfiles as well
 cd $HOME
