@@ -52,7 +52,7 @@ if [ -d .tmux/ ]; then
 fi
 git clone git@github.com:Quantza/dotfiles.git
 ln -sb dotfiles/.screenrc .
-ln -sb dotfiles/.tmux .
+ln -sb dotfiles/.tmux.conf .
 ln -sb dotfiles/.gitmessage.txt .
 ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
