@@ -52,10 +52,10 @@ RUN apt-get install -y emacs24-nox emacs24-el emacs24-common-non-dfsg
 RUN wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
 #Install restler, cheerio and commander
-npm install -g express
-npm install restler
-npm install commander
-npm install cheerio
+RUN npm install -g express
+RUN npm install restler
+RUN npm install commander
+RUN npm install cheerio
 
 # git pull and install dotfiles as well
 RUN git clone git@github.com:Quantza/dotfiles.git
@@ -67,3 +67,4 @@ RUN ln -sb dotfiles/.bashrc .
 RUN ln -sb dotfiles/.bashrc_custom .
 RUN ln -sf dotfiles/.emacs.d .
 RUN ln -sf dotfiles/.tmux .
+RUN ln -sf dotfiles/.vagrant.d .
