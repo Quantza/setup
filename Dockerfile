@@ -4,11 +4,16 @@
 
 # use the ubuntu base image provided by dotCloud
 FROM ubuntu
+MAINTAINER Quantza, <post2base@outlook.com>
 
 # make sure the package repository is up to date
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 
 RUN apt-get update
+RUN apt-get upgrade -y
+
+#Expose http port (80)
+EXPOSE 80
 
 #Install useful apps
 RUN apt-get install -y memcached
@@ -62,5 +67,3 @@ RUN ln -sb dotfiles/.bashrc .
 RUN ln -sb dotfiles/.bashrc_custom .
 RUN ln -sf dotfiles/.emacs.d .
 RUN ln -sf dotfiles/.tmux .
-
-MAINTAINER Luther Power, post2base@outlook.com
