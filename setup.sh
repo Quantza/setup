@@ -38,7 +38,7 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 npm install restler
 npm install commander
 npm install cheerio 
-npm install express
+npm install -g express
 
 # git pull and install dotfiles as well
 cd $HOME
@@ -54,6 +54,9 @@ fi
 if [ -d .vagrant.d/ ]; then
     mv .vagrant.d .vagrant.d~
 fi
+if [ -d .tools/ ]; then
+    mv .tools .tools.old
+fi
 
 git clone git@github.com:Quantza/dotfiles.git
 ln -sb dotfiles/.screenrc .
@@ -64,4 +67,8 @@ ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/.tmux .
+ln -sf dotfiles/.tools .
+ln -sf dotfiles/.vagrant.d .
+
+chmod 0700 .tools/
 
