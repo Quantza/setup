@@ -70,5 +70,6 @@ ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
 ln -sf dotfiles/.vagrant.d .
 
-chmod 0700 .tools/
+chmod -R 0700 .tools/
+
 
