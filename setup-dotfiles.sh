@@ -18,7 +18,7 @@ fi
 if [ -d .tools/ ]; then
     mv .tools .tools.old
 fi
-if [ -f $HOME/start-agent-trigger]; then
+if [ -f $HOME/start-agent-trigger ]; then
 	rm -rf $HOME/start-agent-trigger
 fi
 
