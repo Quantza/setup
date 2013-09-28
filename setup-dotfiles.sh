@@ -18,6 +18,9 @@ fi
 if [ -d .tools/ ]; then
     mv .tools .tools.old
 fi
+if [ -f $HOME/start-agent-trigger]; then
+	rm -rf $HOME/start-agent-trigger
+fi
 
 git clone git@github.com:Quantza/dotfiles.git
 ln -sb dotfiles/.screenrc .
