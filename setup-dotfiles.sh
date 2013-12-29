@@ -11,12 +11,20 @@ if [ -d .emacs.d/ ]; then
     mv .emacs.d .emacs.d~
 fi
 
-if [ -d .tmux ]; then
+if [ -d .tmux/ ]; then
     mv .tmux .tmux~
 fi
 
 if [ -d .vagrant.d/ ]; then
     mv .vagrant.d .vagrant.d~
+fi
+
+if [ -d .tools/ ]; then
+    mv .tools .tools.old
+fi
+
+if [ -f $HOME/start-agent-trigger ]; then
+	rm -rf $HOME/start-agent-trigger
 fi
 
 git config --global user.name "Quantza"
@@ -36,4 +44,3 @@ ln -sf dotfiles/.tools .
 ln -sf dotfiles/.vagrant.d .
 
 chmod -R 0700 ~/dotfiles/.tools/
-

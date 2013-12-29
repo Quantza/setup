@@ -4,12 +4,16 @@
 
 # use the ubuntu base image provided by dotCloud
 FROM ubuntu
-MAINTAINER Luther Power, <post2base@outlook.com>
+MAINTAINER Quantza, <post2base@outlook.com>
 
 # make sure the package repository is up to date
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 
 RUN apt-get update
+RUN apt-get upgrade -y
+
+#Expose http port (80)
+EXPOSE 80
 
 #Install useful apps
 RUN apt-get install -y memcached
@@ -48,18 +52,25 @@ RUN apt-get install -y emacs24-nox emacs24-el emacs24-common-non-dfsg
 RUN wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
 #Install restler, cheerio and commander
-npm install -g express
-npm install restler
-npm install commander
-npm install cheerio
+RUN npm install -g express
+RUN npm install restler
+RUN npm install commander
+RUN npm install cheerio
 
 # git pull and install dotfiles as well
 RUN git clone git@github.com:Quantza/dotfiles.git
 RUN ln -sb dotfiles/.screenrc .
-RUN ln -sb dotfiles/.tmux .
+RUN ln -sb dotfiles/.tmux.conf .
 RUN ln -sb dotfiles/.gitmessage.txt .
 RUN ln -sb dotfiles/.bash_profile .
 RUN ln -sb dotfiles/.bashrc .
 RUN ln -sb dotfiles/.bashrc_custom .
+RUN ln -sb dotfiles/tools.sh .
 RUN ln -sf dotfiles/.emacs.d .
 RUN ln -sf dotfiles/.tmux .
+RUN ln -sf dotfiles/.tools .
+RUN ln -sf dotfiles/.vagrant.d .
+
+RUN chmod -R 0700 ~/dotfiles/.tools/
+
+

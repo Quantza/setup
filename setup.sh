@@ -34,6 +34,12 @@ sudo apt-get install -y tmux
 # https://toolbelt.heroku.com/debian
 wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
+#Install restler, cheerio and commander
+npm install restler
+npm install commander
+npm install cheerio 
+npm install -g express
+
 # git pull and install dotfiles as well
 cd $HOME
 if [ -d ./dotfiles/ ]; then
@@ -50,6 +56,14 @@ fi
 
 if [ -d .vagrant.d/ ]; then
     mv .vagrant.d .vagrant.d~
+fi
+
+if [ -d .tools/ ]; then
+    mv .tools .tools.old
+fi
+
+if [ -f $HOME/start-agent-trigger ]; then
+	rm -rf $HOME/start-agent-trigger
 fi
 
 git config --global user.name "Quantza"
