@@ -1,5 +1,5 @@
 #!/bin/bash
-# Simple setup.sh for configuring Ubuntu 12.04 LTS EC2 instance
+# Simple setup.sh for configuring Ubuntu 14.04 LTS EC2 instance
 # for headless setup. 
 
 # Install nvm: node-version manager
@@ -10,8 +10,8 @@ curl https://raw.github.com/creationix/nvm/master/install.sh | sh
 
 # Load nvm and install latest production node
 source $HOME/.nvm/nvm.sh
-nvm install v0.10.12
-nvm use v0.10.12
+nvm install v0.10
+nvm use v0.10
 
 # Install jshint to allow checking of JS code within emacs
 # http://jshint.com/
@@ -34,10 +34,18 @@ sudo apt-get install -y tmux
 # https://toolbelt.heroku.com/debian
 wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
-#Install restler, cheerio and commander
+#Install restler, cheerio and commander for node.js
+
+#Rest client
 npm install restler
+
+#cmdline in js
 npm install commander
-npm install cheerio 
+
+#To use jQuery on a server - windows-friendly
+npm install cheerio
+
+#Web app framework
 npm install -g express
 
 # git pull and install dotfiles as well
