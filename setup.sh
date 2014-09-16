@@ -100,6 +100,6 @@ ln -sf dotfiles/.vagrant.d .
 cp -R dotfiles/.ssh .
 
 chmod -vR 600 ~/.ssh/config
-chmod -vR 644 ~/.ssh/*.pub
+#chmod -vR 644 ~/.ssh/*.pub
 chmod -R 0700 ~/dotfiles/.tools/
 
