@@ -28,8 +28,7 @@ sudo apt-get install -y rlwrap
 # https://launchpad.net/~cassou/+archive/emacs
 #sudo add-apt-repository -y ppa:cassou/emacs
 #sudo apt-get -qq update
-#sudo apt-get install -y emacs24-nox emacs24-el emacs24-common-non-dfsg
-sudo apt-get install -y emacs24
+sudo apt-get install -y emacs24 emacs24-el emacs24-common-non-dfsg
 
 #Install tmux
 sudo apt-get install -y tmux
@@ -100,6 +99,6 @@ ln -sf dotfiles/.vagrant.d .
 cp -R dotfiles/.ssh .
 
 chmod -vR 600 ~/.ssh/config
-#chmod -vR 644 ~/.ssh/*.pub
+chmod -vR 644 ~/.ssh/*.pub
 chmod -R 0700 ~/dotfiles/.tools/
 
