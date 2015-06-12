@@ -1,20 +1,21 @@
 #!/bin/bash
-# Simple setup.sh for configuring Ubuntu 14.04 LTS EC2 instance
+# Simple setup.sh for configuring Ubuntu 14.04 and derivatives,
 # for headless setup. 
 
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
 sudo apt-get install -y git
 sudo apt-get install -y curl
-curl https://raw.githubusercontent.com/creationix/nvm/v0.13.0/install.sh | sh
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | sh
 
 # Load nvm and install latest production node
+# https://nodejs.org/
 source $HOME/.nvm/nvm.sh
-nvm install v0.10
-nvm use v0.10
+nvm install v0.12
+nvm use v0.12
 
 #Set node version for new shells
-nvm alias default 0.10
+nvm alias default 0.12
 
 # Install jshint to allow checking of JS code within emacs
 # http://jshint.com/
@@ -25,9 +26,11 @@ sudo npm install -g jshint
 sudo apt-get install -y rlwrap
 
 # Install emacs24
-# https://launchpad.net/~cassou/+archive/emacs
-#sudo add-apt-repository -y ppa:cassou/emacs
-#sudo apt-get -qq update
+#--Daily--
+sudo add-apt-repository -y ppa:ubuntu-elisp/ppa
+#--Build commands--
+# http://linuxg.net/how-to-install-emacs-24-4-on-ubuntu-14-10-ubuntu-14-04-and-derivative-systems/
+sudo apt-get -qq update
 sudo apt-get install -y emacs24 emacs24-el emacs24-common-non-dfsg
 
 #Install tmux
