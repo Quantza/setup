@@ -43,22 +43,12 @@ sudo ufw allow 22
 #limit login attempts per time	
 sudo apt-get install -y fail2ban
 
-#Clone and install go-ethereum
-cd $HOME/GitRepos
-git clone https://github.com/ethereum/go-ethereum
-sudo apt-get install -y libgmp3-dev
-cd go-ethereum
-git checkout release/1.0.0
-git pull
-make geth
-echo ---go-ethereum was compiled successfully---
-ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth
-
-#Clone and install cpp-ethereum
+# cpp-ethereum dependencies
 sudo apt-get -y update
 sudo apt-get -y install language-pack-en-base
 sudo dpkg-reconfigure locales
 sudo apt-get -y install software-properties-common
+
 wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
 sudo add-apt-repository "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty main"
 sudo add-apt-repository -y ppa:ethereum/ethereum-qt
@@ -67,23 +57,13 @@ sudo add-apt-repository -y ppa:ethereum/ethereum-dev
 sudo apt-get -y update
 sudo apt-get -y upgrade
  
-#Install dependencies
 sudo apt-get -y install build-essential git cmake libboost-all-dev libgmp-dev libleveldb-dev libminiupnpc-dev libreadline-dev libncurses5-dev libcurl4-openssl-dev libcryptopp-dev libjson-rpc-cpp-dev libmicrohttpd-dev libjsoncpp-dev libargtable2-dev llvm-3.8-dev libedit-dev mesa-common-dev ocl-icd-libopencl1 opencl-headers libgoogle-perftools-dev qtbase5-dev qt5-default qtdeclarative5-dev libqt5webkit5-dev libqt5webengine5-dev ocl-icd-dev libv8-dev
 
-# Clone and install
-cd $HOME/GitRepos
-git clone https://github.com/ethereum/cpp-ethereum
-cd cpp-ethereum
-git checkout develop
-mkdir build
-cd build
+# Clone and install go-ethereum and cpp-ethereum...
+chmod +x ./autobuild_eth.sh
+source ./autobuild_eth.sh
 
-# Compile enough for normal usage and with support for the full chain explorer
-cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUNDLE=user -DFATDB=1 -DETHASHCL=1 
-
-# 4 threads
-make -j4
-#Full processor(s) = make -j$(nproc)
+ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth
 
 ln -sb $HOME/GitRepos/cpp-ethereum/build/eth/eth $HOME/bin/eth
 ln -sb $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero
