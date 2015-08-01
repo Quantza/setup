@@ -71,10 +71,12 @@ ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth
 ln -sb $HOME/GitRepos/cpp-ethereum/build/eth/eth $HOME/bin/eth
 ln -sb $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero
 ln -sb $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer
+ln -sb $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole
 
 chmod +x $HOME/GitRepos/cpp-ethereum/build/eth/eth
 chmod +x $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero
 chmod +x $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer
+chmod +x $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole
 
 sudo apt-get install -y gparted
 

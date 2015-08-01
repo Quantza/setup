@@ -18,5 +18,6 @@ else
 	echo "Using ""$THREAD_COUNT"" threads to mine."
 fi
 
-eth --frontier -b --genesis "$1" -i -m on --G 2>>$HOME/logs/eth_mine.log
+geth --rpccorsdomain localhost 2>>$HOME/logs/geth_console.log &
+ethminer -G 2>>$HOME/logs/eth_mine.log
 
