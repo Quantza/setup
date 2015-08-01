@@ -1,21 +1,111 @@
 #!/bin/bash
 # Simple setup.sh for configuring Ubuntu 14.04 and derivatives,
-# for headless setup. 
+# for headless setup.
+
+if [ ! -d $HOME/bin ]; then
+    mkdir $HOME/bin
+fi
+
+if [ ! -d $HOME/go ]; then
+    mkdir $HOME/go
+fi
+
+if [ ! -d $HOME/logs ]; then
+    mkdir $HOME/logs
+fi
+
+if [ ! -d $HOME/.ssh ]; then
+    mkdir $HOME/.ssh
+fi
+
+if [ ! -d $HOME/GitRepos ]; then
+    mkdir $HOME/GitRepos
+fi
 
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
-sudo apt-get install -y git
-sudo apt-get install -y curl
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | sh
+sudo apt-get install -y git curl
+
+git config --global user.name "Quantza"
+git config --global user.email "post2base@outlook.com"
+
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash
 
 # Load nvm and install latest production node
 # https://nodejs.org/
 source $HOME/.nvm/nvm.sh
-nvm install v0.12
-nvm use v0.12
+nvm install v0.12.7
+nvm use v0.12.7
 
 #Set node version for new shells
-nvm alias default 0.12
+nvm alias default 0.12.7
+
+#Install gvm
+sudo apt-get install -y mercurial make binutils bison gcc build-essential
+bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+
+#Using go language v1.4.2
+gvm install go1.4.2
+gvm use go1.4.2 --default
+
+#Install rvm
+curl -sSL https://get.rvm.io | bash -s stable
+sudo apt-get install -y ruby
+rvm reload
+rvm install ruby
+rvm list
+rvm alias create default ruby-2.2.2
+gem install bundler
+
+#See here: https://thepcspy.com/read/making-ssh-secure/
+#http://portforward.com/
+#Install ssh-server
+sudo apt-get install -y openssh-server
+# default = 22
+sudo ufw allow 22 		
+#limit login attempts per time	
+sudo apt-get install -y fail2ban
+
+#Clone and install go-ethereum
+cd $HOME/GitRepos
+git clone https://github.com/ethereum/go-ethereum
+sudo apt-get install -y libgmp3-dev
+cd go-ethereum
+git checkout release/1.0.0
+git pull
+make geth
+echo ---go-ethereum was compiled successfully---
+
+#Clone and install cpp-ethereum
+sudo apt-get -y update
+sudo apt-get -y install language-pack-en-base
+sudo dpkg-reconfigure locales
+sudo apt-get -y install software-properties-common
+wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty main"
+sudo add-apt-repository -y ppa:ethereum/ethereum-qt
+sudo add-apt-repository -y ppa:ethereum/ethereum
+sudo add-apt-repository -y ppa:ethereum/ethereum-dev
+sudo apt-get -y update
+sudo apt-get -y upgrade
+ 
+#Install dependencies
+sudo apt-get -y install build-essential git cmake libboost-all-dev libgmp-dev libleveldb-dev libminiupnpc-dev libreadline-dev libncurses5-dev libcurl4-openssl-dev libcryptopp-dev libjson-rpc-cpp-dev libmicrohttpd-dev libjsoncpp-dev libargtable2-dev llvm-3.8-dev libedit-dev mesa-common-dev ocl-icd-libopencl1 opencl-headers libgoogle-perftools-dev qtbase5-dev qt5-default qtdeclarative5-dev libqt5webkit5-dev libqt5webengine5-dev ocl-icd-dev libv8-dev
+
+# Clone and install
+cd $HOME/GitRepos
+git clone https://github.com/ethereum/cpp-ethereum
+cd cpp-ethereum
+git checkout develop
+mkdir build
+cd build
+
+# Compile enough for normal usage and with support for the full chain explorer
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUNDLE=user -DFATDB=1 -DETHASHCL=1 
+
+# 4 threads
+make -j4
+#Full processor(s) = make -j$(nproc)
 
 # Install jshint to allow checking of JS code within emacs
 # http://jshint.com/
@@ -79,9 +169,6 @@ fi
 if [ -f $HOME/start-agent-trigger ]; then
 	rm -rf $HOME/start-agent-trigger
 fi
-
-git config --global user.name "Quantza"
-git config --global user.email "post2base@outlook.com"
 
 git clone git@github.com:Quantza/dotfiles.git
 ln -sb dotfiles/.screenrc .
