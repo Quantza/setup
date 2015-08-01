@@ -18,5 +18,5 @@ else
 	echo "Using ""$THREAD_COUNT"" threads to mine."
 fi
 
-geth --genesis "$1" --mine --minerthreads="$THREAD_COUNT" 2>>~/logs/geth_mining.log
+eth --frontier -b --genesis "$1" -i -m on --G
 
