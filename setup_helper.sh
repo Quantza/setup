@@ -45,7 +45,7 @@ git checkout release/1.0.0
 git pull
 make geth
 echo ---go-ethereum was compiled successfully---
-#ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth
+ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth
 
 #Clone and install cpp-ethereum
 sudo apt-get -y update
