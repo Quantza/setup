@@ -22,6 +22,6 @@ gvm install go1.4.2
 gvm use go1.4.2 --default
 
 #Install rvm
-sudo curl -sSL https://get.rvm.io | bash -s stable
+curl -sSL https://get.rvm.io | bash -s stable
 sudo apt-get install -y ruby
 
