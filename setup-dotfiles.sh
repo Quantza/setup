@@ -1,6 +1,26 @@
 #!/bin/bash
 # Simple setup-dotfiles.sh for pulling and configuring dotfiles
 
+if [ ! -d $HOME/bin ]; then
+    mkdir $HOME/bin
+fi
+
+if [ ! -d $HOME/go ]; then
+    mkdir $HOME/go
+fi
+
+if [ ! -d $HOME/logs ]; then
+    mkdir $HOME/logs
+fi
+
+if [ ! -d $HOME/.ssh ]; then
+    mkdir $HOME/.ssh
+fi
+
+if [ ! -d $HOME/GitRepos ]; then
+    mkdir $HOME/GitRepos
+fi
+
 # git pull and install dotfiles
 cd $HOME
 if [ -d ./dotfiles/ ]; then
