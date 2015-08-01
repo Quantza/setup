@@ -15,6 +15,7 @@ nvm alias default 0.12.7
 #Install gvm
 sudo apt-get install -y mercurial make binutils bison gcc build-essential
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+source $HOME/.gvm/scripts/gvm
 
 #Using go language v1.4.2
 gvm install go1.4.2
