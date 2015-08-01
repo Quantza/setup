@@ -66,13 +66,13 @@ sudo apt-get -y install build-essential git cmake libboost-all-dev libgmp-dev li
 chmod +x ./autobuild_eth.sh
 source ./autobuild_eth.sh
 
-ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth
+ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole_dev
 
-ln -sb $HOME/GitRepos/cpp-ethereum/build/eth/eth $HOME/bin/eth
-ln -sb $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero
-ln -sb $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer
-ln -sb $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole
-
+chmod +x $HOME/GitRepos/go-ethereum/build/bin/geth
 chmod +x $HOME/GitRepos/cpp-ethereum/build/eth/eth
 chmod +x $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero
 chmod +x $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer
