@@ -25,7 +25,7 @@ rvm reload
 rvm install ruby
 rvm list
 rvm alias create default ruby-2.2.2
-gem install bundler
+sudo gem install bundler
 
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
