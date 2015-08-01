@@ -21,6 +21,7 @@ if [ ! -d $HOME/GitRepos ]; then
 fi
 
 #Install ruby and set up rvm
+rvm reload
 rvm install ruby
 rvm list
 rvm alias create default ruby-2.2.2
