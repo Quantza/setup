@@ -30,7 +30,9 @@ sudo gem install bundler
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
 sudo apt-get install -y git curl
-sudo apt-get install -y docky wine
+
+sudo add-apt-repository ppa:ubuntu-wine/ppa
+sudo apt-get install -y docky wine wine1.7
 
 git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
