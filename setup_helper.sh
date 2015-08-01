@@ -20,6 +20,12 @@ if [ ! -d $HOME/GitRepos ]; then
     mkdir $HOME/GitRepos
 fi
 
+#Install ruby and set up rvm
+rvm install ruby
+rvm list
+rvm alias create default ruby-2.2.2
+gem install bundler
+
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
 sudo apt-get install -y git curl

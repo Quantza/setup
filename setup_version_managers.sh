@@ -25,8 +25,4 @@ gvm use go1.4.2 --default
 curl -sSL https://get.rvm.io | bash -s stable
 sudo apt-get install -y ruby
 rvm reload
-rvm install ruby
-rvm list
-rvm alias create default ruby-2.2.2
-gem install bundler
 
