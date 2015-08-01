@@ -30,7 +30,7 @@ sudo gem install bundler
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
 sudo apt-get install -y git curl
-sudo apt-get install -y docky
+sudo apt-get install -y docky wine
 
 git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
@@ -40,8 +40,8 @@ git config --global user.email "post2base@outlook.com"
 #Install ssh-server
 sudo apt-get install -y openssh-server
 # default = 22
-sudo ufw allow 22 		
-#limit login attempts per time	
+sudo ufw allow 22
+#limit login attempts per time
 sudo apt-get install -y fail2ban
 
 # cpp-ethereum dependencies
@@ -57,7 +57,7 @@ sudo add-apt-repository -y ppa:ethereum/ethereum
 sudo add-apt-repository -y ppa:ethereum/ethereum-dev
 sudo apt-get -y update
 sudo apt-get -y upgrade
- 
+
 sudo apt-get -y install build-essential git cmake libboost-all-dev libgmp-dev libleveldb-dev libminiupnpc-dev libreadline-dev libncurses5-dev libcurl4-openssl-dev libcryptopp-dev libjson-rpc-cpp-dev libmicrohttpd-dev libjsoncpp-dev libargtable2-dev llvm-3.8-dev libedit-dev mesa-common-dev ocl-icd-libopencl1 opencl-headers libgoogle-perftools-dev qtbase5-dev qt5-default qtdeclarative5-dev libqt5webkit5-dev libqt5webengine5-dev ocl-icd-dev libv8-dev
 
 # Clone and install go-ethereum and cpp-ethereum...
