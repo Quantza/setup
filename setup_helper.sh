@@ -36,6 +36,9 @@ sudo apt-get install -y python-dev python-pip
 # python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
 sudo pip install -U pip
 
+# IDLE editor
+sudo apt-get install -y idle-python2* idle-python3* python-tk
+
 # virtualenv
 sudo -H pip install virtualenv
 sudo -H pip install virtualenvwrapper
