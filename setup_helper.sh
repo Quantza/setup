@@ -31,6 +31,30 @@ sudo gem install bundler
 # https://github.com/creationix/nvm
 sudo apt-get install -y git curl
 
+# Install python
+sudo apt-get install -y python-dev python-pip
+# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
+sudo pip install -U pip
+
+# virtualenv
+sudo -H pip install virtualenv
+sudo -H pip install virtualenvwrapper
+
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+
+mkvirtualenv --python=/usr/bin/python2 --no-site-packages venv_python2
+pip install -U pip
+deactivate
+mkvirtualenv --python=/usr/bin/python3 --no-site-packages venv_python3
+pip install -U pip
+deactivate
+
+#For lxml
+sudo apt-get install libxml2-dev
+sudo apt-get install libxslt-dev
+
+
 sudo add-apt-repository ppa:ubuntu-wine/ppa
 sudo apt-get install -y docky wine wine1.7
 
