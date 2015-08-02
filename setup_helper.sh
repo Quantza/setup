@@ -20,6 +20,10 @@ if [ ! -d $HOME/GitRepos ]; then
     mkdir $HOME/GitRepos
 fi
 
+if [ ! -d $HOME/Projects ]; then
+    mkdir $HOME/Projects
+fi
+
 if [ ! -d $HOME/courseraDL ]; then
     mkdir $HOME/courseraDL
 fi
@@ -51,8 +55,11 @@ sudo apt-get install -y idle-python2* idle-python3* python-tk
 sudo -H pip install virtualenv
 sudo -H pip install virtualenvwrapper
 
+#http://virtualenvwrapper.readthedocs.org/en/latest/install.html#lazy-loading
 export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+export PROJECT_HOME=$HOME/Projects
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 mkvirtualenv --python=/usr/bin/python2 --no-site-packages venv_python2
 pip install -U pip
