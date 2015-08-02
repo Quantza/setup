@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ $# -lt "2" ]
 	then
 	    echo "Not enough arguments supplied (Provide password, then course list). Exiting..."
