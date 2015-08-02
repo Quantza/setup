@@ -20,6 +20,14 @@ if [ ! -d $HOME/GitRepos ]; then
     mkdir $HOME/GitRepos
 fi
 
+if [ ! -d $HOME/courseraDL ]; then
+    mkdir $HOME/courseraDL
+fi
+
+if [ ! -d $HOME/edxDL ]; then
+    mkdir $HOME/edxDL
+fi
+
 #Install ruby and set up rvm
 rvm reload
 rvm install ruby
@@ -48,6 +56,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 mkvirtualenv --python=/usr/bin/python2 --no-site-packages venv_python2
 pip install -U pip
+pip install coursera-dl
 deactivate
 mkvirtualenv --python=/usr/bin/python3 --no-site-packages venv_python3
 pip install -U pip
