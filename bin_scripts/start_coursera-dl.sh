@@ -6,7 +6,6 @@ if [ $# -lt "2" ]
 		exit 1
 fi
 
-source /usr/local/bin/virtualenvwrapper.sh
 workon venv_python2
 pip install -U coursera-dl
 

@@ -63,10 +63,11 @@ source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 mkvirtualenv --python=/usr/bin/python2 --no-site-packages venv_python2
 pip install -U pip
-pip install coursera-dl
+sudo -H pip install coursera-dl pyopenssl requests
 deactivate
 mkvirtualenv --python=/usr/bin/python3 --no-site-packages venv_python3
 pip install -U pip
+sudo -H pip install coursera-dl pyopenssl requests
 deactivate
 
 #For lxml
