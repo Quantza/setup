@@ -161,6 +161,18 @@ npm install cheerio
 #Web app framework
 npm install -g express
 
+#WebUpd8 Ubuntu ppas
+
+#Main
+sudo add-apt-repository ppa:nilarimogard/webupd8
+
+#Oracle Java ppa
+#sudo add-apt-repository ppa:webupd8team/java
+
+sudo add-apt-repository ppa:webupd8team/atom
+sudo add-apt-repository ppa:webupd8team/sublime-text-2
+sudo apt-get install -y syncthing-gtk sublime-text atom
+
 # git pull and install dotfiles as well
 cd $HOME
 if [ -d ./dotfiles/ ]; then
