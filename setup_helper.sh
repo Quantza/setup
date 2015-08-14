@@ -161,6 +161,9 @@ npm install cheerio
 #Web app framework
 npm install -g express
 
+#node.js
+sudo apt-get install -y nodejs
+
 #WebUpd8 Ubuntu ppas
 
 #Main
