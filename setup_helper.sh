@@ -49,11 +49,27 @@ sudo gem install bundler
 # https://github.com/creationix/nvm
 sudo apt-get install -y git curl
 
-#Set up Clojure with leiningen
+# Set up Clojure with leiningen
 cd $HOME/bin
 wget -q -0 https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 chmod a+x $HOME/bin/lein
 lein
+
+# Install Rust
+curl -sSf https://static.rust-lang.org/rustup.sh | sh
+
+# Install Haskell
+sudo apt-get update
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository -y ppa:hvr/ghc
+sudo apt-get update
+sudo apt-get install -y cabal-install-1.20 ghc-7.8.4
+cat >> ~/.bashrc <<EOF
+export PATH="\$HOME/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:\$PATH"
+EOF
+export PATH=~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH
+cabal update
+cabal install alex happy
 
 # Install python
 sudo apt-get install -y python-dev python-pip
