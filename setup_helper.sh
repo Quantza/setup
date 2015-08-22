@@ -10,6 +10,10 @@ if [ ! -d $DEV_DIR ]; then
     mkdir $DEV_DIR/Projects
 fi
 
+if [ ! -d $DEV_DIR/temp ]; then
+    mkdir $DEV_DIR/temp
+fi
+
 if [ ! -d $HOME/go ]; then
     mkdir $HOME/go
 fi
@@ -56,6 +60,7 @@ chmod a+x $HOME/bin/lein
 lein
 
 # Install Rust
+cd $DEV_DIR/temp
 curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
 # Install Haskell
@@ -70,6 +75,13 @@ EOF
 export PATH=~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH
 cabal update
 cabal install alex happy
+
+# Install elixir
+cd $DEV_DIR/temp
+wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
+sudo apt-get update
+sudo apt-get install elixir
+cd $DEV_DIR/temp && rm -rf *.deb
 
 # Install python
 sudo apt-get install -y python-dev python-pip
