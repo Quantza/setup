@@ -25,6 +25,18 @@ if [ ! -d $HOME/GitRepos ]; then
     mkdir $HOME/GitRepos
 fi
 
+if [ ! -d $HOME/Projects ]; then
+    mkdir $HOME/Projects
+fi
+
+if [ ! -d $HOME/courseraDL ]; then
+    mkdir $HOME/courseraDL
+fi
+
+if [ ! -d $HOME/edxDL ]; then
+    mkdir $HOME/edxDL
+fi
+
 #Install ruby and set up rvm
 rvm reload
 rvm install ruby
@@ -36,6 +48,41 @@ sudo gem install bundler
 # https://github.com/creationix/nvm
 sudo apt-get install -y git curl
 
+# Install python
+sudo apt-get install -y python-dev python-pip
+# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
+sudo pip install -U pip
+
+# IDLE editor
+sudo apt-get install -y idle-python2* idle-python3* python-tk
+
+# virtualenv
+sudo -H pip install virtualenv
+sudo -H pip install virtualenvwrapper
+
+#http://virtualenvwrapper.readthedocs.org/en/latest/install.html#lazy-loading
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Projects
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
+
+mkvirtualenv --python=/usr/bin/python2 --no-site-packages venv_python2
+pip install -U pip
+sudo -H pip install coursera-dl pyopenssl requests
+deactivate
+mkvirtualenv --python=/usr/bin/python3 --no-site-packages venv_python3
+pip install -U pip
+sudo -H pip install coursera-dl pyopenssl requests
+deactivate
+
+#For lxml
+sudo apt-get install libxml2-dev
+sudo apt-get install libxslt-dev
+
+
+sudo add-apt-repository ppa:ubuntu-wine/ppa
+sudo apt-get install -y docky wine wine1.7
+
 git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
 
@@ -44,8 +91,8 @@ git config --global user.email "post2base@outlook.com"
 #Install ssh-server
 sudo apt-get install -y openssh-server
 # default = 22
-sudo ufw allow 22 		
-#limit login attempts per time	
+sudo ufw allow 22
+#limit login attempts per time
 sudo apt-get install -y fail2ban
 
 # cpp-ethereum dependencies
@@ -61,22 +108,24 @@ sudo add-apt-repository -y ppa:ethereum/ethereum
 sudo add-apt-repository -y ppa:ethereum/ethereum-dev
 sudo apt-get -y update
 sudo apt-get -y upgrade
- 
+
 sudo apt-get -y install build-essential git cmake libboost-all-dev libgmp-dev libleveldb-dev libminiupnpc-dev libreadline-dev libncurses5-dev libcurl4-openssl-dev libcryptopp-dev libjson-rpc-cpp-dev libmicrohttpd-dev libjsoncpp-dev libargtable2-dev llvm-3.8-dev libedit-dev mesa-common-dev ocl-icd-libopencl1 opencl-headers libgoogle-perftools-dev qtbase5-dev qt5-default qtdeclarative5-dev libqt5webkit5-dev libqt5webengine5-dev ocl-icd-dev libv8-dev
 
 # Clone and install go-ethereum and cpp-ethereum...
 chmod +x ./autobuild_eth.sh
 source ./autobuild_eth.sh
 
-ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth
+ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole_dev
 
-ln -sb $HOME/GitRepos/cpp-ethereum/build/eth/eth $HOME/bin/eth
-ln -sb $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero
-ln -sb $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer
-
+chmod +x $HOME/GitRepos/go-ethereum/build/bin/geth
 chmod +x $HOME/GitRepos/cpp-ethereum/build/eth/eth
 chmod +x $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero
 chmod +x $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer
+chmod +x $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole
 
 sudo apt-get install -y gparted
 
@@ -161,6 +210,21 @@ npm install cheerio
 
 #Web app framework
 npm install -g express
+
+#node.js
+sudo apt-get install -y nodejs
+
+#WebUpd8 Ubuntu ppas
+
+#Main
+sudo add-apt-repository ppa:nilarimogard/webupd8
+
+#Oracle Java ppa
+#sudo add-apt-repository ppa:webupd8team/java
+
+sudo add-apt-repository ppa:webupd8team/atom
+sudo add-apt-repository ppa:webupd8team/sublime-text-2
+sudo apt-get install -y syncthing-gtk sublime-text atom
 
 # git pull and install dotfiles as well
 cd $HOME
