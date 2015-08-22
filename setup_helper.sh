@@ -4,6 +4,11 @@ if [ ! -d $HOME/bin ]; then
     mkdir $HOME/bin
 fi
 
+DEV_DIR="$HOME/dev"
+if [ ! -d $DEV_DIR ]; then
+    mkdir $DEV_DIR
+fi
+
 if [ ! -d $HOME/go ]; then
     mkdir $HOME/go
 fi
@@ -90,6 +95,51 @@ sudo add-apt-repository -y ppa:ubuntu-elisp/ppa
 # http://linuxg.net/how-to-install-emacs-24-4-on-ubuntu-14-10-ubuntu-14-04-and-derivative-systems/
 sudo apt-get -qq update
 sudo apt-get install -y emacs24 emacs24-el emacs24-common-non-dfsg
+
+# Remove old files
+CURRENT_TEX_LIVE_VERSION="2015"
+TEX_INSTALL_DIR="/usr/local/texlive/""$CURRENT_TEX_LIVE_VERSION"
+TEX_USER_DIR="$HOME/.texlive""$CURRENT_TEX_LIVE_VERSION"
+
+if [ ! -d $TEX_INSTALL_DIR ]; then
+    rm -rf $TEX_INSTALL_DIR
+fi
+
+if [ ! -d $TEX_USER_DIR ]; then
+    rm -rf $TEX_USER_DIR
+fi
+
+# Setup install
+TEX_DIR=$DEV_DIR/texlive
+TEX_INSTALL_FILES=$TEX_DIR/install
+
+if [ ! -d $TEX_DIR ]; then
+    mkdir $TEX_DIR
+fi
+
+if [ ! -d $TEX_INSTALL_FILES ]; then
+    mkdir $TEX_INSTALL_FILES
+fi
+
+# Get and install tex-live
+cd $TEX_INSTALL_FILES
+
+if [ -f install-tl-unx.tar.gz ]; then
+    rm install-tl-unx.tar.gz
+fi
+
+wget -q -0 http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+tar -xzvf install-tl-unx.tar.gz
+cd install-tl-unx
+install-tl -gui text
+cd $HOME
+#PATH=/usr/local/texlive/2015/bin/i386-linux:$PATH
+
+# Install texworks
+sudo add-apt-repository -y ppa:texworks/stable
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get install -y texworks
 
 #Install tmux
 sudo apt-get install -y tmux
