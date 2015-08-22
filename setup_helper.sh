@@ -81,6 +81,7 @@ cd $DEV_DIR/temp
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
 sudo apt-get update
 sudo apt-get install elixir
+export PATH="$PATH:$(which elixir)"
 cd $DEV_DIR/temp && rm -rf *.deb
 
 # Install python
