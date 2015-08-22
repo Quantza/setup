@@ -7,6 +7,7 @@ fi
 DEV_DIR="$HOME/dev"
 if [ ! -d $DEV_DIR ]; then
     mkdir $DEV_DIR
+    mkdir $DEV_DIR/Projects
 fi
 
 if [ ! -d $HOME/go ]; then
@@ -47,6 +48,12 @@ sudo gem install bundler
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
 sudo apt-get install -y git curl
+
+#Set up Clojure with leiningen
+cd $HOME/bin
+wget -q -0 https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+chmod a+x $HOME/bin/lein
+lein
 
 # Install python
 sudo apt-get install -y python-dev python-pip
