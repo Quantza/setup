@@ -1,5 +1,11 @@
 #!/bin/bash
 
+SYMLINKDIR="$HOME/bin"
+
+if [ ! -d $SYMLINKDIR ]; then
+    mkdir $SYMLINKDIR
+fi
+
 # For handling symlinks
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
@@ -23,10 +29,10 @@ symlink_binary_execs () {
 
 	if file --mime-type "$1" | grep -q "sh"; then
 		echo "sh: $1"
-		ln -sb $FILE_DIR $HOME/bin/$1
+		ln -sb $FILE_DIR $SYMLINKDIR/$1
 	elif file --mime-type "$1" | grep -q "py"; then
 		echo "py: $1"
-		ln -sb $FILE_DIR $HOME/bin/$1
+		ln -sb $FILE_DIR $SYMLINKDIR/$1
 	fi
 
 }
