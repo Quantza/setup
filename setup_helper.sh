@@ -62,7 +62,7 @@ sudo apt-get install -y git curl wget
 
 # Set up Clojure with leiningen
 cd $HOME/bin
-wget -q -0 https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+wget -q https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 chmod a+x $HOME/bin/lein
 lein
 
@@ -85,7 +85,7 @@ cd $DEV_DIR/temp && rm -rf *.deb
 sudo apt-get install -y python python-dev python-pip python3 python3-dev python3-pip
 # python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
 sudo pip install -U pip
-sudo pip3 install -U pip3
+sudo pip3 install -U pip
 
 # IDLE editor
 sudo apt-get install -y idle-python2* idle-python3* python-tk
@@ -105,18 +105,18 @@ source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 mkvirtualenv --python=/usr/bin/python2 --no-site-packages venv_python2
 pip install -U pip
-sudo -H pip install coursera-dl pyopenssl requests numpy scipy
+sudo -H pip install coursera-dl pyopenssl requests
 deactivate
 mkvirtualenv --python=/usr/bin/python3 --no-site-packages venv_python3
 pip install -U pip
-sudo -H pip install coursera-dl pyopenssl requests numpy scipy
+sudo -H pip install coursera-dl pyopenssl requests
 deactivate
 
 # miniconda: http://conda.pydata.org/miniconda.html
 
 #cd $HOME/bin
-#wget -q 0 https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
-#wget -q 0 https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+#wget -q https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+#wget -q https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
 #chmod +x Miniconda2-latest-Linux-x86_64.sh
 #chmod +x Miniconda3-latest-Linux-x86_64.sh
@@ -152,8 +152,8 @@ sudo apt-get install -y fail2ban
 #sudo apt-get install cpp-ethereum mix
 
 # Clone and install go-ethereum and cpp-ethereum...
-chmod +x ./autobuild_eth.sh
-source ./autobuild_eth.sh
+chmod +x ./bin_scripts/autobuild_eth.sh
+source ./bin_scripts/autobuild_eth.sh
 
 ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth_dev
 ln -sb $HOME/GitRepos/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
@@ -218,12 +218,13 @@ if [ -f install-tl-unx.tar.gz ]; then
     rm install-tl-unx.tar.gz
 fi
 
-wget -q -0 http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+wget -q http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzvf install-tl-unx.tar.gz
-cd install-tl-unx
-install-tl -gui text
+cd install-tl-*
+chmod +x install-tl
+sudo ./install-tl -gui text
 cd $HOME
-#PATH=/usr/local/texlive/2015/bin/i386-linux:$PATH
+#PATH=/usr/local/texlive/2015:$PATH
 
 # Install texworks
 sudo add-apt-repository -y ppa:texworks/stable
