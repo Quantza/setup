@@ -27,6 +27,10 @@ symlink_binary_execs () {
 	
 	FILE_DIR="$DIR/$1"
 
+	if [ -f $SYMLINKDIR/$1 ]; then
+		rm -rf $SYMLINKDIR/$1
+	fi
+
 	if file --mime-type "$1" | grep -q "sh"; then
 		echo "sh: $1"
 		ln -sb $FILE_DIR $SYMLINKDIR/$1
