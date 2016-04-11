@@ -186,7 +186,7 @@ wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_install
 chmod a+x ./cuda_7.5.18_linux.run
 sudo ./cuda_7.5.18_linux.run
 
-sudo apt-get install ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
+sudo apt-get install ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda libopenblas-dev gfortran
 
 sudo apt-get install -y gparted
 
