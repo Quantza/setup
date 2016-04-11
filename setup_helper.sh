@@ -90,6 +90,12 @@ sudo pip3 install -U pip
 # IDLE editor
 sudo apt-get install -y idle-python2* idle-python3* python-tk
 
+# Numpy
+sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+
+# Scipy
+
+
 # virtualenv
 sudo -H pip install virtualenv
 sudo -H pip install virtualenvwrapper
@@ -166,6 +172,20 @@ chmod +x $HOME/GitRepos/cpp-ethereum/build/eth/eth
 chmod +x $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero
 chmod +x $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer
 chmod +x $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole
+
+# Setup install
+CUDA75_DIR=$DEV_DIR/cuda7.5
+
+if [ ! -d $CUDA75_DIR ]; then
+    mkdir $CUDA75_DIR
+fi
+
+cd $CUDA75_DIR
+
+# NVIDIA CUDA
+wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
+chmod a+x ./cuda_7.5.18_linux.run
+sudo ./cuda_7.5.18_linux.run
 
 sudo apt-get install -y gparted
 
