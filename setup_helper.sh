@@ -185,6 +185,7 @@ sudo add-apt-repository -y ppa:ubuntu-elisp/ppa
 sudo apt-get -qq update
 sudo apt-get install -y emacs24 emacs24-el emacs24-common-non-dfsg
 
+# Texlive
 # Remove old files
 CURRENT_TEX_LIVE_VERSION="2015"
 TEX_INSTALL_DIR="/usr/local/texlive/""$CURRENT_TEX_LIVE_VERSION"
@@ -254,12 +255,12 @@ npm install -g express
 #node.js
 sudo apt-get install -y nodejs
 
-#WebUpd8 Ubuntu ppas
+# WebUpd8 Ubuntu ppas
 
-#Main
+# Main
 sudo add-apt-repository ppa:nilarimogard/webupd8
 
-#Oracle Java ppa
+# Oracle Java ppa
 #sudo add-apt-repository ppa:webupd8team/java
 
 sudo add-apt-repository ppa:webupd8team/atom

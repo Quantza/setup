@@ -9,8 +9,8 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
-ln -sb $DIR/autobuild_eth.sh $HOME/bin/autobuild_eth
-ln -sb $DIR/autoupdate_eth.sh $HOME/bin/autoupdate_eth
+#ln -sb $DIR/autobuild_eth.sh $HOME/bin/autobuild_eth
+#ln -sb $DIR/autoupdate_eth.sh $HOME/bin/autoupdate_eth
 
 symlink_binary_execs () {
 	

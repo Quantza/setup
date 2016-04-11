@@ -6,8 +6,8 @@
 # Checks that current directory name and working directory are equivalent
 # One liner: DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-chmod a+x ./symlink_binaries.sh
-source ./symlink_binaries.sh
+chmod a+x ./bin_scripts/symlink_binaries.sh
+source ./bin_scripts/symlink_binaries.sh
 
 chmod a+x ./setup_version_managers.sh
 source 	./setup_version_managers.sh
