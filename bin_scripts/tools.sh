@@ -133,13 +133,13 @@ do
 	echo
 	case $yourch in
 		1)  
-                   addKey "id_rsa_g";;
+                   addKey $GITHUB_KEY_PATH;;
 		2) 
-		   addKey "ko-dev";;
+		   addKey $KODING_KEY_PATH;;
 		3) 
-		   addKey "web-dev";;
+		   addKey $NITROUS_KEY_PATH;;
 		4) 
-		   addKey "ubuntu-dev.pem";;
+		   addKey $AWS_KEY_PATH;;
 	        5)
 		   echo "Please enter a key path:";
                    read keypath && ssh-add $keypath;;
@@ -147,7 +147,7 @@ do
 		n) sshConnect "action@euw1.actionbox.io -p 14954";;
 		a) 
 		   echo "Please enter an ip address or hostname:";
-		   read host && ssh -i $HOME/.ssh/ubuntu-dev.pem $host;;
+		   read host && ssh -i $AWS_KEY_PATH $host;;
 	        g) sshConnect;;
 		d) gitClone "Quantza" "dotfiles";;
 		s) gitClone "Quantza" "setup";;

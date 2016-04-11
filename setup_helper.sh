@@ -44,14 +44,21 @@ fi
 
 #Install ruby and set up rvm
 rvm reload
-rvm install ruby
+rvm install 2.2
+rvm install 2.3
+
 rvm list
-rvm alias create default ruby-2.2.2
-sudo gem install bundler
+rvm use 2.3 --default
+ruby -v
+which ruby
+
+gem install bundler
+
+sudo apt-get update
 
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
-sudo apt-get install -y git curl
+sudo apt-get install -y git curl wget
 
 # Set up Clojure with leiningen
 cd $HOME/bin
@@ -64,30 +71,21 @@ cd $DEV_DIR/temp
 curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
 # Install Haskell
-sudo apt-get update
-sudo apt-get install -y software-properties-common
-sudo add-apt-repository -y ppa:hvr/ghc
-sudo apt-get update
-sudo apt-get install -y cabal-install-1.20 ghc-7.8.4
-cat >> ~/.bashrc <<EOF
-export PATH="\$HOME/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:\$PATH"
-EOF
-export PATH=~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH
-cabal update
-cabal install alex happy
+sudo apt-get install haskell-platform
 
 # Install elixir
 cd $DEV_DIR/temp
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
 sudo apt-get update
-sudo apt-get install elixir
+sudo apt-get install esl-erlang elixir
 export PATH="$PATH:$(which elixir)"
 cd $DEV_DIR/temp && rm -rf *.deb
 
 # Install python
-sudo apt-get install -y python-dev python-pip
+sudo apt-get install -y python python-dev python-pip python3 python3-dev python3-pip
 # python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
 sudo pip install -U pip
+sudo pip3 install -U pip3
 
 # IDLE editor
 sudo apt-get install -y idle-python2* idle-python3* python-tk
@@ -95,6 +93,9 @@ sudo apt-get install -y idle-python2* idle-python3* python-tk
 # virtualenv
 sudo -H pip install virtualenv
 sudo -H pip install virtualenvwrapper
+
+sudo -H pip3 install virtualenv
+sudo -H pip3 install virtualenvwrapper
 
 #http://virtualenvwrapper.readthedocs.org/en/latest/install.html#lazy-loading
 export WORKON_HOME=$HOME/.virtualenvs
@@ -104,17 +105,27 @@ source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 mkvirtualenv --python=/usr/bin/python2 --no-site-packages venv_python2
 pip install -U pip
-sudo -H pip install coursera-dl pyopenssl requests
+sudo -H pip install coursera-dl pyopenssl requests numpy scipy
 deactivate
 mkvirtualenv --python=/usr/bin/python3 --no-site-packages venv_python3
 pip install -U pip
-sudo -H pip install coursera-dl pyopenssl requests
+sudo -H pip install coursera-dl pyopenssl requests numpy scipy
 deactivate
+
+# miniconda: http://conda.pydata.org/miniconda.html
+
+#cd $HOME/bin
+#wget -q 0 https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+#wget -q 0 https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
+#chmod +x Miniconda2-latest-Linux-x86_64.sh
+#chmod +x Miniconda3-latest-Linux-x86_64.sh
+#./Miniconda2-latest-Linux-x86_64.sh
+#./Miniconda3-latest-Linux-x86_64.sh
 
 #For lxml
 sudo apt-get install libxml2-dev
 sudo apt-get install libxslt-dev
-
 
 sudo add-apt-repository ppa:ubuntu-wine/ppa
 sudo apt-get install -y docky wine wine1.7
@@ -132,20 +143,13 @@ sudo ufw allow 22
 sudo apt-get install -y fail2ban
 
 # cpp-ethereum dependencies
-sudo apt-get -y update
-sudo apt-get -y install language-pack-en-base
-sudo dpkg-reconfigure locales
-sudo apt-get -y install software-properties-common
+# https://github.com/ethereum/webthree-umbrella
 
-wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
-sudo add-apt-repository "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty main"
-sudo add-apt-repository -y ppa:ethereum/ethereum-qt
-sudo add-apt-repository -y ppa:ethereum/ethereum
-sudo add-apt-repository -y ppa:ethereum/ethereum-dev
-sudo apt-get -y update
-sudo apt-get -y upgrade
-
-sudo apt-get -y install build-essential git cmake libboost-all-dev libgmp-dev libleveldb-dev libminiupnpc-dev libreadline-dev libncurses5-dev libcurl4-openssl-dev libcryptopp-dev libjson-rpc-cpp-dev libmicrohttpd-dev libjsoncpp-dev libargtable2-dev llvm-3.8-dev libedit-dev mesa-common-dev ocl-icd-libopencl1 opencl-headers libgoogle-perftools-dev qtbase5-dev qt5-default qtdeclarative5-dev libqt5webkit5-dev libqt5webengine5-dev ocl-icd-dev libv8-dev
+#sudo add-apt-repository ppa:ethereum/ethereum-qt
+#sudo add-apt-repository ppa:ethereum/ethereum
+#sudo add-apt-repository ppa:ethereum/ethereum-dev
+#sudo apt-get update
+#sudo apt-get install cpp-ethereum mix
 
 # Clone and install go-ethereum and cpp-ethereum...
 chmod +x ./autobuild_eth.sh
