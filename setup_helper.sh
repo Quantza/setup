@@ -90,13 +90,10 @@ sudo pip3 install -U pip
 # IDLE editor
 sudo apt-get install -y idle-python2* idle-python3* python-tk
 
-# Numpy
+# Numpy and Scipy
 sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
 
 sudo apt-get install python3-numpy python3-scipy python3-matplotlib ipython3 ipython3-notebook python3-pandas python3-nose
-
-# Scipy
-
 
 # virtualenv
 sudo -H pip install virtualenv
@@ -188,6 +185,8 @@ cd $CUDA75_DIR
 wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
 chmod a+x ./cuda_7.5.18_linux.run
 sudo ./cuda_7.5.18_linux.run
+
+sudo apt-get install ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
 
 sudo apt-get install -y gparted
 
