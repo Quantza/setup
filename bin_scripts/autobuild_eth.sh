@@ -2,12 +2,14 @@
 
 echo Building go-ethereum and cpp-ethereum...
 
+sudo apt-add-repository ppa:george-edison55/cmake-3.x
+
 sudo apt-get -y update
 sudo apt-get -y install language-pack-en-base
 sudo dpkg-reconfigure locales
 sudo apt-get -y install software-properties-common
 
-sudo add-apt-repository "deb http://llvm.org/apt/wily/ llvm-toolchain-wily-3.7 main"
+sudo add-apt-repository "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main"
 wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
 sudo apt-get -y update
 sudo apt-get -y install llvm-3.7-dev
@@ -25,7 +27,7 @@ sudo apt-get -y install build-essential git cmake libboost-all-dev libgmp-dev \
     libgoogle-perftools-dev qtbase5-dev qt5-default qtdeclarative5-dev \
     libqt5webkit5-dev libqt5webengine5-dev ocl-icd-dev libv8-dev libz-dev
 
-sudo apt-get -y install libjsonrpccpp-dev
+sudo apt-get -y install libjson-rpc-cpp-dev
 sudo apt-get -y install qml-module-qtquick-controls qml-module-qtwebengine
 
 echo ---go-ethereum---
