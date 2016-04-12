@@ -206,6 +206,9 @@ sudo add-apt-repository -y ppa:ubuntu-elisp/ppa
 sudo apt-get -qq update
 sudo apt-get install -y emacs24 emacs24-el emacs24-common-non-dfsg
 
+#Install wine
+sudo apt-get install wine winetricks
+
 # Texlive
 # Remove old files
 CURRENT_TEX_LIVE_VERSION="2015"
