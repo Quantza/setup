@@ -207,7 +207,10 @@ sudo apt-get -qq update
 sudo apt-get install -y emacs24 emacs24-el emacs24-common-non-dfsg
 
 #Install wine, yubikey
-sudo apt-get install -y wine winetricks yubikey-personalization-gui
+sudo apt-add-repository ppa:yubico/stable
+sudo apt-get update
+sudo apt-get install -y libpam-yubico yubikey-personalization-gui yubikey-neo-manager
+sudo apt-get install -y wine winetricks
 
 # Texlive
 # Remove old files
