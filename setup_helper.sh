@@ -147,6 +147,9 @@ sudo ufw allow 22
 #limit login attempts per time
 sudo apt-get install -y fail2ban
 
+#Install docky
+sudo apt-get install docky
+
 # cpp-ethereum dependencies
 # https://github.com/ethereum/webthree-umbrella
 
