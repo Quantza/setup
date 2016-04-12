@@ -91,9 +91,9 @@ sudo pip3 install -U pip
 sudo apt-get install -y idle-python2* idle-python3* python-tk
 
 # Numpy and Scipy
-sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose python-h5py
 
-sudo apt-get install python3-numpy python3-scipy python3-matplotlib ipython3 ipython3-notebook python3-pandas python3-nose
+sudo apt-get install python3-numpy python3-scipy python3-matplotlib ipython3 ipython3-notebook python3-pandas python3-nose python3-h5py
 
 # virtualenv
 sudo -H pip install virtualenv
@@ -321,7 +321,9 @@ ln -sb dotfiles/.tmux.conf .
 ln -sb dotfiles/.gitmessage.txt .
 ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
+ln -sb dotfiles/.theanorc .
 ln -sb dotfiles/.bashrc_custom .
+ln -sb dotfiles/site.cfg .
 ln -sb dotfiles/tools.sh .
 ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/.tmux .
