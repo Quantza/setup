@@ -22,7 +22,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 #ln -sb $DIR/autobuild_eth.sh $HOME/bin/autobuild_eth
 #ln -sb $DIR/autoupdate_eth.sh $HOME/bin/autoupdate_eth
 
-symlink_binary_execs () {
+function symlink_binary_execs () {
 	
 	# Only one argument at a time
 	if [ ! $# -eq "1" ]; then

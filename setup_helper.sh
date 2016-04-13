@@ -56,37 +56,37 @@ gem install bundler
 
 # Base Tools
 
-sudo apt-get update
-sudo apt-get install -y git curl wget
+$PKG_MAN_REFRESH_PREFIX 
+$PKG_MAN_INSTALL_PREFIX git curl wget
 git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
 
 # See here: https://thepcspy.com/read/making-ssh-secure/
 # http://portforward.com/
 # Install ssh-server
-sudo apt-get install -y openssh-server
+$PKG_MAN_INSTALL_PREFIX openssh-server
 # default = 22
 sudo ufw allow 22
 # limit login attempts per time
-sudo apt-get install -y fail2ban
+$PKG_MAN_INSTALL_PREFIX fail2ban
 
 #Install docky
-sudo apt-get install -y docky
+$PKG_MAN_INSTALL_PREFIX docky
 
 #Install tmux
-sudo apt-get install -y tmux
+$PKG_MAN_INSTALL_PREFIX tmux
 
 # gparted for partioning and tilda terminal.
-sudo apt-get install -y gparted tilda
+$PKG_MAN_INSTALL_PREFIX gparted tilda
 
 # Install yubikey software
 sudo apt-add-repository ppa:yubico/stable
-sudo apt-get update
-sudo apt-get install -y libpam-yubico yubikey-personalization-gui yubikey-neo-manager
+$PKG_MAN_REFRESH_PREFIX 
+$PKG_MAN_INSTALL_PREFIX libpam-yubico yubikey-personalization-gui yubikey-neo-manager
 
 # Install wine
 sudo add-apt-repository ppa:ubuntu-wine/ppa
-sudo apt-get install -y wine wine-tricks
+$PKG_MAN_INSTALL_PREFIX wine wine-tricks
 
 # Install emacs24
 #--Daily--
@@ -94,10 +94,10 @@ sudo add-apt-repository -y ppa:ubuntu-elisp/ppa
 #--Build commands--
 # http://linuxg.net/how-to-install-emacs-24-4-on-ubuntu-14-10-ubuntu-14-04-and-derivative-systems/
 sudo apt-get -qq update
-sudo apt-get install -y emacs24 emacs24-el emacs24-common-non-dfsg
+$PKG_MAN_INSTALL_PREFIX emacs24 emacs24-el emacs24-common-non-dfsg
 
 # Install pdf readers
-sudo apt-get install -y xpdf okular
+$PKG_MAN_INSTALL_PREFIX xpdf okular
 
 # Development Tools
 
@@ -115,9 +115,9 @@ cd $CUDA75_DIR
 wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
 chmod a+x ./cuda_7.5.18_linux.run
 sudo ./cuda_7.5.18_linux.run
-#sudo apt-get install -y ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
+#$PKG_MAN_INSTALL_PREFIX ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
 
-sudo apt-get install -y libopenblas-dev gfortran
+$PKG_MAN_INSTALL_PREFIX libopenblas-dev gfortran
 
 # Set up Clojure with leiningen
 cd $HOME/bin
@@ -130,32 +130,32 @@ cd $DEV_DIR/temp
 curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
 # Install Haskell
-sudo apt-get install haskell-platform
+$PKG_MAN_INSTALL_PREFIX haskell-platform
 
 # Install elixir
 cd $DEV_DIR/temp
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
-sudo apt-get update
-sudo apt-get install esl-erlang elixir
+$PKG_MAN_REFRESH_PREFIX 
+$PKG_MAN_INSTALL_PREFIX esl-erlang elixir
 export PATH="$PATH:$(which elixir)"
 cd $DEV_DIR/temp && rm -rf *.deb
 
 # Install python
-sudo apt-get install -y python python-dev python-pip python3 python3-dev python3-pip build-essential
+$PKG_MAN_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
 # python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
 sudo pip install -U pip
 sudo pip3 install -U pip
 
 # IDLE editor
-sudo apt-get install -y idle-python2* idle-python3* python-tk
+$PKG_MAN_INSTALL_PREFIX idle-python2* idle-python3* python-tk
 
 # Numpy and Scipy
-sudo apt-get install -y python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
-sudo apt-get install -y python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
+$PKG_MAN_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
+$PKG_MAN_INSTALL_PREFIX python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
 
 #For lxml
-sudo apt-get install -y libxml2-dev
-sudo apt-get install -y libxslt-dev
+$PKG_MAN_INSTALL_PREFIX libxml2-dev
+$PKG_MAN_INSTALL_PREFIX libxslt-dev
 
 # virtualenv
 sudo -H pip install virtualenv
@@ -236,7 +236,7 @@ cd $HOME
 sudo add-apt-repository -y ppa:texworks/stable
 sudo apt-get -y update
 sudo apt-get -y upgrade
-sudo apt-get install -y texworks
+$PKG_MAN_INSTALL_PREFIX texworks
 
 # Install Heroku toolbelt
 # https://toolbelt.heroku.com/debian
@@ -248,8 +248,8 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 #sudo add-apt-repository ppa:ethereum/ethereum-qt
 #sudo add-apt-repository ppa:ethereum/ethereum
 #sudo add-apt-repository ppa:ethereum/ethereum-dev
-#sudo apt-get update
-#sudo apt-get install cpp-ethereum mix
+#$PKG_MAN_REFRESH_PREFIX 
+#$PKG_MAN_INSTALL_PREFIX cpp-ethereum mix
 
 # Clone and install go-ethereum and cpp-ethereum...
 chmod +x ./bin_scripts/autobuild_eth.sh
@@ -278,7 +278,7 @@ sudo add-apt-repository ppa:nilarimogard/webupd8
 sudo add-apt-repository ppa:webupd8team/atom
 sudo add-apt-repository ppa:webupd8team/sublime-text-2
 
-sudo apt-get install -y syncthing-gtk sublime-text atom
+$PKG_MAN_INSTALL_PREFIX syncthing-gtk sublime-text atom
 
 # git pull and install dotfiles as well
 cd $HOME
