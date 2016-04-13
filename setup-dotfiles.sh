@@ -5,6 +5,16 @@ if [ ! -d $HOME/bin ]; then
     mkdir $HOME/bin
 fi
 
+DEV_DIR="$HOME/dev"
+if [ ! -d $DEV_DIR ]; then
+    mkdir $DEV_DIR
+    mkdir $DEV_DIR/Projects
+fi
+
+if [ ! -d $DEV_DIR/temp ]; then
+    mkdir $DEV_DIR/temp
+fi
+
 if [ ! -d $HOME/go ]; then
     mkdir $HOME/go
 fi
@@ -19,6 +29,18 @@ fi
 
 if [ ! -d $HOME/GitRepos ]; then
     mkdir $HOME/GitRepos
+fi
+
+if [ ! -d $HOME/Projects ]; then
+    mkdir $HOME/Projects
+fi
+
+if [ ! -d $HOME/courseraDL ]; then
+    mkdir $HOME/courseraDL
+fi
+
+if [ ! -d $HOME/edxDL ]; then
+    mkdir $HOME/edxDL
 fi
 
 # git pull and install dotfiles
@@ -56,7 +78,9 @@ ln -sb dotfiles/.tmux.conf .
 ln -sb dotfiles/.gitmessage.txt .
 ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
+ln -sb dotfiles/.theanorc .
 ln -sb dotfiles/.bashrc_custom .
+ln -sb dotfiles/site.cfg .
 ln -sb dotfiles/tools.sh .
 ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/.tmux .

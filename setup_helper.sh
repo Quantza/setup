@@ -42,7 +42,7 @@ if [ ! -d $HOME/edxDL ]; then
     mkdir $HOME/edxDL
 fi
 
-#Install ruby and set up rvm
+# Install ruby and set up rvm
 rvm reload
 rvm install 2.2
 rvm install 2.3
@@ -54,11 +54,70 @@ which ruby
 
 gem install bundler
 
-sudo apt-get update
+# Base Tools
 
-# Install nvm: node-version manager
-# https://github.com/creationix/nvm
+sudo apt-get update
 sudo apt-get install -y git curl wget
+git config --global user.name "Quantza"
+git config --global user.email "post2base@outlook.com"
+
+# See here: https://thepcspy.com/read/making-ssh-secure/
+# http://portforward.com/
+# Install ssh-server
+sudo apt-get install -y openssh-server
+# default = 22
+sudo ufw allow 22
+# limit login attempts per time
+sudo apt-get install -y fail2ban
+
+#Install docky
+sudo apt-get install -y docky
+
+#Install tmux
+sudo apt-get install -y tmux
+
+# gparted for partioning and tilda terminal.
+sudo apt-get install -y gparted tilda
+
+# Install yubikey software
+sudo apt-add-repository ppa:yubico/stable
+sudo apt-get update
+sudo apt-get install -y libpam-yubico yubikey-personalization-gui yubikey-neo-manager
+
+# Install wine
+sudo add-apt-repository ppa:ubuntu-wine/ppa
+sudo apt-get install -y wine wine-tricks
+
+# Install emacs24
+#--Daily--
+sudo add-apt-repository -y ppa:ubuntu-elisp/ppa
+#--Build commands--
+# http://linuxg.net/how-to-install-emacs-24-4-on-ubuntu-14-10-ubuntu-14-04-and-derivative-systems/
+sudo apt-get -qq update
+sudo apt-get install -y emacs24 emacs24-el emacs24-common-non-dfsg
+
+# Install pdf readers
+sudo apt-get install -y xpdf okular
+
+# Development Tools
+
+# NVIDIA CUDA
+# Setup install
+CUDA75_DIR=$DEV_DIR/cuda7.5
+
+if [ ! -d $CUDA75_DIR ]; then
+    mkdir $CUDA75_DIR
+fi
+
+cd $CUDA75_DIR
+
+# Install
+wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
+chmod a+x ./cuda_7.5.18_linux.run
+sudo ./cuda_7.5.18_linux.run
+#sudo apt-get install -y ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
+
+sudo apt-get install -y libopenblas-dev gfortran
 
 # Set up Clojure with leiningen
 cd $HOME/bin
@@ -82,7 +141,7 @@ export PATH="$PATH:$(which elixir)"
 cd $DEV_DIR/temp && rm -rf *.deb
 
 # Install python
-sudo apt-get install -y python python-dev python-pip python3 python3-dev python3-pip
+sudo apt-get install -y python python-dev python-pip python3 python3-dev python3-pip build-essential
 # python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
 sudo pip install -U pip
 sudo pip3 install -U pip
@@ -91,9 +150,12 @@ sudo pip3 install -U pip
 sudo apt-get install -y idle-python2* idle-python3* python-tk
 
 # Numpy and Scipy
-sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose python-h5py
+sudo apt-get install -y python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
+sudo apt-get install -y python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
 
-sudo apt-get install python3-numpy python3-scipy python3-matplotlib ipython3 ipython3-notebook python3-pandas python3-nose python3-h5py
+#For lxml
+sudo apt-get install -y libxml2-dev
+sudo apt-get install -y libxslt-dev
 
 # virtualenv
 sudo -H pip install virtualenv
@@ -108,13 +170,14 @@ export PROJECT_HOME=$HOME/Projects
 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 source /usr/local/bin/virtualenvwrapper_lazy.sh
 
-mkvirtualenv --python=/usr/bin/python2 --no-site-packages venv_python2
+mkvirtualenv --python=/usr/bin/python2 --no-site-packages py2venv
 pip install -U pip
-sudo -H pip install coursera-dl pyopenssl requests
+sudo -H pip install coursera-dl pyopenssl requests jupyter
 deactivate
-mkvirtualenv --python=/usr/bin/python3 --no-site-packages venv_python3
+
+mkvirtualenv --python=/usr/bin/python3 --no-site-packages py3venv
 pip install -U pip
-sudo -H pip install coursera-dl pyopenssl requests
+sudo -H pip install coursera-dl pyopenssl requests jupyter
 deactivate
 
 # miniconda: http://conda.pydata.org/miniconda.html
@@ -127,93 +190,6 @@ deactivate
 #chmod +x Miniconda3-latest-Linux-x86_64.sh
 #./Miniconda2-latest-Linux-x86_64.sh
 #./Miniconda3-latest-Linux-x86_64.sh
-
-#For lxml
-sudo apt-get install libxml2-dev
-sudo apt-get install libxslt-dev
-
-sudo add-apt-repository ppa:ubuntu-wine/ppa
-sudo apt-get install -y docky wine wine1.7
-
-git config --global user.name "Quantza"
-git config --global user.email "post2base@outlook.com"
-
-#See here: https://thepcspy.com/read/making-ssh-secure/
-#http://portforward.com/
-#Install ssh-server
-sudo apt-get install -y openssh-server
-# default = 22
-sudo ufw allow 22
-#limit login attempts per time
-sudo apt-get install -y fail2ban
-
-#Install docky
-sudo apt-get install docky
-
-# cpp-ethereum dependencies
-# https://github.com/ethereum/webthree-umbrella
-
-#sudo add-apt-repository ppa:ethereum/ethereum-qt
-#sudo add-apt-repository ppa:ethereum/ethereum
-#sudo add-apt-repository ppa:ethereum/ethereum-dev
-#sudo apt-get update
-#sudo apt-get install cpp-ethereum mix
-
-# Clone and install go-ethereum and cpp-ethereum...
-chmod +x ./bin_scripts/autobuild_eth.sh
-source ./bin_scripts/autobuild_eth.sh
-
-ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth_dev
-ln -sb $HOME/GitRepos/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
-ln -sb $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
-ln -sb $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer_dev
-ln -sb $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole_dev
-
-chmod +x $HOME/GitRepos/go-ethereum/build/bin/geth
-chmod +x $HOME/GitRepos/cpp-ethereum/build/eth/eth
-chmod +x $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero
-chmod +x $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer
-chmod +x $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole
-
-# Setup install
-CUDA75_DIR=$DEV_DIR/cuda7.5
-
-if [ ! -d $CUDA75_DIR ]; then
-    mkdir $CUDA75_DIR
-fi
-
-cd $CUDA75_DIR
-
-# NVIDIA CUDA
-wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
-chmod a+x ./cuda_7.5.18_linux.run
-sudo ./cuda_7.5.18_linux.run
-
-sudo apt-get install ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda libopenblas-dev gfortran
-
-sudo apt-get install -y gparted
-
-# Install jshint to allow checking of JS code within emacs
-# http://jshint.com/
-sudo npm install -g jshint
-
-# Install rlwrap to provide libreadline features with node
-# See: http://nodejs.org/api/repl.html#repl_repl
-sudo apt-get install -y rlwrap
-
-# Install emacs24
-#--Daily--
-sudo add-apt-repository -y ppa:ubuntu-elisp/ppa
-#--Build commands--
-# http://linuxg.net/how-to-install-emacs-24-4-on-ubuntu-14-10-ubuntu-14-04-and-derivative-systems/
-sudo apt-get -qq update
-sudo apt-get install -y emacs24 emacs24-el emacs24-common-non-dfsg
-
-#Install wine, yubikey
-sudo apt-add-repository ppa:yubico/stable
-sudo apt-get update
-sudo apt-get install -y libpam-yubico yubikey-personalization-gui yubikey-neo-manager
-sudo apt-get install -y wine winetricks
 
 # Texlive
 # Remove old files
@@ -262,29 +238,34 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get install -y texworks
 
-#Install tmux
-sudo apt-get install -y tmux
-
 # Install Heroku toolbelt
 # https://toolbelt.heroku.com/debian
 wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
-#Install restler, cheerio and commander for node.js
+# cpp-ethereum dependencies
+# https://github.com/ethereum/webthree-umbrella
 
-#Rest client
-npm install restler
+#sudo add-apt-repository ppa:ethereum/ethereum-qt
+#sudo add-apt-repository ppa:ethereum/ethereum
+#sudo add-apt-repository ppa:ethereum/ethereum-dev
+#sudo apt-get update
+#sudo apt-get install cpp-ethereum mix
 
-#cmdline in js
-npm install commander
+# Clone and install go-ethereum and cpp-ethereum...
+chmod +x ./bin_scripts/autobuild_eth.sh
+source ./bin_scripts/autobuild_eth.sh
 
-#To use jQuery on a server - windows-friendly
-npm install cheerio
+ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer_dev
+ln -sb $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole_dev
 
-#Web app framework
-npm install -g express
-
-#node.js
-sudo apt-get install -y nodejs
+chmod +x $HOME/GitRepos/go-ethereum/build/bin/geth
+chmod +x $HOME/GitRepos/cpp-ethereum/build/eth/eth
+chmod +x $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero
+chmod +x $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer
+chmod +x $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole
 
 # WebUpd8 Ubuntu ppas
 
@@ -296,6 +277,7 @@ sudo add-apt-repository ppa:nilarimogard/webupd8
 
 sudo add-apt-repository ppa:webupd8team/atom
 sudo add-apt-repository ppa:webupd8team/sublime-text-2
+
 sudo apt-get install -y syncthing-gtk sublime-text atom
 
 # git pull and install dotfiles as well
