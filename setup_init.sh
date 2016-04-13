@@ -20,14 +20,17 @@ unset UNAME
 
 PKG_MAN_INSTALL_PREFIX=""
 PKG_MAN_REFRESH_PREFIX=""
+DISTRO_ID=""
 
 if (( $("$DISTRO" == "Ubuntu") == 1 )) || (( $(if "$DISTRO" | grep -qi Mint; then echo 1; else echo 0; fi) )); then
 	export PKG_MAN_INSTALL_PREFIX="sudo apt-get install -y"
 	export PKG_MAN_REFRESH_PREFIX="sudo apt-get update"
+	DISTRO_ID="ubuntu"
 fi
 elif [ "$DISTRO" == "Arch Linux" ]; then
 	export PKG_MAN_INSTALL_PREFIX="sudo pacman -S"
 	export PKG_MAN_REFRESH_PREFIX="pacman -Sy"
+	DISTRO_ID="arch"
 fi
 
 $PKG_MAN_REFRESH_PREFIX

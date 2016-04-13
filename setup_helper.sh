@@ -54,6 +54,28 @@ which ruby
 
 gem install bundler
 
+# Ubuntu ppas
+
+if [ "$DISTRO_ID" == "ubuntu" ]; then
+	# WebUpd8
+	sudo add-apt-repository ppa:nilarimogard/webupd8
+	#sudo add-apt-repository ppa:webupd8team/java
+	sudo add-apt-repository ppa:webupd8team/atom
+	sudo add-apt-repository ppa:webupd8team/sublime-text-2
+
+	# Yubikey
+	sudo apt-add-repository ppa:yubico/stable
+
+	# Emacs Daily
+	sudo add-apt-repository -y ppa:ubuntu-elisp/ppa
+
+	# Wine
+	sudo add-apt-repository ppa:ubuntu-wine/ppa
+
+	# Texworks
+	sudo add-apt-repository -y ppa:texworks/stable
+fi
+
 # Base Tools
 
 $PKG_MAN_REFRESH_PREFIX 
@@ -80,17 +102,13 @@ $PKG_MAN_INSTALL_PREFIX tmux
 $PKG_MAN_INSTALL_PREFIX gparted tilda
 
 # Install yubikey software
-sudo apt-add-repository ppa:yubico/stable
 $PKG_MAN_REFRESH_PREFIX 
 $PKG_MAN_INSTALL_PREFIX libpam-yubico yubikey-personalization-gui yubikey-neo-manager
 
 # Install wine
-sudo add-apt-repository ppa:ubuntu-wine/ppa
 $PKG_MAN_INSTALL_PREFIX wine wine-tricks
 
 # Install emacs24
-#--Daily--
-sudo add-apt-repository -y ppa:ubuntu-elisp/ppa
 #--Build commands--
 # http://linuxg.net/how-to-install-emacs-24-4-on-ubuntu-14-10-ubuntu-14-04-and-derivative-systems/
 sudo apt-get -qq update
@@ -233,7 +251,6 @@ cd $HOME
 #PATH=/usr/local/texlive/2015:$PATH
 
 # Install texworks
-sudo add-apt-repository -y ppa:texworks/stable
 sudo apt-get -y update
 sudo apt-get -y upgrade
 $PKG_MAN_INSTALL_PREFIX texworks
@@ -266,17 +283,6 @@ chmod +x $HOME/GitRepos/cpp-ethereum/build/eth/eth
 chmod +x $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero
 chmod +x $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer
 chmod +x $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole
-
-# WebUpd8 Ubuntu ppas
-
-# Main
-sudo add-apt-repository ppa:nilarimogard/webupd8
-
-# Oracle Java ppa
-#sudo add-apt-repository ppa:webupd8team/java
-
-sudo add-apt-repository ppa:webupd8team/atom
-sudo add-apt-repository ppa:webupd8team/sublime-text-2
 
 $PKG_MAN_INSTALL_PREFIX syncthing-gtk sublime-text atom
 
@@ -332,3 +338,5 @@ fi
 
 chmod -vR 600 ~/.ssh/config
 chmod -R 0700 ~/dotfiles/.tools/
+
+unset DISTRO_ID
