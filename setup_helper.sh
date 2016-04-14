@@ -131,7 +131,7 @@ $PKG_MAN_INSTALL_PREFIX xpdf okular
 $PKG_MAN_INSTALL_PREFIX sublime-text atom
 
 # Syncthing
-$PKG_MAN_INSTALL_PREFIX syncthing
+$PKG_MAN_INSTALL_PREFIX syncthing syncthing-gtk
 
 # Development Tools
 
@@ -237,7 +237,7 @@ git clone https://github.com/xybu/onedrive-d.git
 cd onedrive-d
 python3 setup.py build
 sudo python3 setup.py install
-
+sync
 # Texlive
 # Remove old files
 CURRENT_TEX_LIVE_VERSION="2015"
