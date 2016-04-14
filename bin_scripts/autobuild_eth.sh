@@ -1,5 +1,7 @@
 #!/bin/bash
 
+GIT_REPO_DIR="$HOME/GitRepos"
+
 echo Building go-ethereum and cpp-ethereum...
 
 sudo apt-add-repository ppa:george-edison55/cmake-3.x
@@ -32,7 +34,7 @@ sudo apt-get -y install qml-module-qtquick-controls qml-module-qtwebengine
 
 echo ---go-ethereum---
 sudo apt-get install -y build-essential libgmp3-dev golang
-cd $HOME/GitRepos
+cd $GIT_REPO_DIR
 git clone https://github.com/ethereum/go-ethereum
 cd go-ethereum
 #git checkout release/1.3.6
@@ -40,7 +42,7 @@ make geth
 echo ---go-ethereum was compiled successfully---
 
 echo ---cpp-ethereum---
-cd $HOME/GitRepos
+cd $GIT_REPO_DIR
 git clone --recursive https://github.com/ethereum/webthree-umbrella.git cpp-ethereum
 cd cpp-ethereum
 git checkout develop
@@ -56,3 +58,15 @@ cmake ..
 make -j4
 
 echo ---cpp-ethereum was compiled successfully---
+
+ln -sb $GIT_REPO_DIR/go-ethereum/build/bin/geth $HOME/bin/geth_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole_dev
+
+chmod +x $GIT_REPO_DIR/go-ethereum/build/bin/geth
+chmod +x $GIT_REPO_DIR/cpp-ethereum/build/eth/eth
+chmod +x $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero
+chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer
+chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole

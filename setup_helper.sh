@@ -313,6 +313,8 @@ chmod +x $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero
 chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer
 chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole
 
+# Install mist wallet
+
 # git pull and install dotfiles as well
 cd $HOME
 if [ -d ./dotfiles/ ]; then

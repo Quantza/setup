@@ -42,6 +42,9 @@ npm install cheerio
 # node.js
 #$PKG_MAN_INSTALL_PREFIX nodejs
 
+# Install meteor
+curl https://install.meteor.com/ | sh
+
 # Install rlwrap to provide libreadline features with node
 # See: http://nodejs.org/api/repl.html#repl_repl
 $PKG_MAN_INSTALL_PREFIX rlwrap
