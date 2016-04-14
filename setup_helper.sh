@@ -66,6 +66,8 @@ git config --global user.email "post2base@outlook.com"
 # Ubuntu ppas
 
 if [ "$DISTRO_ID" == "ubuntu" ]; then
+	sudo bash -c 'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse" >> /etc/apt/sources.list'
+
 	# WebUpd8
 	sudo add-apt-repository ppa:nilarimogard/webupd8
 	#sudo add-apt-repository ppa:webupd8team/java
@@ -124,7 +126,9 @@ $PKG_MAN_INSTALL_PREFIX wine wine-tricks
 # https://lars.ingebrigtsen.no/2014/11/13/welcome-new-emacs-developers/
 
 if [ "$DISTRO_ID" == "ubuntu" ]; then
-	$PKG_MAN_INSTALL_PREFIX build-dep emacs24
+	$PKG_MAN_INSTALL_PREFIX  gcc automake libmagick++-dev libgtk2.0-dev \
+	libxft-dev libgnutls-dev libdbus-1-dev libgif-dev build-essential
+	#$PKG_MAN_INSTALL_PREFIX build-dep build-essential
 	cd $MY_GIT_REPO_DIR
 	git clone git://git.savannah.gnu.org/emacs.git
 	cd emacs
@@ -368,4 +372,4 @@ fi
 chmod -vR 600 ~/.ssh/config
 chmod -R 0700 ~/dotfiles/.tools/
 
-unset DISTRO_ID
+#unset DISTRO_ID
