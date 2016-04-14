@@ -237,7 +237,7 @@ git clone https://github.com/xybu/onedrive-d.git
 cd onedrive-d
 python3 setup.py build
 sudo python3 setup.py install
-sync
+
 # Texlive
 # Remove old files
 CURRENT_TEX_LIVE_VERSION="2015"
