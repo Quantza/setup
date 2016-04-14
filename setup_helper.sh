@@ -119,11 +119,24 @@ $PKG_MAN_INSTALL_PREFIX libpam-yubico yubikey-personalization-gui yubikey-neo-ma
 # Install wine
 $PKG_MAN_INSTALL_PREFIX wine wine-tricks
 
-# Install emacs24
-#--Build commands--
-# http://linuxg.net/how-to-install-emacs-24-4-on-ubuntu-14-10-ubuntu-14-04-and-derivative-systems/
+# Install emacs24.x
+#--Build commands for ubuntu--
+# https://lars.ingebrigtsen.no/2014/11/13/welcome-new-emacs-developers/
+
+if [ "$DISTRO_ID" == "ubuntu" ]; then
+	$PKG_MAN_INSTALL_PREFIX build-dep emacs24
+	cd $MY_GIT_REPO_DIR
+	git clone git://git.savannah.gnu.org/emacs.git
+	cd emacs
+	make
+	sudo ./src/emacs &
+	ln -sb $MY_GIT_REPO_DIR/emacs $MY_BIN_DIR/emacs
+elif [ "$DISTRO_ID" == "arch" ]; then
+	$PKG_MAN_INSTALL_PREFIX emacs
+fi
+
 sudo apt-get -qq update
-$PKG_MAN_INSTALL_PREFIX emacs24 emacs24-el emacs24-common-non-dfsg
+$PKG_MAN_INSTALL_PREFIX
 
 # Install pdf readers
 $PKG_MAN_INSTALL_PREFIX xpdf okular
