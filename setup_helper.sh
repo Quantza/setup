@@ -54,6 +54,13 @@ which ruby
 
 gem install bundler
 
+# Base Tools
+
+$PKG_MAN_REFRESH_PREFIX 
+$PKG_MAN_INSTALL_PREFIX git curl wget
+git config --global user.name "Quantza"
+git config --global user.email "post2base@outlook.com"
+
 # Ubuntu ppas
 
 if [ "$DISTRO_ID" == "ubuntu" ]; then
@@ -74,14 +81,16 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	# Texworks
 	sudo add-apt-repository -y ppa:texworks/stable
+
+	# Add the release PGP keys:
+	curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+
+	# Add the "release" channel to your APT sources:
+	echo "deb http://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
+
 fi
 
-# Base Tools
-
-$PKG_MAN_REFRESH_PREFIX 
-$PKG_MAN_INSTALL_PREFIX git curl wget
-git config --global user.name "Quantza"
-git config --global user.email "post2base@outlook.com"
+$PKG_MAN_REFRESH_PREFIX
 
 # See here: https://thepcspy.com/read/making-ssh-secure/
 # http://portforward.com/
@@ -116,6 +125,12 @@ $PKG_MAN_INSTALL_PREFIX emacs24 emacs24-el emacs24-common-non-dfsg
 
 # Install pdf readers
 $PKG_MAN_INSTALL_PREFIX xpdf okular
+
+# Webupd8
+$PKG_MAN_INSTALL_PREFIX sublime-text atom
+
+# Syncthing
+$PKG_MAN_INSTALL_PREFIX syncthing
 
 # Development Tools
 
@@ -283,8 +298,6 @@ chmod +x $HOME/GitRepos/cpp-ethereum/build/eth/eth
 chmod +x $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero
 chmod +x $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer
 chmod +x $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole
-
-$PKG_MAN_INSTALL_PREFIX syncthing-gtk sublime-text atom
 
 # git pull and install dotfiles as well
 cd $HOME
