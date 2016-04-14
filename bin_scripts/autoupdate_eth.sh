@@ -1,21 +1,5 @@
 #!/bin/bash
 
-function isVarDefined {
-	if [ -z "${VAR+xxx}" ]; then
-		return 0;
-	else
-		return 1;
-	fi
-}
-
-function isVarEmpty {
-	if [ -z "${VAR-}" ] && [ "${VAR+xxx}" = "xxx" ]; then
-		return 1;
-	else
-		return 0;
-	fi
-}
-
 if [ ! $(isVarDefined $MY_BIN_DIR) ]; then
 	MY_BIN_DIR="$HOME/bin";
 fi
@@ -50,17 +34,20 @@ cmake ..
 # 4 threads # Full processor(s) == make -j$(nproc)
 make -j4
 
-ln -sb $MY_GIT_REPO_DIR/go-ethereum/build/bin/geth $HOME/bin/geth_dev
-ln -sb $MY_GIT_REPO_DIR/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
-ln -sb $MY_GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
-ln -sb $MY_GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer_dev
-ln -sb $MY_GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole_dev
+GETH_SUFFIX=go-ethereum/build/bin/geth
+ETH_SUFFIX=cpp-ethereum/build/eth/eth
+ALETH_SUFFIX=cpp-ethereum/build/alethzero/alethzero
+ETHMINER_SUFFIX=cpp-ethereum/build/libethereum/ethminer
 
-chmod +x $MY_GIT_REPO_DIR/go-ethereum/build/bin/geth
-chmod +x $MY_GIT_REPO_DIR/cpp-ethereum/build/eth/eth
-chmod +x $MY_GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero
-chmod +x $MY_GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer
-chmod +x $MY_GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole
+ln -sb "$MY_GIT_REPO_DIR"/"$GETH_SUFFIX" "$MY_BIN_DIR"/geth_dev
+ln -sb "$MY_GIT_REPO_DIR"/"$ETH_SUFFIX" "$MY_BIN_DIR"/eth_dev
+ln -sb "$MY_GIT_REPO_DIR"/"$ALETH_SUFFIX" "$MY_BIN_DIR"/alethzero_dev
+ln -sb "$MY_GIT_REPO_DIR"/"$ETHMINER_SUFFIX" "$MY_BIN_DIR"/ethminer_dev
+
+chmod +x "$MY_GIT_REPO_DIR"/"$GETH_SUFFIX"
+chmod +x "$MY_GIT_REPO_DIR"/"$ETH_SUFFIX"
+#chmod +x "$MY_GIT_REPO_DIR"/"$ALETH_SUFFIX"
+chmod +x "$MY_GIT_REPO_DIR"/"$ETHMINER_SUFFIX"
 
 echo ---cpp-ethereum was compiled successfully---
 
