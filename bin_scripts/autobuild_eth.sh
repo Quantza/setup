@@ -1,6 +1,20 @@
 #!/bin/bash
 
+function isVarDefined {
+	local isVarDefinedResult=0
+	if [ -z "${$1+xxx}" ]; then
+		$isVarDefinedResult=0;
+	else
+		$isVarDefinedResult=1;
+	fi
+}
+
+if [ -z "${$1+xxx}" ]; then
+
+BIN_DIR="$HOME/bin"
 GIT_REPO_DIR="$HOME/GitRepos"
+
+
 
 echo Building go-ethereum, cpp-ethereum and mist-wallet...
 
@@ -57,11 +71,11 @@ cmake ..
 # 4 threads # Full processor(s) == make -j$(nproc)
 make -j4
 
-ln -sb $GIT_REPO_DIR/go-ethereum/build/bin/geth $HOME/bin/geth_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole_dev
+ln -sb $GIT_REPO_DIR/go-ethereum/build/bin/geth $BIN_DIR/geth_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/eth/eth $BIN_DIR/eth_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero $BIN_DIR/alethzero_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer $BIN_DIR/ethminer_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole $BIN_DIR/ethconsole_dev
 
 chmod +x $GIT_REPO_DIR/go-ethereum/build/bin/geth
 chmod +x $GIT_REPO_DIR/cpp-ethereum/build/eth/eth

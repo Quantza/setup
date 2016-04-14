@@ -1,7 +1,8 @@
 #!/bin/bash
 
-if [ ! -d $HOME/bin ]; then
-    mkdir $HOME/bin
+BIN_DIR="$HOME/bin"
+if [ ! -d $BIN_DIR ]; then
+    mkdir $BIN_DIR
 fi
 
 DEV_DIR="$HOME/dev"
@@ -154,9 +155,9 @@ sudo ./cuda_7.5.18_linux.run
 $PKG_MAN_INSTALL_PREFIX libopenblas-dev gfortran
 
 # Set up Clojure with leiningen
-cd $HOME/bin
+cd $BIN_DIR
 wget -qO- https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-chmod a+x $HOME/bin/lein
+chmod a+x $BIN_DIR/lein
 lein
 
 # Install Rust
@@ -222,7 +223,7 @@ deactivate
 
 # miniconda: http://conda.pydata.org/miniconda.html
 
-#cd $HOME/bin
+#cd $BIN_DIR
 #wget -qO- https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
 #wget -qO- https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
