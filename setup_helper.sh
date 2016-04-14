@@ -1,18 +1,18 @@
 #!/bin/bash
 
-BIN_DIR="$HOME/bin"
-if [ ! -d $BIN_DIR ]; then
-    mkdir $BIN_DIR
+MY_BIN_DIR="$HOME/bin"
+if [ ! -d $MY_BIN_DIR ]; then
+    mkdir $MY_BIN_DIR
 fi
 
-DEV_DIR="$HOME/dev"
-if [ ! -d $DEV_DIR ]; then
-    mkdir $DEV_DIR
-    mkdir $DEV_DIR/Projects
+MY_DEV_DIR="$HOME/dev"
+if [ ! -d $MY_DEV_DIR ]; then
+    mkdir $MY_DEV_DIR
+    mkdir $MY_DEV_DIR/Projects
 fi
 
-if [ ! -d $DEV_DIR/temp ]; then
-    mkdir $DEV_DIR/temp
+if [ ! -d $MY_DEV_DIR/temp ]; then
+    mkdir $MY_DEV_DIR/temp
 fi
 
 if [ ! -d $HOME/go ]; then
@@ -27,9 +27,9 @@ if [ ! -d $HOME/.ssh ]; then
     mkdir $HOME/.ssh
 fi
 
-GIT_REPO_DIR="$HOME/GitRepos"
-if [ ! -d $GIT_REPO_DIR ]; then
-    mkdir $GIT_REPO_DIR
+MY_GIT_REPO_DIR="$HOME/GitRepos"
+if [ ! -d $MY_GIT_REPO_DIR ]; then
+    mkdir $MY_GIT_REPO_DIR
 fi
 
 if [ ! -d $HOME/Projects ]; then
@@ -138,7 +138,7 @@ $PKG_MAN_INSTALL_PREFIX syncthing syncthing-gtk
 
 # NVIDIA CUDA
 # Setup install
-CUDA75_DIR=$DEV_DIR/cuda7.5
+CUDA75_DIR=$MY_DEV_DIR/cuda7.5
 
 if [ ! -d $CUDA75_DIR ]; then
     mkdir $CUDA75_DIR
@@ -155,25 +155,25 @@ sudo ./cuda_7.5.18_linux.run
 $PKG_MAN_INSTALL_PREFIX libopenblas-dev gfortran
 
 # Set up Clojure with leiningen
-cd $BIN_DIR
+cd $MY_BIN_DIR
 wget -qO- https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-chmod a+x $BIN_DIR/lein
+chmod a+x $MY_BIN_DIR/lein
 lein
 
 # Install Rust
-cd $DEV_DIR/temp
+cd $MY_DEV_DIR/temp
 curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
 # Install Haskell
 $PKG_MAN_INSTALL_PREFIX haskell-platform
 
 # Install elixir
-cd $DEV_DIR/temp
+cd $MY_DEV_DIR/temp
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
 $PKG_MAN_REFRESH_PREFIX 
 $PKG_MAN_INSTALL_PREFIX esl-erlang elixir
 export PATH="$PATH:$(which elixir)"
-cd $DEV_DIR/temp && rm -rf *.deb
+cd $MY_DEV_DIR/temp && rm -rf *.deb
 
 # Install python
 $PKG_MAN_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
@@ -223,7 +223,7 @@ deactivate
 
 # miniconda: http://conda.pydata.org/miniconda.html
 
-#cd $BIN_DIR
+#cd $MY_BIN_DIR
 #wget -qO- https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
 #wget -qO- https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
@@ -233,7 +233,7 @@ deactivate
 #./Miniconda3-latest-Linux-x86_64.sh
 
 # Onedrive-d
-cd $GIT_REPO_DIR
+cd $MY_GIT_REPO_DIR
 git clone https://github.com/xybu/onedrive-d.git
 cd onedrive-d
 python3 setup.py build
@@ -254,7 +254,7 @@ if [ ! -d $TEX_USER_DIR ]; then
 fi
 
 # Setup install
-TEX_DIR=$DEV_DIR/texlive
+TEX_DIR=$MY_DEV_DIR/texlive
 TEX_INSTALL_FILES=$TEX_DIR/install
 
 if [ ! -d $TEX_DIR ]; then

@@ -4,11 +4,11 @@
 # Checks that current directory name and working directory are equivalent
 # One liner: DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-if [ ! isVarDefined $BIN_DIR ]; then
-	BIN_DIR="$HOME/bin";
+if [ ! isVarDefined $MY_BIN_DIR ]; then
+	MY_BIN_DIR="$HOME/bin";
 fi
 
-SYMLINKDIR="$BIN_DIR"
+SYMLINKDIR="$MY_BIN_DIR"
 
 if [ ! -d $SYMLINKDIR ]; then
     mkdir $SYMLINKDIR
@@ -26,7 +26,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 #ln -sb $DIR/autobuild_eth.sh $HOME/bin/autobuild_eth
 #ln -sb $DIR/autoupdate_eth.sh $HOME/bin/autoupdate_eth
 
-function symlink_binary_execs () {
+symlink_binary_execs () {
 	
 	# Only one argument at a time
 	if [ ! $# -eq "1" ]; then

@@ -1,29 +1,11 @@
 #!/bin/bash
 
-function isVarDefined {
-	local isVarDefinedResult=0
-	if [ -z "${$1+xxx}" ]; then
-		$isVarDefinedResult=0;
-	else
-		$isVarDefinedResult=1;
-	fi
-}
-
-function isVarEmpty {
-	local isVarEmpty=0
-	if [ -z "$1" ] && [ "${$1+xxx}" = "xxx" ]; then
-		$isVarEmpty=1;
-	else
-		$isVarEmpty=0;
-	fi
-}
-
-if [ ! isVarDefined $BIN_DIR ]; then
-	BIN_DIR="$HOME/bin";
+if [ ! $(isVarDefined $MY_BIN_DIR) ]; then
+	MY_BIN_DIR="$HOME/bin";
 fi
 
-if [ ! isVarDefined $GIT_REPO_DIR ]; then
-	GIT_REPO_DIR="$HOME/GitRepos";
+if [ ! $(isVarDefined $MY_GIT_REPO_DIR) ]; then
+	MY_GIT_REPO_DIR="$HOME/GitRepos";
 fi
 
 echo Building go-ethereum, cpp-ethereum and mist-wallet...
@@ -58,7 +40,7 @@ sudo apt-get -y install qml-module-qtquick-controls qml-module-qtwebengine
 
 echo ---go-ethereum---
 sudo apt-get install -y build-essential libgmp3-dev golang
-cd $GIT_REPO_DIR
+cd $MY_GIT_REPO_DIR
 git clone https://github.com/ethereum/go-ethereum
 cd go-ethereum
 #git checkout release/1.3.6
@@ -66,7 +48,7 @@ make geth
 echo ---go-ethereum was compiled successfully---
 
 echo ---cpp-ethereum---
-cd $GIT_REPO_DIR
+cd $MY_GIT_REPO_DIR
 git clone --recursive https://github.com/ethereum/webthree-umbrella.git cpp-ethereum
 cd cpp-ethereum
 git checkout develop
@@ -81,22 +63,22 @@ cmake ..
 # 4 threads # Full processor(s) == make -j$(nproc)
 make -j4
 
-ln -sb $GIT_REPO_DIR/go-ethereum/build/bin/geth $BIN_DIR/geth_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/eth/eth $BIN_DIR/eth_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero $BIN_DIR/alethzero_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer $BIN_DIR/ethminer_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole $BIN_DIR/ethconsole_dev
+ln -sb $MY_GIT_REPO_DIR/go-ethereum/build/bin/geth $MY_BIN_DIR/geth_dev
+ln -sb $MY_GIT_REPO_DIR/cpp-ethereum/build/eth/eth $MY_BIN_DIR/eth_dev
+ln -sb $MY_GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero $MY_BIN_DIR/alethzero_dev
+ln -sb $MY_GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer $MY_BIN_DIR/ethminer_dev
+ln -sb $MY_GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole $MY_BIN_DIR/ethconsole_dev
 
-chmod +x $GIT_REPO_DIR/go-ethereum/build/bin/geth
-chmod +x $GIT_REPO_DIR/cpp-ethereum/build/eth/eth
-chmod +x $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero
-chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer
-chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole
+chmod +x $MY_GIT_REPO_DIR/go-ethereum/build/bin/geth
+chmod +x $MY_GIT_REPO_DIR/cpp-ethereum/build/eth/eth
+chmod +x $MY_GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero
+chmod +x $MY_GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer
+chmod +x $MY_GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole
 
 echo ---cpp-ethereum was compiled successfully---
 
 echo ---mist-wallet---
-cd $GIT_REPO_DIR
+cd $MY_GIT_REPO_DIR
 git clone https://github.com/ethereum/mist.git
 cd mist
 git submodule update --init
