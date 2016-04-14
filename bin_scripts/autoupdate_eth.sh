@@ -1,5 +1,21 @@
 #!/bin/bash
 
+function isVarDefined {
+	if [ -z "${VAR+xxx}" ]; then
+		return 0;
+	else
+		return 1;
+	fi
+}
+
+function isVarEmpty {
+	if [ -z "${VAR-}" ] && [ "${VAR+xxx}" = "xxx" ]; then
+		return 1;
+	else
+		return 0;
+	fi
+}
+
 if [ ! $(isVarDefined $MY_BIN_DIR) ]; then
 	MY_BIN_DIR="$HOME/bin";
 fi
