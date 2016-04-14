@@ -301,20 +301,6 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 chmod +x ./bin_scripts/autobuild_eth.sh
 source ./bin_scripts/autobuild_eth.sh
 
-ln -sb $GIT_REPO_DIR/go-ethereum/build/bin/geth $HOME/bin/geth_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer_dev
-ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole_dev
-
-chmod +x $GIT_REPO_DIR/go-ethereum/build/bin/geth
-chmod +x $GIT_REPO_DIR/cpp-ethereum/build/eth/eth
-chmod +x $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero
-chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer
-chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole
-
-# Install mist wallet
-
 # git pull and install dotfiles as well
 cd $HOME
 if [ -d ./dotfiles/ ]; then

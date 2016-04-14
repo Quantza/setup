@@ -2,7 +2,7 @@
 
 GIT_REPO_DIR="$HOME/GitRepos"
 
-echo Updating and building go-ethereum and cpp-ethereum...
+echo Updating and building go-ethereum, cpp-ethereum and mist-wallet...
 
 echo ---go-ethereum---
 cd $GIT_REPO_DIR/go-ethereum
@@ -28,8 +28,6 @@ cmake ..
 # 4 threads # Full processor(s) == make -j$(nproc)
 make -j4
 
-echo ---cpp-ethereum was compiled successfully---
-
 ln -sb $GIT_REPO_DIR/go-ethereum/build/bin/geth $HOME/bin/geth_dev
 ln -sb $GIT_REPO_DIR/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
 ln -sb $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
@@ -41,3 +39,14 @@ chmod +x $GIT_REPO_DIR/cpp-ethereum/build/eth/eth
 chmod +x $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero
 chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer
 chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole
+
+echo ---cpp-ethereum was compiled successfully---
+
+echo ---mist-wallet---
+cd $GIT_REPO_DIR
+git clone https://github.com/ethereum/mist.git
+cd mist
+git submodule update --init
+npm install
+
+echo ---mist-wallet was compiled successfully---
