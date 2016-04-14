@@ -9,12 +9,22 @@ function isVarDefined {
 	fi
 }
 
-if [ -z "${$1+xxx}" ]; then
+function isVarEmpty {
+	local isVarEmpty=0
+	if [ -z "$1" ] && [ "${$1+xxx}" = "xxx" ]; then
+		$isVarEmpty=1;
+	else
+		$isVarEmpty=0;
+	fi
+}
 
-BIN_DIR="$HOME/bin"
-GIT_REPO_DIR="$HOME/GitRepos"
+if [ ! isVarDefined $BIN_DIR ]; then
+	BIN_DIR="$HOME/bin";
+fi
 
-
+if [ ! isVarDefined $GIT_REPO_DIR ]; then
+	GIT_REPO_DIR="$HOME/GitRepos";
+fi
 
 echo Building go-ethereum, cpp-ethereum and mist-wallet...
 

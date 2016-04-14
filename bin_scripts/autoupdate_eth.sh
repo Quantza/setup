@@ -1,6 +1,30 @@
 #!/bin/bash
 
-GIT_REPO_DIR="$HOME/GitRepos"
+function isVarDefined {
+	local isVarDefinedResult=0
+	if [ -z "${$1+xxx}" ]; then
+		$isVarDefinedResult=0;
+	else
+		$isVarDefinedResult=1;
+	fi
+}
+
+function isVarEmpty {
+	local isVarEmpty=0
+	if [ -z "$1" ] && [ "${$1+xxx}" = "xxx" ]; then
+		$isVarEmpty=1;
+	else
+		$isVarEmpty=0;
+	fi
+}
+
+if [ ! isVarDefined $BIN_DIR ]; then
+	BIN_DIR="$HOME/bin";
+fi
+
+if [ ! isVarDefined $GIT_REPO_DIR ]; then
+	GIT_REPO_DIR="$HOME/GitRepos";
+fi
 
 echo Updating and building go-ethereum, cpp-ethereum and mist-wallet...
 
