@@ -26,8 +26,9 @@ if [ ! -d $HOME/.ssh ]; then
     mkdir $HOME/.ssh
 fi
 
-if [ ! -d $HOME/GitRepos ]; then
-    mkdir $HOME/GitRepos
+GIT_REPO_DIR="$HOME/GitRepos"
+if [ ! -d $GIT_REPO_DIR ]; then
+    mkdir $GIT_REPO_DIR
 fi
 
 if [ ! -d $HOME/Projects ]; then
@@ -154,7 +155,7 @@ $PKG_MAN_INSTALL_PREFIX libopenblas-dev gfortran
 
 # Set up Clojure with leiningen
 cd $HOME/bin
-wget -q https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+wget -qO- https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 chmod a+x $HOME/bin/lein
 lein
 
@@ -190,6 +191,12 @@ $PKG_MAN_INSTALL_PREFIX python3-numpy python3-scipy python3-matplotlib python3-p
 $PKG_MAN_INSTALL_PREFIX libxml2-dev
 $PKG_MAN_INSTALL_PREFIX libxslt-dev
 
+# Download the latest pip package from source
+wget -qO- https://bootstrap.pypa.io/get-pip.py | sudo python3
+
+# Use pip3 to upgrade setuptools
+sudo pip3 install --upgrade setuptools
+
 # virtualenv
 sudo -H pip install virtualenv
 sudo -H pip install virtualenvwrapper
@@ -216,13 +223,20 @@ deactivate
 # miniconda: http://conda.pydata.org/miniconda.html
 
 #cd $HOME/bin
-#wget -q https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
-#wget -q https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+#wget -qO- https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+#wget -qO- https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
 #chmod +x Miniconda2-latest-Linux-x86_64.sh
 #chmod +x Miniconda3-latest-Linux-x86_64.sh
 #./Miniconda2-latest-Linux-x86_64.sh
 #./Miniconda3-latest-Linux-x86_64.sh
+
+# Onedrive-d
+cd $GIT_REPO_DIR
+git clone https://github.com/xybu/onedrive-d.git
+cd onedrive-d
+python3 setup.py build
+sudo python3 setup.py install
 
 # Texlive
 # Remove old files
@@ -257,7 +271,7 @@ if [ -f install-tl-unx.tar.gz ]; then
     rm install-tl-unx.tar.gz
 fi
 
-wget -q http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+wget -qO- http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xzvf install-tl-unx.tar.gz
 cd install-tl-*
 chmod +x install-tl
@@ -287,17 +301,17 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 chmod +x ./bin_scripts/autobuild_eth.sh
 source ./bin_scripts/autobuild_eth.sh
 
-ln -sb $HOME/GitRepos/go-ethereum/build/bin/geth $HOME/bin/geth_dev
-ln -sb $HOME/GitRepos/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
-ln -sb $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
-ln -sb $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer_dev
-ln -sb $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole_dev
+ln -sb $GIT_REPO_DIR/go-ethereum/build/bin/geth $HOME/bin/geth_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/eth/eth $HOME/bin/eth_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero $HOME/bin/alethzero_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer $HOME/bin/ethminer_dev
+ln -sb $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole $HOME/bin/ethconsole_dev
 
-chmod +x $HOME/GitRepos/go-ethereum/build/bin/geth
-chmod +x $HOME/GitRepos/cpp-ethereum/build/eth/eth
-chmod +x $HOME/GitRepos/cpp-ethereum/build/alethzero/alethzero
-chmod +x $HOME/GitRepos/cpp-ethereum/build/ethminer/ethminer
-chmod +x $HOME/GitRepos/cpp-ethereum/build/ethconsole/ethconsole
+chmod +x $GIT_REPO_DIR/go-ethereum/build/bin/geth
+chmod +x $GIT_REPO_DIR/cpp-ethereum/build/eth/eth
+chmod +x $GIT_REPO_DIR/cpp-ethereum/build/alethzero/alethzero
+chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethminer/ethminer
+chmod +x $GIT_REPO_DIR/cpp-ethereum/build/ethconsole/ethconsole
 
 # git pull and install dotfiles as well
 cd $HOME
