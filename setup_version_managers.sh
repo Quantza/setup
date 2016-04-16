@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd $HOME
+#cd $HOME
 
 # Setup Version Managers
 
