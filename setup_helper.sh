@@ -227,7 +227,11 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	sudo $PKG_INSTALL_PREFIX libreoffice
 
 	#themes
-	sudo $PKG_INSTALL_PREFIX Faenza-icon-theme numix-themes
+	sudo $PKG_INSTALL_PREFIX faenza-icon-theme numix-themes
+
+	# Locale
+	localectl set-locale LANG=en_GB.UTF-8
+	localectl set-keymap uk
 
 fi
 
