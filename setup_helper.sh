@@ -166,6 +166,10 @@ fi
 
 $PKG_REFRESH_PREFIX
 
+# Openssh and OpenPGP
+$PKG_INSTALL_PREFIX openssh pssh rsync
+$PKG_INSTALL_PREFIX seahorse nemo-seahorse gnupg
+
 # Install pdf readers
 $PKG_INSTALL_PREFIX xpdf okular
 
