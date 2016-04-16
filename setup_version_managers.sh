@@ -1,6 +1,8 @@
 #!/bin/bash
 
-#cd $HOME
+OLDDIR="$PWD"
+
+cd "$HOME"
 
 # Setup Version Managers
 
@@ -9,7 +11,7 @@
 # Install nvm: node-version manager (for npm)
 # https://github.com/creationix/nvm
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
-source $HOME/.nvm/nvm.sh
+source "$HOME"/.nvm/nvm.sh
 
 # Install nvm
 nvm install node
@@ -43,6 +45,8 @@ npm install cheerio
 
 # node.js
 #$PKG_INSTALL_PREFIX nodejs
+
+cd "$OLDDIR"
 
 # Install meteor
 curl https://install.meteor.com/ | sh

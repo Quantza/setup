@@ -4,8 +4,8 @@
 # Checks that current directory name and working directory are equivalent
 # One liner: DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-if [ ! isVarDefined $MY_BIN_DIR ]; then
-	MY_BIN_DIR="$HOME/bin";
+if [ ! $(isVarDefined "$MY_BIN_DIR") ]; then
+    export MY_BIN_DIR="$HOME/bin";
 fi
 
 SYMLINKDIR="$MY_BIN_DIR"
