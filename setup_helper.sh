@@ -176,6 +176,10 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX gir1.2-gtop-2.0
 elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX libgtop
+
+	#other things...
+	sudo yaourt -S lib32-ncurses
+	sudo usermod -a -G games $USER
 fi
 
 # Openssh and OpenPGP
