@@ -24,11 +24,17 @@ echo "$DISTRO" | grep -qi "Mint"
 IS_LINUX_MINT=$?
 # $(if echo "$DISTRO" | grep -qi Mint; then echo 1; else echo 0; fi)
 
-if [[ "$DISTRO" == "Ubuntu" ]] || (( $IS_LINUX_MINT == 0 )); then
+echo "$DISTRO" | grep -qi "Arch"
+IS_ARCH=$?
+
+echo "$DISTRO" | grep -qi "Ubuntu"
+IS_UBUNTU=$?
+
+if (( $IS_UBUNTU == 0 )) || (( $IS_LINUX_MINT == 0 )); then
 	export PKG_INSTALL_PREFIX="sudo apt-get install -y"
 	export PKG_REFRESH_PREFIX="sudo apt-get update"
 	export DISTRO_ID="ubuntu"
-elif [[ "$DISTRO" == "Arch Linux" ]]; then
+elif (( $IS_ARCH == 0 )); then
 	export PKG_INSTALL_PREFIX="sudo pacman -S"
 	export PKG_REFRESH_PREFIX="sudo pacman -Sy"
 	export DISTRO_ID="arch"
