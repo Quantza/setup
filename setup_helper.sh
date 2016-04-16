@@ -63,6 +63,11 @@ $PKG_INSTALL_PREFIX git curl wget
 git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
 
+if [ "$DISTRO_ID" == "arch" ]; then
+	mkdir $HOME/Downloads
+	mkdir $HOME/Documents
+fi
+
 # Ubuntu ppas
 
 if [ "$DISTRO_ID" == "ubuntu" ]; then
