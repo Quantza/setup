@@ -173,15 +173,62 @@ fi
 
 $PKG_REFRESH_PREFIX
 
-# libgtop for system monitoring
+# libgtop for system monitoring, and other things
 if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX gir1.2-gtop-2.0
 elif [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_INSTALL_PREFIX libgtop
+	$PKG_INSTALL_PREFIX libgtop networkmanager
 
 	# other things...
 	sudo yaourt -S lib32-ncurses
 	sudo usermod -a -G games $USER
+
+	# For cinnamon
+	$PKG_INSTALL_PREFIX"yu"
+	$PKG_INSTALL_PREFIX bash-completion
+	$PKG_INSTALL_PREFIX xorg-server xorg-xinit xorg-utils xorg-server-utils mesa xorg-twm xterm xorg-xclock
+
+	# List drivers
+	
+	## Nvidia ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep nvidia
+
+	## AMD/ATI ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep ATI
+	sudo $PKG_INSTALL_PREFIX"s" | grep AMD
+		
+	## Intel ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep intel
+	sudo $PKG_INSTALL_PREFIX"s" | grep Intel
+
+	##MULTILIB##
+
+	## Nvidia ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-nvidia
+
+	## AMD/ATI ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-ati
+		
+	## Intel ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-intel
+
+	# cinnamon
+	sudo $PKG_INSTALL_PREFIX cinnamon nemo-fileroller
+
+	# nettools (includes ifconfig)
+	sudo $PKG_INSTALL_PREFIX net-tools
+
+	# Basic software
+	sudo $PKG_INSTALL_PREFIX pulseaudio pulseaudio-alsa pavucontrol gnome-terminal firefox flashplugin vlc chromium unzip unrar p7zip pidgin skype deluge smplayer audacious qmmp gimp xfburn thunderbird gedit gnome-system-monitor
+
+	# Codecs
+	sudo $PKG_INSTALL_PREFIX a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer0.10-plugins
+	# libreoffice
+	sudo $PKG_INSTALL_PREFIX libreoffice
+
+	#themes
+	sudo $PKG_INSTALL_PREFIX Faenza-icon-theme numix-themes
+
 fi
 
 # Openssh and OpenPGP
