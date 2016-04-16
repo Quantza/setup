@@ -166,7 +166,9 @@ if [ "$DISTRO_ID" == "arch" ]; then
 
 	# Install other related things...
 	sudo yaourt -S gdm3setup ntfs-config
+	$PKG_INSTALL_SRC_PREFIX part mtools btrfs-progs exfat-utils dosfstools
 	
+
 fi
 
 $PKG_REFRESH_PREFIX
