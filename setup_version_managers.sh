@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd $HOME
+
 # Setup Version Managers
 
 # Load nvm and install latest production node
