@@ -6,13 +6,13 @@ if [ ! -d $HOME/bin ]; then
 fi
 
 DEV_DIR="$HOME/dev"
-if [ ! -d $DEV_DIR ]; then
-    mkdir $DEV_DIR
-    mkdir $DEV_DIR/Projects
+if [ ! -d $MY_DEV_DIR ]; then
+    mkdir $MY_DEV_DIR
+    mkdir $MY_DEV_DIR/Projects
 fi
 
-if [ ! -d $DEV_DIR/temp ]; then
-    mkdir $DEV_DIR/temp
+if [ ! -d $MY_DEV_DIR/temp ]; then
+    mkdir $MY_DEV_DIR/temp
 fi
 
 if [ ! -d $HOME/go ]; then
@@ -81,8 +81,8 @@ ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.theanorc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sb dotfiles/site.cfg .
-ln -sb dotfiles/tools.sh $BIN_DIR/tools_menu
-ln -sb dotfiles/determine_and_configure_linux_distro.sh $BIN_DIR/det_conf_linux_dist
+ln -sb dotfiles/tools.sh $MY_BIN_DIR/tools_menu
+ln -sb dotfiles/determine_and_configure_linux_distro.sh $MY_BIN_DIR/det_conf_linux_dist
 ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .

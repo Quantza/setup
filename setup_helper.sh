@@ -145,7 +145,7 @@ fi
 
 if [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX --needed wget base-devel yajl
-	mkdir -p $DEV_DIR/AUR/ && cd $DEV_DIR/AUR/
+	mkdir -p $MY_DEV_DIR/AUR/ && cd $MY_DEV_DIR/AUR/
 
 	# install package-query
 	wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz  # download source tarball
