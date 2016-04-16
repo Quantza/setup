@@ -175,7 +175,7 @@ $PKG_REFRESH_PREFIX
 
 # libgtop for system monitoring, and other things
 if [ "$DISTRO_ID" == "ubuntu" ]; then
-	$PKG_INSTALL_PREFIX gir1.2-gtop-2.0
+	$PKG_INSTALL_PREFIX gir1.2-gtop-2.0 pulseaudio pavucontrol gnome-terminal firefox vlc unzip unrar p7zip pidgin skype deluge smplayer qmmp gimp xfburn thunderbird gedit gnome-system-monitor
 elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX libgtop networkmanager
 
