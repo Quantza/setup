@@ -177,7 +177,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX libgtop
 
-	#other things...
+	# other things...
 	sudo yaourt -S lib32-ncurses
 	sudo usermod -a -G games $USER
 fi
