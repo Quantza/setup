@@ -160,7 +160,7 @@ if [ "$DISTRO_ID" == "arch" ]; then
 	sudo pacman -U yaourt*.pkg.tar.xz
 
 	# install other related things...
-	sudo yaourt -S gdm3setup
+	sudo yaourt -S gdm3setup ntfs-config
 	
 fi
 
