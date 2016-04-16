@@ -150,12 +150,21 @@ if [ "$DISTRO_ID" == "arch" ]; then
 	# install package-query
 	wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz  # download source tarball
 	tar xfz package-query.tar.gz  # unpack tarball
-	cd package-query  &&  makepkg  # cd and create package from source
+	cd package-query && makepkg  # cd and create package from source
 	$PKG_INSTALL_SRC_PREFIX package-query*.pkg.tar.xz  # install package - need root privileges
+
+	# install yaourt
+	wget https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
+	tar xzf yaourt.tar.gz
+	cd yaourt && makepkg
+	sudo pacman -U yaourt*.pkg.tar.xz
+
+	# install other related things...
+	sudo yaourt -S gdm3setup
+	
 fi
 
-sudo apt-get -qq update
-$PKG_INSTALL_PREFIX
+$PKG_REFRESH_PREFIX
 
 # Install pdf readers
 $PKG_INSTALL_PREFIX xpdf okular

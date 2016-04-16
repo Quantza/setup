@@ -18,17 +18,21 @@ unset UNAME
 
 PKG_INSTALL_PREFIX=""
 PKG_REFRESH_PREFIX=""
-PKG_INSTALL_SRC_PREFIX=""
 DISTRO_ID=""
 
-if (( $("$DISTRO" == "Ubuntu") == 1 )) || (( $(if "$DISTRO" | grep -qi Mint; then echo 1; else echo 0; fi) )); then
+echo "$DISTRO" | grep -qi "Mint"
+IS_LINUX_MINT=$?
+# $(if echo "$DISTRO" | grep -qi Mint; then echo 1; else echo 0; fi)
+
+if [[ "$DISTRO" == "Ubuntu" ]] || (( $IS_LINUX_MINT == 0 )); then
+	echo "HERE"
 	export PKG_INSTALL_PREFIX="sudo apt-get install -y"
 	export PKG_REFRESH_PREFIX="sudo apt-get update"
 	export DISTRO_ID="ubuntu"
-fi
-elif [ "$DISTRO" == "Arch Linux" ]; then
+elif [[ "$DISTRO" == "Arch Linux" ]]; then
 	export PKG_INSTALL_PREFIX="sudo pacman -S"
 	export PKG_REFRESH_PREFIX="sudo pacman -Sy"
 	export DISTRO_ID="arch"
 	export PKG_INSTALL_SRC_PREFIX="sudo pacman -U"
+	export YAOURT_INSTALL_PREFIX="sudo yaourt -S"
 fi
