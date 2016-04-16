@@ -40,17 +40,17 @@ npm install commander
 npm install cheerio
 
 # node.js
-#$PKG_MAN_INSTALL_PREFIX nodejs
+#$PKG_INSTALL_PREFIX nodejs
 
 # Install meteor
 curl https://install.meteor.com/ | sh
 
 # Install rlwrap to provide libreadline features with node
 # See: http://nodejs.org/api/repl.html#repl_repl
-$PKG_MAN_INSTALL_PREFIX rlwrap
+$PKG_INSTALL_PREFIX rlwrap
 
 # Install gvm (for Go)
-$PKG_MAN_INSTALL_PREFIX curl git mercurial make binutils bison gcc build-essential
+$PKG_INSTALL_PREFIX curl git mercurial make binutils bison gcc build-essential
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 source $HOME/.gvm/scripts/gvm
 

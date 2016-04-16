@@ -58,8 +58,8 @@ gem install bundler
 
 # Base Tools
 
-$PKG_MAN_REFRESH_PREFIX 
-$PKG_MAN_INSTALL_PREFIX git curl wget
+$PKG_REFRESH_PREFIX 
+$PKG_INSTALL_PREFIX git curl wget
 git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
 
@@ -94,62 +94,77 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 fi
 
-$PKG_MAN_REFRESH_PREFIX
+$PKG_REFRESH_PREFIX
 
 # See here: https://thepcspy.com/read/making-ssh-secure/
 # http://portforward.com/
 # Install ssh-server
-$PKG_MAN_INSTALL_PREFIX openssh-server
+$PKG_INSTALL_PREFIX openssh-server
 # default = 22
 sudo ufw allow 22
 # limit login attempts per time
-$PKG_MAN_INSTALL_PREFIX fail2ban
+$PKG_INSTALL_PREFIX fail2ban
 
 #Install docky
-$PKG_MAN_INSTALL_PREFIX docky
+$PKG_INSTALL_PREFIX docky
 
 #Install tmux
-$PKG_MAN_INSTALL_PREFIX tmux
+$PKG_INSTALL_PREFIX tmux
 
 # gparted for partioning and tilda terminal.
-$PKG_MAN_INSTALL_PREFIX gparted tilda
+$PKG_INSTALL_PREFIX gparted tilda
 
 # Install yubikey software
-$PKG_MAN_REFRESH_PREFIX 
-$PKG_MAN_INSTALL_PREFIX libpam-yubico yubikey-personalization-gui yubikey-neo-manager
+$PKG_REFRESH_PREFIX 
+$PKG_INSTALL_PREFIX libpam-yubico yubikey-personalization-gui yubikey-neo-manager
 
 # Install wine
-$PKG_MAN_INSTALL_PREFIX wine wine-tricks
+$PKG_INSTALL_PREFIX wine wine-tricks
 
 # Install emacs24.x
 #--Build commands for ubuntu--
 # https://lars.ingebrigtsen.no/2014/11/13/welcome-new-emacs-developers/
 
 if [ "$DISTRO_ID" == "ubuntu" ]; then
-	$PKG_MAN_INSTALL_PREFIX  gcc automake libmagick++-dev libgtk2.0-dev \
-	libxft-dev libgnutls-dev libdbus-1-dev libgif-dev build-essential
-	#$PKG_MAN_INSTALL_PREFIX build-dep build-essential
+	$PKG_INSTALL_PREFIX  gcc automake libmagick++-dev libgtk2.0-dev \
+	libxft-dev libgnutls-dev libdbus-1-dev libgif-dev texinfo libxpm-dev libacl1 libacl1-dev build-essential
+	#$PKG_INSTALL_PREFIX build-dep build-essential
 	cd $MY_GIT_REPO_DIR
 	git clone git://git.savannah.gnu.org/emacs.git
 	cd emacs
+	GIT_COMMON_DIR=$MY_GIT_REPO_DIR/emacs
 	make
 	sudo ./src/emacs &
 	ln -sb $MY_GIT_REPO_DIR/emacs $MY_BIN_DIR/emacs
+	unset GIT_COMMON_DIR
 elif [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_MAN_INSTALL_PREFIX emacs
+	$PKG_INSTALL_PREFIX emacs
+fi
+
+# Build and Install yaourt
+
+if [ "$DISTRO_ID" == "arch" ]; then
+	$PKG_INSTALL_PREFIX --needed wget base-devel yajl
+	mkdir -p $DEV_DIR/AUR/ && cd $DEV_DIR/AUR/
+
+	# install package-query
+	wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz  # download source tarball
+	tar xfz package-query.tar.gz  # unpack tarball
+	cd package-query  &&  makepkg  # cd and create package from source
+	$PKG_INSTALL_SRC_PREFIX package-query*.pkg.tar.xz  # install package - need root privileges
 fi
 
 sudo apt-get -qq update
-$PKG_MAN_INSTALL_PREFIX
+$PKG_INSTALL_PREFIX
 
 # Install pdf readers
-$PKG_MAN_INSTALL_PREFIX xpdf okular
+$PKG_INSTALL_PREFIX xpdf okular
 
 # Webupd8
-$PKG_MAN_INSTALL_PREFIX sublime-text atom
+$PKG_INSTALL_PREFIX sublime-text atom
 
 # Syncthing
-$PKG_MAN_INSTALL_PREFIX syncthing syncthing-gtk
+$PKG_INSTALL_PREFIX syncthing syncthing-gtk
 
 # Development Tools
 
@@ -167,9 +182,9 @@ cd $CUDA75_DIR
 wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
 chmod a+x ./cuda_7.5.18_linux.run
 sudo ./cuda_7.5.18_linux.run
-#$PKG_MAN_INSTALL_PREFIX ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
+#$PKG_INSTALL_PREFIX ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
 
-$PKG_MAN_INSTALL_PREFIX libopenblas-dev gfortran
+$PKG_INSTALL_PREFIX libopenblas-dev gfortran
 
 # Set up Clojure with leiningen
 cd $MY_BIN_DIR
@@ -182,32 +197,32 @@ cd $MY_DEV_DIR/temp
 curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
 # Install Haskell
-$PKG_MAN_INSTALL_PREFIX haskell-platform
+$PKG_INSTALL_PREFIX haskell-platform
 
 # Install elixir
 cd $MY_DEV_DIR/temp
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
-$PKG_MAN_REFRESH_PREFIX 
-$PKG_MAN_INSTALL_PREFIX esl-erlang elixir
+$PKG_REFRESH_PREFIX 
+$PKG_INSTALL_PREFIX esl-erlang elixir
 export PATH="$PATH:$(which elixir)"
 cd $MY_DEV_DIR/temp && rm -rf *.deb
 
 # Install python
-$PKG_MAN_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
+$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
 # python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
 sudo pip install -U pip
 sudo pip3 install -U pip
 
 # IDLE editor
-$PKG_MAN_INSTALL_PREFIX idle-python2* idle-python3* python-tk
+$PKG_INSTALL_PREFIX idle-python2* idle-python3* python-tk
 
 # Numpy and Scipy
-$PKG_MAN_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
-$PKG_MAN_INSTALL_PREFIX python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
+$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
+$PKG_INSTALL_PREFIX python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
 
 #For lxml
-$PKG_MAN_INSTALL_PREFIX libxml2-dev
-$PKG_MAN_INSTALL_PREFIX libxslt-dev
+$PKG_INSTALL_PREFIX libxml2-dev
+$PKG_INSTALL_PREFIX libxslt-dev
 
 # Download the latest pip package from source
 wget -qO- https://bootstrap.pypa.io/get-pip.py | sudo python3
@@ -300,7 +315,7 @@ cd $HOME
 # Install texworks
 sudo apt-get -y update
 sudo apt-get -y upgrade
-$PKG_MAN_INSTALL_PREFIX texworks
+$PKG_INSTALL_PREFIX texworks
 
 # Install Heroku toolbelt
 # https://toolbelt.heroku.com/debian
@@ -312,8 +327,8 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 #sudo add-apt-repository ppa:ethereum/ethereum-qt
 #sudo add-apt-repository ppa:ethereum/ethereum
 #sudo add-apt-repository ppa:ethereum/ethereum-dev
-#$PKG_MAN_REFRESH_PREFIX 
-#$PKG_MAN_INSTALL_PREFIX cpp-ethereum mix
+#$PKG_REFRESH_PREFIX 
+#$PKG_INSTALL_PREFIX cpp-ethereum mix
 
 # Clone and install go-ethereum and cpp-ethereum...
 chmod +x ./bin_scripts/autobuild_eth.sh

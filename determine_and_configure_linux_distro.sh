@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Initial Tools
-
 # Determine OS platform
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 # If Linux, try to determine specific distribution
@@ -34,11 +32,3 @@ elif [ "$DISTRO" == "Arch Linux" ]; then
 	export DISTRO_ID="arch"
 	export PKG_INSTALL_SRC_PREFIX="sudo pacman -U"
 fi
-
-$PKG_REFRESH_PREFIX
-$PKG_INSTALL_PREFIX git curl wget
-git config --global user.name "Quantza"
-git config --global user.email "post2base@outlook.com"
-
-chmod a+x ./bin_scripts/symlink_binaries.sh
-source ./bin_scripts/symlink_binaries.sh

@@ -2,8 +2,8 @@
 # Simple setup.sh for configuring Ubuntu 14.04 and derivatives,
 # for headless setup.
 
-chmod a+x ./bin_scripts/setup_init.sh
-source ./bin_scripts/setup_init.sh
+chmod a+x ./setup_init.sh
+source ./setup_init.sh
 
 chmod a+x ./setup_version_managers.sh
 source 	./setup_version_managers.sh
