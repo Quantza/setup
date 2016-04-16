@@ -25,7 +25,6 @@ IS_LINUX_MINT=$?
 # $(if echo "$DISTRO" | grep -qi Mint; then echo 1; else echo 0; fi)
 
 if [[ "$DISTRO" == "Ubuntu" ]] || (( $IS_LINUX_MINT == 0 )); then
-	echo "HERE"
 	export PKG_INSTALL_PREFIX="sudo apt-get install -y"
 	export PKG_REFRESH_PREFIX="sudo apt-get update"
 	export DISTRO_ID="ubuntu"
