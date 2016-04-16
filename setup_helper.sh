@@ -171,6 +171,13 @@ fi
 
 $PKG_REFRESH_PREFIX
 
+# libgtop for system monitoring
+if [ "$DISTRO_ID" == "ubuntu" ]; then
+	$PKG_INSTALL_PREFIX gir1.2-gtop-2.0
+elif [ "$DISTRO_ID" == "arch" ]; then
+	$PKG_INSTALL_PREFIX libgtop
+fi
+
 # Openssh and OpenPGP
 $PKG_INSTALL_PREFIX openssh pssh rsync
 $PKG_INSTALL_PREFIX seahorse nemo-seahorse gnupg
