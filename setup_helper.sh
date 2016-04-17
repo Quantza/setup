@@ -523,7 +523,19 @@ if [ $(isVarDefined "$VIRTUALENVWRAPPER_PREFIX") ] then
 	fi
 fi
 
+# Onedrive-d
+cd $MY_GIT_REPO_DIR
+git clone https://github.com/xybu/onedrive-d.git
+cd onedrive-d
+
 if [ "$DISTRO_ID" == "ubuntu" ]; then
+
+	# Onedrive-d cont...
+	python3 setup.py build
+	sudo python3 setup.py install
+
+	cd "$HOME"
+
 	mkvirtualenv --python=/usr/bin/python2 --no-site-packages py2venv
 	pip install -U pip
 	sudo -H pip install coursera-dl pyopenssl requests jupyter
@@ -537,7 +549,15 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Numpy and Scipy
 	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
 	$PKG_INSTALL_PREFIX python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
+
 elif [ "$DISTRO_ID" == "arch" ]; then
+
+	# Onedrive-d cont...
+	python setup.py build
+	sudo python setup.py install
+
+	cd "$HOME"
+
 	virtualenv --python=/usr/bin/python2 --no-site-packages py2venv
 	pip install -U pip
 	sudo -H pip install coursera-dl pyopenssl requests jupyter
@@ -550,6 +570,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# Numpy and Scipy + jupyter or ipython
 	$PKG_INSTALL_PREFIX python2-numpy python2-scipy python2-matplotlib python2-pandas python2-nose python2-h5py ipython2-notebook
 	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py jupyter-notebook
+
 fi
 
 # miniconda: http://conda.pydata.org/miniconda.html
@@ -562,13 +583,6 @@ fi
 #chmod +x Miniconda3-latest-Linux-x86_64.sh
 #./Miniconda2-latest-Linux-x86_64.sh
 #./Miniconda3-latest-Linux-x86_64.sh
-
-# Onedrive-d
-cd $MY_GIT_REPO_DIR
-git clone https://github.com/xybu/onedrive-d.git
-cd onedrive-d
-python3 setup.py build
-sudo python3 setup.py install
 
 # Install Heroku toolbelt
 # https://toolbelt.heroku.com/debian
