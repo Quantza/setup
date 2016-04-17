@@ -143,7 +143,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	ln -sb $MY_GIT_REPO_DIR/emacs $MY_BIN_DIR/emacs
 	unset GIT_COMMON_DIR
 elif [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_INSTALL_PREFIX emacs
+	$PKG_INSTALL_PREFIX build-devel emacs
 fi
 
 # Build and Install yaourt
@@ -290,7 +290,12 @@ export PATH="$PATH:$(which elixir)"
 cd $MY_DEV_DIR/temp && rm -rf *.deb
 
 # Install python
-$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
+if [ "$DISTRO_ID" == "ubuntu" ]; then
+	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
+elif [ "$DISTRO_ID" == "arch" ]; then
+	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-devel
+fi
+
 # python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
 sudo pip install -U pip
 sudo pip3 install -U pip
