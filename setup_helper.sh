@@ -309,7 +309,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX texworks
 
 	# Install boost
-	$PKG_INSTALL_PREFIX libboost-all-dev
+	$PKG_INSTALL_PREFIX build-essential g++ python-dev autotools-dev libicu-dev build-essential libbz2-dev libboost-all-dev
 
 	# For GLFW and SFML
 	$PKG_INSTALL_PREFIX libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
