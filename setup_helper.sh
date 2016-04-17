@@ -19,16 +19,16 @@ if [ ! -d $MY_DEV_DIR/temp ]; then
     mkdir $MY_DEV_DIR/temp
 fi
 
-if [ ! -d $HOME/go ]; then
-    mkdir $HOME/go
+if [ ! -d "$HOME"/go ]; then
+    mkdir "$HOME"/go
 fi
 
-if [ ! -d $HOME/logs ]; then
-    mkdir $HOME/logs
+if [ ! -d "$HOME"/logs ]; then
+    mkdir "$HOME"/logs
 fi
 
-if [ ! -d $HOME/.ssh ]; then
-    mkdir $HOME/.ssh
+if [ ! -d "$HOME"/.ssh ]; then
+    mkdir "$HOME"/.ssh
 fi
 
 MY_GIT_REPO_DIR="$HOME/GitRepos"
@@ -36,16 +36,16 @@ if [ ! -d $MY_GIT_REPO_DIR ]; then
     mkdir $MY_GIT_REPO_DIR
 fi
 
-if [ ! -d $HOME/Projects ]; then
-    mkdir $HOME/Projects
+if [ ! -d "$HOME"/Projects ]; then
+    mkdir "$HOME"/Projects
 fi
 
-if [ ! -d $HOME/courseraDL ]; then
-    mkdir $HOME/courseraDL
+if [ ! -d "$HOME"/courseraDL ]; then
+    mkdir "$HOME"/courseraDL
 fi
 
-if [ ! -d $HOME/edxDL ]; then
-    mkdir $HOME/edxDL
+if [ ! -d "$HOME"/edxDL ]; then
+    mkdir "$HOME"/edxDL
 fi
 
 # Install ruby and set up rvm
@@ -68,12 +68,12 @@ git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
 
 if [ "$DISTRO_ID" == "arch" ]; then
-	mkdir $HOME/Downloads
-	mkdir $HOME/Documents
+	mkdir "$HOME"/Downloads
+	mkdir "$HOME"/Documents
 fi
 
-if [ ! -d $HOME/bin ]; then
-    mkdir $HOME/bin
+if [ ! -d "$HOME"/bin ]; then
+    mkdir "$HOME"/bin
 fi
 
 DEV_DIR="$HOME/dev"
@@ -86,48 +86,48 @@ if [ ! -d $MY_DEV_DIR/temp ]; then
     mkdir $MY_DEV_DIR/temp
 fi
 
-if [ ! -d $HOME/go ]; then
-    mkdir $HOME/go
+if [ ! -d "$HOME"/go ]; then
+    mkdir "$HOME"/go
 fi
 
-if [ ! -d $HOME/logs ]; then
-    mkdir $HOME/logs
+if [ ! -d "$HOME"/logs ]; then
+    mkdir "$HOME"/logs
 fi
 
-if [ ! -d $HOME/.ssh ]; then
-    mkdir $HOME/.ssh
+if [ ! -d "$HOME"/.ssh ]; then
+    mkdir "$HOME"/.ssh
 fi
 
-if [ ! -d $HOME/GitRepos ]; then
-    mkdir $HOME/GitRepos
+if [ ! -d "$HOME"/GitRepos ]; then
+    mkdir "$HOME"/GitRepos
 fi
 
-if [ ! -d $HOME/Projects ]; then
-    mkdir $HOME/Projects
+if [ ! -d "$HOME"/Projects ]; then
+    mkdir "$HOME"/Projects
 fi
 
-if [ ! -d $HOME/courseraDL ]; then
-    mkdir $HOME/courseraDL
+if [ ! -d "$HOME"/courseraDL ]; then
+    mkdir "$HOME"/courseraDL
 fi
 
-if [ ! -d $HOME/edxDL ]; then
-    mkdir $HOME/edxDL
+if [ ! -d "$HOME"/edxDL ]; then
+    mkdir "$HOME"/edxDL
 fi
 
 # git pull and install dotfiles
 chmod +x "$OLDDIR"/setup-dotfiles.sh
 source "$OLDDIR"/setup-dotfiles.sh
 
-# Ubuntu ppas
+# Ubuntu ppas, and Arch config/repos
 
 if [ "$DISTRO_ID" == "ubuntu" ]; then
 	sudo bash -c 'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse" >> /etc/apt/sources.list'
 
 	# WebUpd8
 	sudo add-apt-repository ppa:nilarimogard/webupd8
-	#sudo add-apt-repository ppa:webupd8team/java
 	sudo add-apt-repository ppa:webupd8team/atom
 	sudo add-apt-repository ppa:webupd8team/sublime-text-2
+	#sudo add-apt-repository ppa:webupd8team/java
 
 	# Yubikey
 	sudo apt-add-repository ppa:yubico/stable
@@ -147,59 +147,31 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Add the "release" channel to your APT sources:
 	echo "deb http://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
 
-fi
+	$PKG_REFRESH_PREFIX
 
-$PKG_REFRESH_PREFIX
-
-# See here: https://thepcspy.com/read/making-ssh-secure/
-# http://portforward.com/
-# Install ssh-server
-$PKG_INSTALL_PREFIX openssh-server
-# default = 22
-sudo ufw allow 22
-# limit login attempts per time
-$PKG_INSTALL_PREFIX fail2ban
-
-#Install docky
-$PKG_INSTALL_PREFIX docky
-
-#Install tmux
-$PKG_INSTALL_PREFIX tmux
-
-# gparted for partioning and tilda terminal.
-$PKG_INSTALL_PREFIX gparted tilda
-
-# Install yubikey software
-$PKG_REFRESH_PREFIX 
-$PKG_INSTALL_PREFIX libpam-yubico yubikey-personalization-gui yubikey-neo-manager
-
-# Install wine
-$PKG_INSTALL_PREFIX wine wine-tricks
-
-# Install emacs24.x
-#--Build commands for ubuntu--
-# https://lars.ingebrigtsen.no/2014/11/13/welcome-new-emacs-developers/
-
-if [ "$DISTRO_ID" == "ubuntu" ]; then
-	$PKG_INSTALL_PREFIX  gcc automake libmagick++-dev libgtk2.0-dev \
-	libxft-dev libgnutls-dev libdbus-1-dev libgif-dev texinfo libxpm-dev libacl1 libacl1-dev build-essential
-	#$PKG_INSTALL_PREFIX build-dep build-essential
-	cd $MY_GIT_REPO_DIR
-	git clone git://git.savannah.gnu.org/emacs.git
-	cd emacs
-	GIT_COMMON_DIR=$MY_GIT_REPO_DIR/emacs
-	make
-	sudo ./src/emacs &
-	ln -sb $MY_GIT_REPO_DIR/emacs $MY_BIN_DIR/emacs
-	unset GIT_COMMON_DIR
 elif [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_INSTALL_PREFIX build-devel emacs
-fi
+	echo "Enable multilib repository, by uncommenting the multilib] section in '/etc/pacman.conf' (BOTH LINES!!)"
+	sudo nano "/etc/pacman.conf"
 
-# Build and Install yaourt
+	# Locale
+	localectl set-locale LANG=en_GB.UTF-8
+	localectl set-keymap uk
+	sudo locale-gen "en_GB.UTF-8"
+	
+	# sudo update-locale LC_ALL=en_GB.UTF-8 LANG=en_GB.UTF-8
+	
+	#echo "export LANGUAGE=en_US.UTF-8
+#export LANG=en_US.UTF-8
+#export LC_ALL=en_US.UTF-8">>~/.bashrc_custom
 
-if [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_INSTALL_PREFIX --needed wget base-devel yajl
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX"yu"
+	$PKG_INSTALL_PREFIX bash-completion
+
+	# Build and Install yaourt
+	$PKG_INSTALL_PREFIX"g" --needed base-devel gcc-libs
+	$PKG_INSTALL_PREFIX --needed wget yajl
+	
 	mkdir -p $MY_DEV_DIR/AUR/ && cd $MY_DEV_DIR/AUR/
 
 	# Install package-query
@@ -213,30 +185,6 @@ if [ "$DISTRO_ID" == "arch" ]; then
 	tar xzf yaourt.tar.gz
 	cd yaourt && makepkg
 	sudo pacman -U yaourt*.pkg.tar.xz
-
-	# Install other related things...
-	sudo yaourt -S gdm3setup ntfs-config
-	$PKG_INSTALL_SRC_PREFIX part mtools btrfs-progs exfat-utils dosfstools
-	
-
-fi
-
-$PKG_REFRESH_PREFIX
-
-# libgtop for system monitoring, and other things
-if [ "$DISTRO_ID" == "ubuntu" ]; then
-	$PKG_INSTALL_PREFIX gir1.2-gtop-2.0 pulseaudio pavucontrol gnome-terminal firefox vlc unzip unrar p7zip pidgin skype deluge smplayer qmmp gimp xfburn thunderbird gedit gnome-system-monitor
-elif [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_INSTALL_PREFIX libgtop networkmanager
-
-	# other things...
-	sudo yaourt -S lib32-ncurses
-	sudo usermod -a -G games $USER
-
-	# For cinnamon
-	$PKG_INSTALL_PREFIX"yu"
-	$PKG_INSTALL_PREFIX bash-completion
-	$PKG_INSTALL_PREFIX xorg-server xorg-xinit xorg-utils xorg-server-utils mesa xorg-twm xterm xorg-xclock
 
 	# List drivers
 	
@@ -260,7 +208,84 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-ati
 		
 	## Intel ##
-	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-intel
+	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-intel	
+	
+fi
+
+# Install docky, tmux, tilda
+$PKG_INSTALL_PREFIX docky, tmux, tilda
+
+# Install yubikey software
+$PKG_INSTALL_PREFIX libpam-yubico yubikey-personalization-gui yubikey-neo-manager
+
+# Install wine
+$PKG_INSTALL_PREFIX wine wine-tricks
+
+# limit login attempts per attempt - ssh
+$PKG_INSTALL_PREFIX fail2ban
+
+if [ "$DISTRO_ID" == "ubuntu" ]; then
+
+	# See here: https://thepcspy.com/read/making-ssh-secure/
+	# http://portforward.com/
+	# Install ssh-server
+	$PKG_INSTALL_PREFIX openssh-server
+	# default = 22
+	sudo ufw allow 22
+
+	# Install emacs24.x
+	#--Build commands for ubuntu--
+	# https://lars.ingebrigtsen.no/2014/11/13/welcome-new-emacs-developers/
+	
+	$PKG_INSTALL_PREFIX  gcc automake libmagick++-dev libgtk2.0-dev \
+	libxft-dev libgnutls-dev libdbus-1-dev libgif-dev texinfo libxpm-dev libacl1 libacl1-dev build-essential
+	#$PKG_INSTALL_PREFIX build-dep build-essential
+	cd $MY_GIT_REPO_DIR
+	git clone git://git.savannah.gnu.org/emacs.git
+	cd emacs
+	GIT_COMMON_DIR=$MY_GIT_REPO_DIR/emacs
+	make
+	sudo ./src/emacs &
+	ln -sb $MY_GIT_REPO_DIR/emacs $MY_BIN_DIR/emacs
+	unset GIT_COMMON_DIR
+
+	# libgtop for system monitoring, and other apps
+	$PKG_INSTALL_PREFIX gir1.2-gtop-2.0 pulseaudio pavucontrol \
+	gnome-terminal firefox vlc unzip unrar p7zip pidgin skype deluge \
+	smplayer qmmp gimp xfburn thunderbird gedit gnome-system-monitor
+
+	# Webupd8
+	$PKG_INSTALL_PREFIX sublime-text atom
+
+	# Install pdf readers
+	$PKG_INSTALL_PREFIX xpdf okular
+
+	# Install Haskell
+	$PKG_INSTALL_PREFIX haskell-platform
+
+elif [ "$DISTRO_ID" == "arch" ]; then
+
+	# Install other related things...
+	sudo yaourt -S gdm3setup ntfs-config
+
+	# emacs
+	$PKG_INSTALL_PREFIX --needed build-devel emacs
+	
+	# For gparted
+	$PKG_INSTALL_SRC_PREFIX --needed gparted part mtools btrfs-progs exfat-utils dosfstools ntfs-3g
+
+	# For system monitoring
+	$PKG_INSTALL_PREFIX libgtop networkmanager
+
+	# For emulators
+	sudo yaourt -S lib32-ncurses
+	sudo usermod -a -G games $USER
+
+	# Install Haskell
+	$PKG_INSTALL_PREFIX ghc cabal-install haddock happy alex
+	
+	# For cinnamon
+	$PKG_INSTALL_PREFIX xorg-server xorg-xinit xorg-utils xorg-server-utils mesa xorg-twm xterm xorg-xclock
 
 	# cinnamon
 	sudo $PKG_INSTALL_PREFIX cinnamon nemo-fileroller
@@ -269,37 +294,34 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	sudo $PKG_INSTALL_PREFIX net-tools
 
 	# Basic software
-	sudo $PKG_INSTALL_PREFIX pulseaudio pulseaudio-alsa pavucontrol gnome-terminal firefox flashplugin vlc chromium unzip unrar p7zip pidgin skype deluge smplayer audacious qmmp gimp xfburn thunderbird gedit gnome-system-monitor
+	sudo $PKG_INSTALL_PREFIX pulseaudio pulseaudio-alsa pavucontrol \
+	gnome-terminal firefox flashplugin vlc chromium unzip unrar p7zip pidgin \
+	skype deluge smplayer audacious qmmp gimp xfburn thunderbird gedit gnome-system-monitor
 
 	# Codecs
-	sudo $PKG_INSTALL_PREFIX a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer0.10-plugins
+	sudo $PKG_INSTALL_PREFIX a52dec faac faad2 flac jasper lame libdca libdv \
+	libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer0.10-plugins
+	
 	# libreoffice
 	sudo $PKG_INSTALL_PREFIX libreoffice
 
-	#themes
+	# Themes
 	sudo $PKG_INSTALL_PREFIX faenza-icon-theme numix-themes
 
-	# Locale
-	localectl set-locale LANG=en_GB.UTF-8
-	localectl set-keymap uk
-
+	# Install pdf readers
+	$PKG_INSTALL_PREFIX evince epdfview
+	
+	# For GLFW 
+	$PKG_INSTALL_SRC_PREFIX --needed libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
 fi
 
-# Openssh and OpenPGP
-$PKG_INSTALL_PREFIX openssh pssh rsync
-$PKG_INSTALL_PREFIX seahorse nemo-seahorse gnupg
-
-# Install pdf readers
-$PKG_INSTALL_PREFIX xpdf okular
-
-# Webupd8
-$PKG_INSTALL_PREFIX sublime-text atom
+# OpenSSH, OpenPGP and rsync
+$PKG_INSTALL_PREFIX openssh pssh rsync seahorse nemo-seahorse gnupg
 
 # Syncthing
 $PKG_INSTALL_PREFIX syncthing syncthing-gtk
 
 # Development Tools
-
 $PKG_INSTALL_PREFIX libopenblas-dev gfortran
 
 # Set up Clojure with leiningen
@@ -312,9 +334,6 @@ lein
 cd $MY_DEV_DIR/temp
 curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
-# Install Haskell
-$PKG_INSTALL_PREFIX haskell-platform
-
 # Install elixir
 cd $MY_DEV_DIR/temp
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
@@ -326,40 +345,76 @@ cd $MY_DEV_DIR/temp && rm -rf *.deb
 # Install python
 if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
+	
+	# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
+	sudo pip install --upgrade pip
+	sudo pip3 install --upgrade pip
+
+	# Python IDLE editor
+	$PKG_INSTALL_PREFIX idle-python2* idle-python3* python-tk
+
+	#For lxml
+	$PKG_INSTALL_PREFIX libxml2-dev
+	$PKG_INSTALL_PREFIX libxslt-dev
+
+	# Download the latest pip package from source
+	wget -qO- https://bootstrap.pypa.io/get-pip.py | sudo python3
+
+	# Use pip3 to upgrade setuptools
+	sudo pip3 install --upgrade setuptools
+
+	# virtualenv
+	sudo -H pip install virtualenv
+	sudo -H pip install virtualenvwrapper
+
+	sudo -H pip3 install virtualenv
+	sudo -H pip3 install virtualenvwrapper
+
+	#http://virtualenvwrapper.readthedocs.org/en/latest/install.html#lazy-loading
+	export WORKON_HOME="$HOME"/.virtualenvs
+	export PROJECT_HOME="$HOME"/Projects
+	VIRTUALENVWRAPPER_PREFIX="/usr/local/bin/virtualenvwrapper"
+	
 elif [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_INSTALL_PREFIX python2 python-pip2 python python-pip3 build-devel
+	$PKG_INSTALL_PREFIX python2 python-pip2 python python-pip3
+	$PKG_INSTALL_PREFIX"g" --needed build-devel
+
+	# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
+	sudo pip2 install --upgrade pip
+	sudo pip install --upgrade pip
+
+	# For lxml
+	$PKG_INSTALL_PREFIX libx32-libxml2 lib32-libxslt
+
+	# Download the latest pip package from source
+	wget -qO- https://bootstrap.pypa.io/get-pip.py | sudo python
+
+	# Use pip to upgrade setuptools
+	sudo pip2 install --upgrade setuptools
+	sudo pip install --upgrade setuptools
+
+	# virtualenv
+	$PKG_INSTALL_PREFIX python2-virtualenv python-virtualenv python-virtualenvwrapper python2-virtualenvwrapper
+	sudo -H pip2 install virtualenvwrapper
+	sudo -H pip install virtualenvwrapper
+
+	export WORKON_HOME="$HOME"/.virtualenvs
+	export PROJECT_HOME="$HOME"/Projects
+	VIRTUALENVWRAPPER_PREFIX="/usr/bin/virtualenvwrapper"
+
 fi
 
-# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
-sudo pip install -U pip
-sudo pip3 install -U pip
-
-# IDLE editor
-$PKG_INSTALL_PREFIX idle-python2* idle-python3* python-tk
-
-#For lxml
-$PKG_INSTALL_PREFIX libxml2-dev
-$PKG_INSTALL_PREFIX libxslt-dev
-
-# Download the latest pip package from source
-wget -qO- https://bootstrap.pypa.io/get-pip.py | sudo python3
-
-# Use pip3 to upgrade setuptools
-sudo pip3 install --upgrade setuptools
-
-# virtualenv
-sudo -H pip install virtualenv
-sudo -H pip install virtualenvwrapper
-
-sudo -H pip3 install virtualenv
-sudo -H pip3 install virtualenvwrapper
-
-#http://virtualenvwrapper.readthedocs.org/en/latest/install.html#lazy-loading
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Projects
-export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
-source /usr/local/bin/virtualenvwrapper_lazy.sh
-
+if [ $(isVarDefined "$VIRTUALENVWRAPPER_PREFIX") ] then
+	if [ -f "$VIRTUALENVWRAPPER_PREFIX"_lazy.sh  ] then
+		export VIRTUALENVWRAPPER_SCRIPT="$VIRTUALENVWRAPPER_PREFIX""_lazy.sh"
+		source "$VIRTUALENVWRAPPER_SCRIPT"
+	else
+		if [ -f "$VIRTUALENVWRAPPER_PREFIX".sh ]; then
+			export VIRTUALENVWRAPPER_SCRIPT="$VIRTUALENVWRAPPER_PREFIX"".sh"
+			source "$VIRTUALENVWRAPPER_SCRIPT"
+		fi
+	fi
+fi
 
 if [ "$DISTRO_ID" == "ubuntu" ]; then
 	mkvirtualenv --python=/usr/bin/python2 --no-site-packages py2venv
@@ -384,11 +439,10 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	pip install -U pip
 	sudo -H pip install coursera-dl pyopenssl requests jupyter
 	deactivate
-	$PKG_INSTALL_PREFIX python2 python-pip2 python python-pip3 build-devel
 
-	# Numpy and Scipy
-	$PKG_INSTALL_PREFIX python2-numpy python2-scipy python2-matplotlib python2-pandas python2-nose python2-h5py
-	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
+	# Numpy and Scipy + jupyter or ipython
+	$PKG_INSTALL_PREFIX python2-numpy python2-scipy python2-matplotlib python2-pandas python2-nose python2-h5py ipython2-notebook
+	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py jupyter-notebook
 	
 fi
 
@@ -448,7 +502,7 @@ tar -xzvf install-tl-unx.tar.gz
 cd install-tl-*
 chmod +x install-tl
 sudo ./install-tl -gui text
-cd $HOME
+cd "$HOME"
 #PATH=/usr/local/texlive/2015:$PATH
 
 # Install texworks

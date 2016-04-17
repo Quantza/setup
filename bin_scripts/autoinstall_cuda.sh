@@ -20,9 +20,11 @@ wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_install
 chmod a+x ./cuda_7.5.18_linux.run
 sudo ./cuda_7.5.18_linux.run
 
-if [ "$DISTRO_ID" == "ubuntu" ]; then
-	#$PKG_INSTALL_PREFIX ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
+if [ "$DISTRO_ID" == "ubuntu" ]; then	
+	$PKG_INSTALL_PREFIX ocl-icd-opencl-dev python-pycuda python3-pycuda
 fi
+
+
 
 
 
