@@ -360,7 +360,8 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Download the latest pip package from source
 	wget -qO- https://bootstrap.pypa.io/get-pip.py | sudo python3
 
-	# Use pip3 to upgrade setuptools
+	# Use pip to upgrade setuptools
+	sudo pip install --upgrade setuptools
 	sudo pip3 install --upgrade setuptools
 
 	# virtualenv
@@ -369,6 +370,9 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	sudo -H pip3 install virtualenv
 	sudo -H pip3 install virtualenvwrapper
+
+	sudo pip install jupyter
+	sudo pip3 install jupyter
 
 	#http://virtualenvwrapper.readthedocs.org/en/latest/install.html#lazy-loading
 	export WORKON_HOME="$HOME"/.virtualenvs
@@ -397,6 +401,9 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX python2-virtualenv python-virtualenv python-virtualenvwrapper python2-virtualenvwrapper
 	sudo -H pip2 install virtualenvwrapper
 	sudo -H pip install virtualenvwrapper
+
+	sudo pip2 install jupyter
+	sudo pip install jupyter
 
 	export WORKON_HOME="$HOME"/.virtualenvs
 	export PROJECT_HOME="$HOME"/Projects
@@ -443,7 +450,6 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# Numpy and Scipy + jupyter or ipython
 	$PKG_INSTALL_PREFIX python2-numpy python2-scipy python2-matplotlib python2-pandas python2-nose python2-h5py ipython2-notebook
 	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py jupyter-notebook
-	
 fi
 
 # miniconda: http://conda.pydata.org/miniconda.html
