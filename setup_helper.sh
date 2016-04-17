@@ -1,5 +1,9 @@
 #!/bin/bash
 
+OLDDIR="$PWD"
+
+cd "$HOME"
+
 MY_BIN_DIR="$HOME/bin"
 if [ ! -d $MY_BIN_DIR ]; then
     mkdir $MY_BIN_DIR
@@ -328,10 +332,6 @@ sudo pip3 install -U pip
 # IDLE editor
 $PKG_INSTALL_PREFIX idle-python2* idle-python3* python-tk
 
-# Numpy and Scipy
-$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
-$PKG_INSTALL_PREFIX python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
-
 #For lxml
 $PKG_INSTALL_PREFIX libxml2-dev
 $PKG_INSTALL_PREFIX libxslt-dev
@@ -355,15 +355,37 @@ export PROJECT_HOME=$HOME/Projects
 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 source /usr/local/bin/virtualenvwrapper_lazy.sh
 
-mkvirtualenv --python=/usr/bin/python2 --no-site-packages py2venv
-pip install -U pip
-sudo -H pip install coursera-dl pyopenssl requests jupyter
-deactivate
 
-mkvirtualenv --python=/usr/bin/python3 --no-site-packages py3venv
-pip install -U pip
-sudo -H pip install coursera-dl pyopenssl requests jupyter
-deactivate
+if [ "$DISTRO_ID" == "ubuntu" ]; then
+	mkvirtualenv --python=/usr/bin/python2 --no-site-packages py2venv
+	pip install -U pip
+	sudo -H pip install coursera-dl pyopenssl requests jupyter
+	deactivate
+	mkvirtualenv --python=/usr/bin/python3 --no-site-packages py3venv
+	pip install -U pip
+	sudo -H pip install coursera-dl pyopenssl requests jupyter
+	deactivate
+	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
+	
+	# Numpy and Scipy
+	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
+	$PKG_INSTALL_PREFIX python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
+elif [ "$DISTRO_ID" == "arch" ]; then
+	virtualenv --python=/usr/bin/python2 --no-site-packages py2venv
+	pip install -U pip
+	sudo -H pip install coursera-dl pyopenssl requests jupyter
+	deactivate
+	virtualenv --python=/usr/bin/python --no-site-packages py3venv
+	pip install -U pip
+	sudo -H pip install coursera-dl pyopenssl requests jupyter
+	deactivate
+	$PKG_INSTALL_PREFIX python2 python-pip2 python python-pip3 build-devel
+
+	# Numpy and Scipy
+	$PKG_INSTALL_PREFIX python2-numpy python2-scipy python2-matplotlib python2-pandas python2-nose python2-h5py
+	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
+	
+fi
 
 # miniconda: http://conda.pydata.org/miniconda.html
 
@@ -455,11 +477,11 @@ chmod -vR 600 ~/.ssh/config
 chmod -R 0700 ~/dotfiles/.tools/
 
 # Clone and install go-ethereum and cpp-ethereum...
-chmod +x ./bin_scripts/autobuild_eth.sh
-source ./bin_scripts/autobuild_eth.sh
+chmod +x "$OLDDIR"/bin_scripts/autobuild_eth.sh
+source "$OLDDIR"/bin_scripts/autobuild_eth.sh
 
 # Download and install CUDA...
-chmod +x ./bin_scripts/autoinstall_cuda.sh
-source ./bin_scripts/autoinstall_cuda.sh
+chmod +x "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+source "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
 
 #unset DISTRO_ID

@@ -46,8 +46,6 @@ npm install cheerio
 # node.js
 #$PKG_INSTALL_PREFIX nodejs
 
-cd "$OLDDIR"
-
 # Install meteor
 curl https://install.meteor.com/ | sh
 
@@ -71,6 +69,8 @@ gvm list
 # Install rvm (for Ruby)
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 \curl -sSL https://get.rvm.io | bash -s stable
+
+cd "$OLDDIR"
 
 
 
