@@ -72,46 +72,51 @@ if [ "$DISTRO_ID" == "arch" ]; then
 	mkdir $HOME/Documents
 fi
 
-# git pull and install dotfiles as well
-cd $HOME
-if [ -d ./dotfiles/ ]; then
-    mv dotfiles dotfiles.old
+if [ ! -d $HOME/bin ]; then
+    mkdir $HOME/bin
 fi
 
-if [ -d .emacs.d/ ]; then
-    mv .emacs.d .emacs.d~
+DEV_DIR="$HOME/dev"
+if [ ! -d $MY_DEV_DIR ]; then
+    mkdir $MY_DEV_DIR
+    mkdir $MY_DEV_DIR/Projects
 fi
 
-if [ -d .tmux/ ]; then
-    mv .tmux .tmux~
+if [ ! -d $MY_DEV_DIR/temp ]; then
+    mkdir $MY_DEV_DIR/temp
 fi
 
-if [ -d .vagrant.d/ ]; then
-    mv .vagrant.d .vagrant.d~
+if [ ! -d $HOME/go ]; then
+    mkdir $HOME/go
 fi
 
-if [ -d .tools/ ]; then
-    mv .tools .tools.old
+if [ ! -d $HOME/logs ]; then
+    mkdir $HOME/logs
 fi
 
-if [ -f $HOME/start-agent-trigger ]; then
-	rm -rf $HOME/start-agent-trigger
+if [ ! -d $HOME/.ssh ]; then
+    mkdir $HOME/.ssh
 fi
 
-git clone git@github.com:Quantza/dotfiles.git
-ln -sb dotfiles/.screenrc .
-ln -sb dotfiles/.tmux.conf .
-ln -sb dotfiles/.gitmessage.txt .
-ln -sb dotfiles/.bash_profile .
-ln -sb dotfiles/.bashrc .
-ln -sb dotfiles/.theanorc .
-ln -sb dotfiles/.bashrc_custom .
-ln -sb dotfiles/site.cfg .
-ln -sb dotfiles/tools.sh .
-ln -sf dotfiles/.emacs.d .
-ln -sf dotfiles/.tmux .
-ln -sf dotfiles/.tools .
-ln -sf dotfiles/.vagrant.d .
+if [ ! -d $HOME/GitRepos ]; then
+    mkdir $HOME/GitRepos
+fi
+
+if [ ! -d $HOME/Projects ]; then
+    mkdir $HOME/Projects
+fi
+
+if [ ! -d $HOME/courseraDL ]; then
+    mkdir $HOME/courseraDL
+fi
+
+if [ ! -d $HOME/edxDL ]; then
+    mkdir $HOME/edxDL
+fi
+
+# git pull and install dotfiles
+chmod +x "$OLDDIR"/setup-dotfiles.sh
+source "$OLDDIR"/setup-dotfiles.sh
 
 # Ubuntu ppas
 
@@ -463,18 +468,6 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 #sudo add-apt-repository ppa:ethereum/ethereum-dev
 #$PKG_REFRESH_PREFIX 
 #$PKG_INSTALL_PREFIX cpp-ethereum mix
-
-if [ -d .ssh/ ]
-then
-    cp -R .ssh .ssh.old
-    cp dotfiles/.ssh/config ~/.ssh
-else
-    cp -R dotfiles/.ssh .
-    #chmod -vR 644 ~/.ssh/*.pub
-fi
-
-chmod -vR 600 ~/.ssh/config
-chmod -R 0700 ~/dotfiles/.tools/
 
 # Clone and install go-ethereum and cpp-ethereum...
 chmod +x "$OLDDIR"/bin_scripts/autobuild_eth.sh
