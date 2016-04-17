@@ -308,8 +308,28 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install texworks
 	$PKG_INSTALL_PREFIX texworks
 
-	# For GLFW 
+	# For GLFW and SFML
 	$PKG_INSTALL_SRC_PREFIX --needed libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
+
+	SFML_INSTALL_SUFFIX="sfml"
+	GLFW_INSTALL_SUFFIX="glfw"
+
+	cd $MY_GIT_REPO_DIR
+	git clone --recursive https://github.com/glfw/glfw.git glfw
+	git clone --recursive https://github.com/SFML/SFML.git sfml
+
+	mkdir $MY_DEV_DIR/"$GLFW_INSTALL_SUFFIX"
+	mkdir $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
+
+	# GLFW
+	
+	cd $MY_DEV_DIR/"$GLFW_INSTALL_SUFFIX"
+	cmake $MY_GIT_REPO_DIR/"$GLFW_INSTALL_SUFFIX"
+
+	# SFML
+
+	cd $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
+	cmake $MY_GIT_REPO_DIR/"$SFML_INSTALL_SUFFIX"
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 
@@ -386,8 +406,10 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	"""
 	
 	# For GLFW and SFML
+
 	$PKG_INSTALL_PREFIX --needed libevent doxygen xorg-server-dev glu mesa glew glm openal libsndfile xrandr libjpg-turbo freetype2
 
+	"""
 	SFML_INSTALL_SUFFIX="sfml"
 	GLFW_INSTALL_SUFFIX="glfw"
 
@@ -407,11 +429,9 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	cd $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
 	cmake $MY_GIT_REPO_DIR/"$SFML_INSTALL_SUFFIX"
+	"""
 
-	
-
-	
-	
+	$PKG_INSTALL_PREFIX --needed glfw sfml
 
 fi
 
