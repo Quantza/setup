@@ -250,22 +250,6 @@ $PKG_INSTALL_PREFIX syncthing syncthing-gtk
 
 # Development Tools
 
-# NVIDIA CUDA
-# Setup install
-CUDA75_DIR=$MY_DEV_DIR/cuda7.5
-
-if [ ! -d $CUDA75_DIR ]; then
-    mkdir $CUDA75_DIR
-fi
-
-cd $CUDA75_DIR
-
-# Install
-wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
-chmod a+x ./cuda_7.5.18_linux.run
-sudo ./cuda_7.5.18_linux.run
-#$PKG_INSTALL_PREFIX ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
-
 $PKG_INSTALL_PREFIX libopenblas-dev gfortran
 
 # Set up Clojure with leiningen
@@ -420,6 +404,26 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 # Clone and install go-ethereum and cpp-ethereum...
 chmod +x ./bin_scripts/autobuild_eth.sh
 source ./bin_scripts/autobuild_eth.sh
+
+"""
+
+# NVIDIA CUDA
+# Setup install
+CUDA75_DIR=$MY_DEV_DIR/cuda7.5
+
+if [ ! -d $CUDA75_DIR ]; then
+    mkdir $CUDA75_DIR
+fi
+
+cd $CUDA75_DIR
+
+# Install
+wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
+chmod a+x ./cuda_7.5.18_linux.run
+sudo ./cuda_7.5.18_linux.run
+#$PKG_INSTALL_PREFIX ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
+
+"""
 
 # git pull and install dotfiles as well
 cd $HOME
