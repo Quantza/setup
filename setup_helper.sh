@@ -68,6 +68,47 @@ if [ "$DISTRO_ID" == "arch" ]; then
 	mkdir $HOME/Documents
 fi
 
+# git pull and install dotfiles as well
+cd $HOME
+if [ -d ./dotfiles/ ]; then
+    mv dotfiles dotfiles.old
+fi
+
+if [ -d .emacs.d/ ]; then
+    mv .emacs.d .emacs.d~
+fi
+
+if [ -d .tmux/ ]; then
+    mv .tmux .tmux~
+fi
+
+if [ -d .vagrant.d/ ]; then
+    mv .vagrant.d .vagrant.d~
+fi
+
+if [ -d .tools/ ]; then
+    mv .tools .tools.old
+fi
+
+if [ -f $HOME/start-agent-trigger ]; then
+	rm -rf $HOME/start-agent-trigger
+fi
+
+git clone git@github.com:Quantza/dotfiles.git
+ln -sb dotfiles/.screenrc .
+ln -sb dotfiles/.tmux.conf .
+ln -sb dotfiles/.gitmessage.txt .
+ln -sb dotfiles/.bash_profile .
+ln -sb dotfiles/.bashrc .
+ln -sb dotfiles/.theanorc .
+ln -sb dotfiles/.bashrc_custom .
+ln -sb dotfiles/site.cfg .
+ln -sb dotfiles/tools.sh .
+ln -sf dotfiles/.emacs.d .
+ln -sf dotfiles/.tmux .
+ln -sf dotfiles/.tools .
+ln -sf dotfiles/.vagrant.d .
+
 # Ubuntu ppas
 
 if [ "$DISTRO_ID" == "ubuntu" ]; then
@@ -401,71 +442,6 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 #$PKG_REFRESH_PREFIX 
 #$PKG_INSTALL_PREFIX cpp-ethereum mix
 
-# Clone and install go-ethereum and cpp-ethereum...
-chmod +x ./bin_scripts/autobuild_eth.sh
-source ./bin_scripts/autobuild_eth.sh
-
-"""
-
-# NVIDIA CUDA
-# Setup install
-CUDA75_DIR=$MY_DEV_DIR/cuda7.5
-
-if [ ! -d $CUDA75_DIR ]; then
-    mkdir $CUDA75_DIR
-fi
-
-cd $CUDA75_DIR
-
-# Install
-wget -v http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
-chmod a+x ./cuda_7.5.18_linux.run
-sudo ./cuda_7.5.18_linux.run
-#$PKG_INSTALL_PREFIX ocl-icd-opencl-dev nvidia-cuda-toolkit python-pycuda python3-pycuda
-
-"""
-
-# git pull and install dotfiles as well
-cd $HOME
-if [ -d ./dotfiles/ ]; then
-    mv dotfiles dotfiles.old
-fi
-
-if [ -d .emacs.d/ ]; then
-    mv .emacs.d .emacs.d~
-fi
-
-if [ -d .tmux/ ]; then
-    mv .tmux .tmux~
-fi
-
-if [ -d .vagrant.d/ ]; then
-    mv .vagrant.d .vagrant.d~
-fi
-
-if [ -d .tools/ ]; then
-    mv .tools .tools.old
-fi
-
-if [ -f $HOME/start-agent-trigger ]; then
-	rm -rf $HOME/start-agent-trigger
-fi
-
-git clone git@github.com:Quantza/dotfiles.git
-ln -sb dotfiles/.screenrc .
-ln -sb dotfiles/.tmux.conf .
-ln -sb dotfiles/.gitmessage.txt .
-ln -sb dotfiles/.bash_profile .
-ln -sb dotfiles/.bashrc .
-ln -sb dotfiles/.theanorc .
-ln -sb dotfiles/.bashrc_custom .
-ln -sb dotfiles/site.cfg .
-ln -sb dotfiles/tools.sh .
-ln -sf dotfiles/.emacs.d .
-ln -sf dotfiles/.tmux .
-ln -sf dotfiles/.tools .
-ln -sf dotfiles/.vagrant.d .
-
 if [ -d .ssh/ ]
 then
     cp -R .ssh .ssh.old
@@ -477,5 +453,13 @@ fi
 
 chmod -vR 600 ~/.ssh/config
 chmod -R 0700 ~/dotfiles/.tools/
+
+# Clone and install go-ethereum and cpp-ethereum...
+chmod +x ./bin_scripts/autobuild_eth.sh
+source ./bin_scripts/autobuild_eth.sh
+
+# Download and install CUDA...
+chmod +x ./bin_scripts/autoinstall_cuda.sh
+source ./bin_scripts/autoinstall_cuda.sh
 
 #unset DISTRO_ID
