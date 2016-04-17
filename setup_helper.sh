@@ -170,7 +170,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Build and Install yaourt
 	$PKG_INSTALL_PREFIX"g" --needed base-devel gcc-libs
-	$PKG_INSTALL_PREFIX --needed wget yajl
+	$PKG_INSTALL_PREFIX --needed wget cmake yajl
 	
 	mkdir -p $MY_DEV_DIR/AUR/ && cd $MY_DEV_DIR/AUR/
 
@@ -308,6 +308,9 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install texworks
 	$PKG_INSTALL_PREFIX texworks
 
+	# For GLFW 
+	$PKG_INSTALL_SRC_PREFIX --needed libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
+
 elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Install other related things...
@@ -321,7 +324,12 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_SRC_PREFIX --needed gparted part mtools btrfs-progs exfat-utils dosfstools ntfs-3g
 
 	# For system monitoring
-	$PKG_INSTALL_PREFIX libgtop networkmanager util-linux
+	$PKG_INSTALL_PREFIX libgtop networkmanager util-linux conky
+	sudo usermod -aG log "$USER"
+
+	# Conky with Lua and NVIDIA support
+	# https://wiki.archlinux.org/index.php/Conky
+	# $YAOURT_INSTALL_PREFIX conky-lua-nv
 
 	# For emulators
 	$YAOURT_INSTALL_PREFIX lib32-ncurses
@@ -377,8 +385,34 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	texlive-music texlive-pictures texlive-plainextra texlive-pstricks texlive-publishers texlive-science
 	"""
 	
-	# For GLFW 
-	$PKG_INSTALL_SRC_PREFIX --needed libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
+	# For GLFW and SFML
+	$PKG_INSTALL_PREFIX --needed libevent doxygen xorg-server-dev glu mesa glew glm openal libsndfile xrandr libjpg-turbo freetype2
+
+	SFML_INSTALL_SUFFIX="sfml"
+	GLFW_INSTALL_SUFFIX="glfw"
+
+	cd $MY_GIT_REPO_DIR
+	git clone --recursive https://github.com/glfw/glfw.git glfw
+	git clone --recursive https://github.com/SFML/SFML.git sfml
+
+	mkdir $MY_DEV_DIR/"$GLFW_INSTALL_SUFFIX"
+	mkdir $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
+
+	# GLFW
+	
+	cd $MY_DEV_DIR/"$GLFW_INSTALL_SUFFIX"
+	cmake $MY_GIT_REPO_DIR/"$GLFW_INSTALL_SUFFIX"
+
+	# SFML
+
+	cd $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
+	cmake $MY_GIT_REPO_DIR/"$SFML_INSTALL_SUFFIX"
+
+	
+
+	
+	
+
 fi
 
 # OpenSSH, OpenPGP and rsync
