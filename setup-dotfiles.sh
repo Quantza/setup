@@ -1,6 +1,10 @@
 #!/bin/bash
 # Simple setup-dotfiles.sh for pulling and configuring dotfiles
 
+OLDDIR="$PWD"
+
+cd $HOME
+
 if [ ! -d $HOME/bin ]; then
     mkdir $HOME/bin
 fi
@@ -97,5 +101,7 @@ else
     #chmod -vR 644 ~/.ssh/*.pub
 fi
 
-chmod -vR 600 ~/.ssh/config
-chmod -R 0700 ~/dotfiles/.tools/
+chmod -vR 600 $HOME/.ssh/config
+chmod -R 0700 $HOME/dotfiles/.tools/
+
+cd "$OLDDIR"
