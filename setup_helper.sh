@@ -170,7 +170,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Build and Install yaourt
 	$PKG_INSTALL_PREFIX"g" --needed base-devel gcc-libs
-	$PKG_INSTALL_PREFIX --needed wget cmake yajl
+	$PKG_INSTALL_PREFIX --needed wget ncurses cmake yajl
 	
 	mkdir -p $MY_DEV_DIR/AUR/ && cd $MY_DEV_DIR/AUR/
 
