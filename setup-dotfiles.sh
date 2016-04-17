@@ -9,7 +9,7 @@ if [ ! -d $HOME/bin ]; then
     mkdir $HOME/bin
 fi
 
-DEV_DIR="$HOME/dev"
+MY_DEV_DIR="$HOME/dev"
 if [ ! -d $MY_DEV_DIR ]; then
     mkdir $MY_DEV_DIR
     mkdir $MY_DEV_DIR/Projects
@@ -85,8 +85,8 @@ ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.theanorc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sb dotfiles/site.cfg .
-ln -sb dotfiles/tools.sh $MY_BIN_DIR/tools_menu
-ln -sb dotfiles/determine_and_configure_linux_distro.sh $MY_BIN_DIR/det_conf_linux_dist
+ln -sb dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
+ln -sb dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
 ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
