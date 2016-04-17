@@ -50,6 +50,9 @@ fi
 # git pull and install dotfiles
 cd $HOME
 if [ -d ./dotfiles/ ]; then
+	if [ -d ./dotfiles.old/ ]; then
+	   rm -rf ./dotfiles.old/
+	fi
     mv dotfiles dotfiles.old
 fi
 
