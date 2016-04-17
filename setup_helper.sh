@@ -311,6 +311,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# For GLFW and SFML
 	$PKG_INSTALL_SRC_PREFIX --needed libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
 
+	"""
 	SFML_INSTALL_SUFFIX="sfml"
 	GLFW_INSTALL_SUFFIX="glfw"
 
@@ -330,6 +331,9 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	cd $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
 	cmake $MY_GIT_REPO_DIR/"$SFML_INSTALL_SUFFIX"
+	"""
+
+	$PKG_INSTALL_PREFIX glfw sfml
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 
