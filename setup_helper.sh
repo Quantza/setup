@@ -166,6 +166,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	$PKG_REFRESH_PREFIX
 	$PKG_INSTALL_PREFIX"yu"
+	
 	$PKG_INSTALL_PREFIX bash-completion
 
 	# Build and Install yaourt
@@ -237,7 +238,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	#--Build commands for ubuntu--
 	# https://lars.ingebrigtsen.no/2014/11/13/welcome-new-emacs-developers/
 	
-	$PKG_INSTALL_PREFIX  gcc automake cmake libmagick++-dev libgtk2.0-dev \
+	$PKG_INSTALL_PREFIX  gcc automake cmake cmake-qt-gui libmagick++-dev libgtk2.0-dev \
 	libxft-dev libgnutls-dev libdbus-1-dev libgif-dev texinfo libxpm-dev libacl1 libacl1-dev build-essential aptitude
 	#$PKG_INSTALL_PREFIX build-dep build-essential
 	cd $MY_GIT_REPO_DIR
