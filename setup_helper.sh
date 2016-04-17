@@ -263,6 +263,51 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install Haskell
 	$PKG_INSTALL_PREFIX haskell-platform
 
+	# Texlive
+	# Remove old files
+	CURRENT_TEX_LIVE_VERSION="2015"
+	TEX_INSTALL_DIR="/usr/local/texlive/""$CURRENT_TEX_LIVE_VERSION"
+	TEX_USER_DIR="$HOME/.texlive""$CURRENT_TEX_LIVE_VERSION"
+
+	if [ ! -d $TEX_INSTALL_DIR ]; then
+		rm -rf $TEX_INSTALL_DIR
+	fi
+
+	if [ ! -d $TEX_USER_DIR ]; then
+		rm -rf $TEX_USER_DIR
+	fi
+
+	# Setup install
+	TEX_DIR=$MY_DEV_DIR"/texlive"
+	TEX_INSTALL_FILES=$TEX_DIR"/install"
+
+	if [ ! -d $TEX_DIR ]; then
+		mkdir $TEX_DIR
+	fi
+
+	if [ ! -d $TEX_INSTALL_FILES ]; then
+		mkdir $TEX_INSTALL_FILES
+	fi
+
+	# Get and install tex-live
+	cd $TEX_INSTALL_FILES
+
+	if [ -f install-tl-unx.tar.gz ]; then
+		rm install-tl-unx.tar.gz
+	fi
+
+	wget -qO- http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+	tar -xzvf install-tl-unx.tar.gz
+	cd install-tl-*
+	chmod +x install-tl
+	sudo ./install-tl -gui text
+
+	cd "$HOME"
+	#PATH=/usr/local/texlive/2015:$PATH
+
+	# Install texworks
+	$PKG_INSTALL_PREFIX texworks
+
 elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Install other related things...
@@ -310,6 +355,11 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Install pdf readers
 	$PKG_INSTALL_PREFIX evince epdfview
+
+	# Texlive
+	$PKG_INSTALL_PREFIX texlive-core texlive-bibtexextra texlive-fontsextra texlive-formatsextra \
+	texlive-games texlive-genericextra texlive-htmlxml texlive-humanities texlive-latexextra \
+	texlive-music texlive-pictures texlive-plainextra texlive-pstricks texlive-publishers texlive-science
 	
 	# For GLFW 
 	$PKG_INSTALL_SRC_PREFIX --needed libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
@@ -469,52 +519,6 @@ git clone https://github.com/xybu/onedrive-d.git
 cd onedrive-d
 python3 setup.py build
 sudo python3 setup.py install
-
-# Texlive
-# Remove old files
-CURRENT_TEX_LIVE_VERSION="2015"
-TEX_INSTALL_DIR="/usr/local/texlive/""$CURRENT_TEX_LIVE_VERSION"
-TEX_USER_DIR="$HOME/.texlive""$CURRENT_TEX_LIVE_VERSION"
-
-if [ ! -d $TEX_INSTALL_DIR ]; then
-    rm -rf $TEX_INSTALL_DIR
-fi
-
-if [ ! -d $TEX_USER_DIR ]; then
-    rm -rf $TEX_USER_DIR
-fi
-
-# Setup install
-TEX_DIR=$MY_DEV_DIR/texlive
-TEX_INSTALL_FILES=$TEX_DIR/install
-
-if [ ! -d $TEX_DIR ]; then
-    mkdir $TEX_DIR
-fi
-
-if [ ! -d $TEX_INSTALL_FILES ]; then
-    mkdir $TEX_INSTALL_FILES
-fi
-
-# Get and install tex-live
-cd $TEX_INSTALL_FILES
-
-if [ -f install-tl-unx.tar.gz ]; then
-    rm install-tl-unx.tar.gz
-fi
-
-wget -qO- http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-tar -xzvf install-tl-unx.tar.gz
-cd install-tl-*
-chmod +x install-tl
-sudo ./install-tl -gui text
-cd "$HOME"
-#PATH=/usr/local/texlive/2015:$PATH
-
-# Install texworks
-sudo apt-get -y update
-sudo apt-get -y upgrade
-$PKG_INSTALL_PREFIX texworks
 
 # Install Heroku toolbelt
 # https://toolbelt.heroku.com/debian
