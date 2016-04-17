@@ -311,19 +311,20 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Install other related things...
-	sudo yaourt -S gdm3setup ntfs-config
+	$YAOURT_INSTALL_PREFIX gdm3setup ntfs-config
 
 	# emacs
 	$PKG_INSTALL_PREFIX --needed build-devel emacs
+	# emacs-nox (without X11 support)
 	
 	# For gparted
 	$PKG_INSTALL_SRC_PREFIX --needed gparted part mtools btrfs-progs exfat-utils dosfstools ntfs-3g
 
 	# For system monitoring
-	$PKG_INSTALL_PREFIX libgtop networkmanager
+	$PKG_INSTALL_PREFIX libgtop networkmanager util-linux
 
 	# For emulators
-	sudo yaourt -S lib32-ncurses
+	$YAOURT_INSTALL_PREFIX lib32-ncurses
 	sudo usermod -a -G games $USER
 
 	# Install Haskell
@@ -354,12 +355,27 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	sudo $PKG_INSTALL_PREFIX faenza-icon-theme numix-themes
 
 	# Install pdf readers
-	$PKG_INSTALL_PREFIX evince epdfview
+	$PKG_INSTALL_PREFIX evince kdegraphics-okular
 
-	# Texlive
+	# Texlive, editors, and calibre
+	$PKG_INSTALL_PREFIX texlive-most texmacs auctex texstudio calibre
+	$YAOURT_INSTALL_PREFIX jabref gedit-latex
+
+	# emacs org-mode
+	$YAOURT_INSTALL_PREFIX emacs-org-mode
+
+	# Visual studio code
+	$YAOURT_INSTALL_PREFIX visual-studio-code acroread
+
+	# OCR tools
+	$PKG_INSTALL_PREFIX tesseract tesseract-data-eng
+	$YAOURT_INSTALL_PREFIX gimagereader ocropy
+	
+	"""
 	$PKG_INSTALL_PREFIX texlive-core texlive-bibtexextra texlive-fontsextra texlive-formatsextra \
 	texlive-games texlive-genericextra texlive-htmlxml texlive-humanities texlive-latexextra \
 	texlive-music texlive-pictures texlive-plainextra texlive-pstricks texlive-publishers texlive-science
+	"""
 	
 	# For GLFW 
 	$PKG_INSTALL_SRC_PREFIX --needed libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
