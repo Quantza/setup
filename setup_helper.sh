@@ -308,10 +308,13 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install texworks
 	$PKG_INSTALL_PREFIX texworks
 
-	# For GLFW and SFML
-	$PKG_INSTALL_SRC_PREFIX --needed libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
+	# Install boost
+	$PKG_INSTALL_PREFIX libboost-all-dev
 
-	"""
+	# For GLFW and SFML
+	$PKG_INSTALL_PREFIX libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
+
+	'''
 	SFML_INSTALL_SUFFIX="sfml"
 	GLFW_INSTALL_SUFFIX="glfw"
 
@@ -331,7 +334,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	cd $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
 	cmake $MY_GIT_REPO_DIR/"$SFML_INSTALL_SUFFIX"
-	"""
+	'''
 
 	$PKG_INSTALL_PREFIX glfw sfml glm glew
 
@@ -345,7 +348,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# emacs-nox (without X11 support)
 	
 	# For gparted
-	$PKG_INSTALL_SRC_PREFIX --needed gparted part mtools btrfs-progs exfat-utils dosfstools ntfs-3g
+	$PKG_INSTALL_PREFIX --needed gparted part mtools btrfs-progs exfat-utils dosfstools ntfs-3g
 
 	# For system monitoring
 	$PKG_INSTALL_PREFIX libgtop networkmanager util-linux conky
@@ -403,17 +406,20 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX tesseract tesseract-data-eng
 	$YAOURT_INSTALL_PREFIX gimagereader ocropy
 	
-	"""
+	'''
 	$PKG_INSTALL_PREFIX texlive-core texlive-bibtexextra texlive-fontsextra texlive-formatsextra \
 	texlive-games texlive-genericextra texlive-htmlxml texlive-humanities texlive-latexextra \
 	texlive-music texlive-pictures texlive-plainextra texlive-pstricks texlive-publishers texlive-science
-	"""
+	'''
+
+	# Install boost
+	$PKG_INSTALL_PREFIX boost
 	
 	# For GLFW and SFML
 
 	$PKG_INSTALL_PREFIX --needed libevent doxygen xorg-server-dev glu mesa glew glm openal libsndfile xrandr libjpg-turbo freetype2
 
-	"""
+	'''
 	SFML_INSTALL_SUFFIX="sfml"
 	GLFW_INSTALL_SUFFIX="glfw"
 
@@ -433,7 +439,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	cd $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
 	cmake $MY_GIT_REPO_DIR/"$SFML_INSTALL_SUFFIX"
-	"""
+	'''
 
 	$PKG_INSTALL_PREFIX --needed glfw sfml
 
