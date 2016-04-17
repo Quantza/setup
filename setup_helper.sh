@@ -293,7 +293,7 @@ cd $MY_DEV_DIR/temp && rm -rf *.deb
 if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
 elif [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_INSTALL_PREFIX python2 python2-dev python-pip2 python python-dev python-pip3 build-devel
+	$PKG_INSTALL_PREFIX python2 python-pip2 python python-pip3 build-devel
 fi
 
 # python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
