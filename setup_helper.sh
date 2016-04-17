@@ -333,7 +333,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	cmake $MY_GIT_REPO_DIR/"$SFML_INSTALL_SUFFIX"
 	"""
 
-	$PKG_INSTALL_PREFIX glfw sfml
+	$PKG_INSTALL_PREFIX glfw sfml glm glew
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 
