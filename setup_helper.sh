@@ -238,7 +238,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	#--Build commands for ubuntu--
 	# https://lars.ingebrigtsen.no/2014/11/13/welcome-new-emacs-developers/
 	
-	$PKG_INSTALL_PREFIX  gcc automake cmake cmake-qt-gui libmagick++-dev libgtk2.0-dev \
+	$PKG_INSTALL_PREFIX  gcc gdb automake cmake cmake-qt-gui libmagick++-dev libgtk2.0-dev \
 	libxft-dev libgnutls-dev libdbus-1-dev libgif-dev texinfo libxpm-dev libacl1 libacl1-dev build-essential aptitude
 	#$PKG_INSTALL_PREFIX build-dep build-essential
 	cd $MY_GIT_REPO_DIR
@@ -313,7 +313,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX build-essential g++ python-dev autotools-dev libicu-dev build-essential libbz2-dev libboost-all-dev
 
 	# For GLFW and SFML
-	$PKG_INSTALL_PREFIX libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev
+	$PKG_INSTALL_PREFIX libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev mesa-common-dev
 
 	'''
 	SFML_INSTALL_SUFFIX="sfml"
@@ -338,6 +338,20 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	'''
 
 	$PKG_INSTALL_PREFIX glfw sfml glm glew
+
+	# codeblocks
+	$PKG_INSTALL_PREFIX codeblocks
+
+	# Qt
+	# http://wiki.qt.io/Install_Qt_5_on_Ubuntu
+	
+	cd $MY_DEV_DIR"/temp"
+	wget -qO- http://download.qt.io/official_releases/qt/5.6/5.6.0/qt-opensource-linux-x64-5.6.0.run
+
+	chmod +x qt-opensource-linux*
+	sudo ./qt-opensource-linux-x64-5.6.0.run
+	rm -rf qt-opensource-linux*
+	
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 
@@ -400,6 +414,12 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# emacs org-mode
 	$YAOURT_INSTALL_PREFIX emacs-org-mode
 
+	# codeblocks
+	$PKG_INSTALL_PREFIX codeblocks
+
+	# intellij
+	$PKG_INSTALL_PREFIX intellij-idea-libs intellij-idea-community-edition
+	
 	# Visual studio code
 	$YAOURT_INSTALL_PREFIX visual-studio-code acroread
 
@@ -443,6 +463,10 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	'''
 
 	$PKG_INSTALL_PREFIX --needed glfw sfml
+
+	# Qt
+	# https://wiki.archlinux.org/index.php/Qt
+	$PKG_INSTALL_PREFIX qt5-base qt5-doc qt4 qt4-doc qtchooser
 
 fi
 
