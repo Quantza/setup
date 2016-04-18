@@ -351,6 +351,21 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	chmod +x qt-opensource-linux*
 	sudo ./qt-opensource-linux-x64-5.6.0.run
 	rm -rf qt-opensource-linux*
+
+	QT_CREATOR_SHORTCUT_LOCATION="$HOME""/Desktop/Qt-Creator.desktop"
+
+	touch $QT_CREATOR_SHORTCUT_LOCATION
+
+	bash -c 'echo "[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=QtCreator
+Comment=QtCreator
+NoDsiplay=true
+Exec=(Install folder of QT)/Tools/QtCreator/bin/qtcreator %f
+Icon=(Install folder of QT)/5.4/Src/qtdoc/doc/images/landing/icon_QtCreator_78x78px.png
+Name[en_US]=Qt-Creator">>"$QT_CREATOR_SHORTCUT_LOCATION"'
 	
 
 elif [ "$DISTRO_ID" == "arch" ]; then
