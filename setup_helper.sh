@@ -352,7 +352,8 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	sudo ./qt-opensource-linux-x64-5.6.0.run
 	rm -rf qt-opensource-linux*
 
-	QT_CREATOR_SHORTCUT_LOCATION="$HOME""/Desktop/Qt-Creator.desktop"
+	QT_CREATOR_SHORTCUT_NAME="Qt-Creator.desktop"
+	export QT_CREATOR_SHORTCUT_LOCATION="$HOME""/Desktop/""$QT_CREATOR_SHORTCUT_NAME"
 
 	touch $QT_CREATOR_SHORTCUT_LOCATION
 
@@ -366,7 +367,29 @@ NoDsiplay=true
 Exec=(Install folder of QT)/Tools/QtCreator/bin/qtcreator %f
 Icon=(Install folder of QT)/5.4/Src/qtdoc/doc/images/landing/icon_QtCreator_78x78px.png
 Name[en_US]=Qt-Creator">>"$QT_CREATOR_SHORTCUT_LOCATION"'
+
+	'''
 	
+	QT_CREATOR_DIR="$HOME/.local/share/applications"
+
+	cp $QT_CREATOR_SHORTCUT_LOCATION "$QT_CREATOR_DIR"/"$QT_CREATOR_SHORTCUT_NAME"
+	
+	export QT_DEFAULTS_LIST="$QT_CREATOR_DIR"/"defaults.list"
+
+	touch "$QT_DEFAULTS_LIST"
+
+	'''
+	
+	#bash -c ' echo "text/qtcreator=Qt-Creator.desktop;">>"$DEFAULTS_LIST"'
+	#unset DEFAULTS_LIST
+
+	#unset QT_CREATOR_SHORTCUT_LOCATION
+
+	#echo "From here manually continue and add 'application/vnd.nokia.qt.qmakeprofile=qtcreator.desktop', under [Associations], if it is not present"
+
+	#sudo nano $QT_DEFAULTS_LIST
+
+	#sudo update-mime-database /usr/share/mime
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 
