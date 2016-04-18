@@ -604,15 +604,13 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 fi
 
-if [ $(isVarDefined "$VIRTUALENVWRAPPER_PREFIX") ] then
-	if [ -f "$VIRTUALENVWRAPPER_PREFIX"_lazy.sh  ] then
+if [ $(isVarDefined "$VIRTUALENVWRAPPER_PREFIX") ]; then
+	if [ -f "$VIRTUALENVWRAPPER_PREFIX"_lazy.sh  ]; then
 		export VIRTUALENVWRAPPER_SCRIPT="$VIRTUALENVWRAPPER_PREFIX""_lazy.sh"
 		source "$VIRTUALENVWRAPPER_SCRIPT"
-	else
-		if [ -f "$VIRTUALENVWRAPPER_PREFIX".sh ]; then
-			export VIRTUALENVWRAPPER_SCRIPT="$VIRTUALENVWRAPPER_PREFIX"".sh"
-			source "$VIRTUALENVWRAPPER_SCRIPT"
-		fi
+	elif [ -f "$VIRTUALENVWRAPPER_PREFIX".sh ]; then
+		export VIRTUALENVWRAPPER_SCRIPT="$VIRTUALENVWRAPPER_PREFIX"".sh"
+		source "$VIRTUALENVWRAPPER_SCRIPT"
 	fi
 fi
 
