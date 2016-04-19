@@ -213,6 +213,10 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	
 fi
 
+# rootkit scanners
+
+$PKG_INSTALL_PREFIX chkrootkit rkhunter
+
 # Install docky, tmux, tilda
 $PKG_INSTALL_PREFIX docky, tmux, tilda
 
