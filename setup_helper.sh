@@ -262,7 +262,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX sublime-text atom
 
 	# Install pdf readers
-	$PKG_INSTALL_PREFIX xpdf okular
+	$PKG_INSTALL_PREFIX xpdf okular cups cups-pdf
 
 	# Install Haskell
 	$PKG_INSTALL_PREFIX haskell-platform
