@@ -33,6 +33,7 @@ IS_UBUNTU=$?
 if (( $IS_UBUNTU == 0 )) || (( $IS_LINUX_MINT == 0 )); then
 	export PKG_INSTALL_PREFIX="sudo apt-get install -y"
 	export PKG_REFRESH_PREFIX="sudo apt-get update"
+        export PKG_INSTALL_DEB_PREFIX="sudo gebi"
 	export DISTRO_ID="ubuntu"
 elif (( $IS_ARCH == 0 )); then
 	export PKG_INSTALL_PREFIX="sudo pacman -S"
