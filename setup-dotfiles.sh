@@ -123,7 +123,7 @@ ln -sb dotfiles/site.cfg .
 ln -sb dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
 ln -sb dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
 ln -sf dotfiles/.emacs.d .
-ln -sf dotfiles/matplotlib ./config/matplotlib
+ln -sf dotfiles/matplotlib ./.config/matplotlib
 ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
 ln -sf dotfiles/.vagrant.d .
