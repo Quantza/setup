@@ -5,6 +5,11 @@ OLDDIR="$PWD"
 
 cd $HOME
 
+if [ "$DISTRO_ID" == "arch" ]; then
+	mkdir "$HOME"/Downloads
+	mkdir "$HOME"/Documents
+fi
+
 if [ ! -d $HOME/bin ]; then
     mkdir $HOME/bin
 fi
@@ -50,26 +55,53 @@ fi
 # git pull and install dotfiles
 cd $HOME
 if [ -d ./dotfiles/ ]; then
-	if [ -d ./dotfiles.old/ ]; then
-	   rm -rf ./dotfiles.old/
-	fi
-    mv dotfiles dotfiles.old
+    if [ -d ./dotfiles~/ ]; then
+        rm -rf ./dotfiles~/
+    fi
+    mv dotfiles dotfiles~
 fi
 
-if [ -d .emacs.d/ ]; then
+if [ ! -d .config/ ]; then
+    mkdir .config
+fi
+
+CONFIG_DIR="$HOME""/.config"
+cd "$CONFIG_DIR"
+if [ -d ./matplotlib/ ]; then
+    if [ -d ./matplotlib~/ ]; then
+        rm -rf ./matplotlib~/
+    fi
+    mv matplotlib matplotlib~
+fi
+
+cd "$HOME"
+
+if [ -d ./.emacs.d/ ]; then
+    if [ -d ./.emacs.d~/ ]; then
+        rm -rf ./.emacs.d~/
+    fi
     mv .emacs.d .emacs.d~
 fi
 
 if [ -d .tmux/ ]; then
+    if [ -d ./tmux~/ ]; then
+        rm -rf ./tmux~/
+    fi
     mv .tmux .tmux~
 fi
 
 if [ -d .vagrant.d/ ]; then
+    if [ -d ./.vagrant.d~/ ]; then
+        rm -rf ./.vagrant.d~/
+    fi
     mv .vagrant.d .vagrant.d~
 fi
 
 if [ -d .tools/ ]; then
-    mv .tools .tools.old
+    if [ -d ./tools~/ ]; then
+        rm -rf ./tools~/
+    fi
+    mv .tools .tools~
 fi
 
 if [ -f $HOME/start-agent-trigger ]; then
@@ -91,6 +123,7 @@ ln -sb dotfiles/site.cfg .
 ln -sb dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
 ln -sb dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
 ln -sf dotfiles/.emacs.d .
+ln -sf dotfiles/matplotlib ./config/matplotlib
 ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
 ln -sf dotfiles/.vagrant.d .

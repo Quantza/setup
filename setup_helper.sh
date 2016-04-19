@@ -67,53 +67,6 @@ $PKG_INSTALL_PREFIX git curl wget
 git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
 
-if [ "$DISTRO_ID" == "arch" ]; then
-	mkdir "$HOME"/Downloads
-	mkdir "$HOME"/Documents
-fi
-
-if [ ! -d "$HOME"/bin ]; then
-    mkdir "$HOME"/bin
-fi
-
-DEV_DIR="$HOME/dev"
-if [ ! -d $MY_DEV_DIR ]; then
-    mkdir $MY_DEV_DIR
-    mkdir $MY_DEV_DIR/Projects
-fi
-
-if [ ! -d $MY_DEV_DIR/temp ]; then
-    mkdir $MY_DEV_DIR/temp
-fi
-
-if [ ! -d "$HOME"/go ]; then
-    mkdir "$HOME"/go
-fi
-
-if [ ! -d "$HOME"/logs ]; then
-    mkdir "$HOME"/logs
-fi
-
-if [ ! -d "$HOME"/.ssh ]; then
-    mkdir "$HOME"/.ssh
-fi
-
-if [ ! -d "$HOME"/GitRepos ]; then
-    mkdir "$HOME"/GitRepos
-fi
-
-if [ ! -d "$HOME"/Projects ]; then
-    mkdir "$HOME"/Projects
-fi
-
-if [ ! -d "$HOME"/courseraDL ]; then
-    mkdir "$HOME"/courseraDL
-fi
-
-if [ ! -d "$HOME"/edxDL ]; then
-    mkdir "$HOME"/edxDL
-fi
-
 # git pull and install dotfiles
 chmod +x "$OLDDIR"/setup-dotfiles.sh
 source "$OLDDIR"/setup-dotfiles.sh
