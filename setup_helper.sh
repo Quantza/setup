@@ -268,7 +268,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX haskell-platform
 
         # Install jabref
-        sudo $PKG_INSTALL_PREFIX jabref 
+        $PKG_INSTALL_PREFIX jabref 
 
 	# Texlive
 	# Remove old files
