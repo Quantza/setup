@@ -33,3 +33,103 @@ git config --global user.email "post2base@outlook.com"
 
 chmod a+x ./bin_scripts/symlink_binaries.sh
 source ./bin_scripts/symlink_binaries.sh
+
+# git pull and install dotfiles
+chmod +x ./setup-dotfiles.sh
+source ./setup-dotfiles.sh
+
+# Ubuntu ppas, and Arch config/repos
+
+if [ "$DISTRO_ID" == "ubuntu" ]; then
+	sudo bash -c 'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse" >> /etc/apt/sources.list'
+
+	# WebUpd8
+	sudo add-apt-repository ppa:nilarimogard/webupd8
+	sudo add-apt-repository ppa:webupd8team/atom
+	sudo add-apt-repository ppa:webupd8team/sublime-text-2
+	#sudo add-apt-repository ppa:webupd8team/java
+
+	# Yubikey
+	sudo apt-add-repository ppa:yubico/stable
+
+	# Emacs Daily
+	sudo add-apt-repository -y ppa:ubuntu-elisp/ppa
+
+	# Wine
+	sudo add-apt-repository ppa:ubuntu-wine/ppa
+
+	# Texworks
+	sudo add-apt-repository -y ppa:texworks/stable
+
+	# Add the release PGP keys:
+	curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+
+	# Add the "release" channel to your APT sources:
+	echo "deb http://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
+
+	$PKG_REFRESH_PREFIX
+
+elif [ "$DISTRO_ID" == "arch" ]; then
+	echo "Enable multilib repository, by uncommenting the multilib] section in '/etc/pacman.conf' (BOTH LINES!!)"
+	sudo nano "/etc/pacman.conf"
+
+	# Locale
+	localectl set-locale LANG=en_GB.UTF-8
+	localectl set-keymap uk
+	sudo locale-gen "en_GB.UTF-8"
+	
+	# sudo update-locale LC_ALL=en_GB.UTF-8 LANG=en_GB.UTF-8
+	
+	#echo "export LANGUAGE=en_US.UTF-8
+#export LANG=en_US.UTF-8
+#export LC_ALL=en_US.UTF-8">>~/.bashrc_custom
+
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX"yu"
+	
+	$PKG_INSTALL_PREFIX bash-completion
+
+	# Build and Install yaourt
+	$PKG_INSTALL_PREFIX"g" --needed base-devel gcc-libs
+	$PKG_INSTALL_PREFIX --needed wget ncurses cmake yajl
+	
+	mkdir -p $MY_DEV_DIR/AUR/ && cd $MY_DEV_DIR/AUR/
+
+	# Install package-query
+	wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz  # download source tarball
+	tar xfz package-query.tar.gz  # unpack tarball
+	cd package-query && makepkg  # cd and create package from source
+	$PKG_INSTALL_SRC_PREFIX package-query*.pkg.tar.xz  # install package - need root privileges
+
+	# Install yaourt
+	wget https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
+	tar xzf yaourt.tar.gz
+	cd yaourt && makepkg
+	sudo pacman -U yaourt*.pkg.tar.xz
+
+	# List drivers
+	
+	## Nvidia ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep nvidia
+
+	## AMD/ATI ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep ATI
+	sudo $PKG_INSTALL_PREFIX"s" | grep AMD
+		
+	## Intel ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep intel
+	sudo $PKG_INSTALL_PREFIX"s" | grep Intel
+
+	##MULTILIB##
+
+	## Nvidia ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-nvidia
+
+	## AMD/ATI ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-ati
+		
+	## Intel ##
+	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-intel	
+	
+fi
+

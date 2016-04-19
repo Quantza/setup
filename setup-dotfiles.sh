@@ -10,14 +10,14 @@ if [ "$DISTRO_ID" == "arch" ]; then
 	mkdir "$HOME"/Documents
 fi
 
-if [ ! -d $HOME/bin ]; then
-    mkdir $HOME/bin
+MY_BIN_DIR="$HOME/bin"
+if [ ! -d $MY_BIN_DIR ]; then
+    mkdir $MY_BIN_DIR
 fi
 
 MY_DEV_DIR="$HOME/dev"
 if [ ! -d $MY_DEV_DIR ]; then
     mkdir $MY_DEV_DIR
-    mkdir $MY_DEV_DIR/Projects
 fi
 
 if [ ! -d $MY_DEV_DIR/temp ]; then
@@ -36,8 +36,9 @@ if [ ! -d $HOME/.ssh ]; then
     mkdir $HOME/.ssh
 fi
 
-if [ ! -d $HOME/GitRepos ]; then
-    mkdir $HOME/GitRepos
+MY_GIT_REPO_DIR="$HOME/GitRepos"
+if [ ! -d $MY_GIT_REPO_DIR ]; then
+    mkdir $MY_GIT_REPO_DIR
 fi
 
 if [ ! -d $HOME/Projects ]; then
