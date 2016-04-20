@@ -121,8 +121,8 @@ ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.theanorc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sb dotfiles/site.cfg .
-ln -sb dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
-ln -sb dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
+ln -sb $HOME/dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
+ln -sb $HOME/dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
 ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/matplotlib ./.config/matplotlib
 ln -sf dotfiles/.tmux .
