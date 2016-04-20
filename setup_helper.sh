@@ -346,7 +346,7 @@ cd $MY_DEV_DIR/temp && rm -rf *.deb
 
 # Install python
 if [ "$DISTRO_ID" == "ubuntu" ]; then
-	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
+	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential pandas
 	
 	# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
 	sudo pip install --upgrade pip
@@ -382,7 +382,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	VIRTUALENVWRAPPER_PREFIX="/usr/local/bin/virtualenvwrapper"
 	
 elif [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_INSTALL_PREFIX python2 python-pip2 python python-pip3
+	$PKG_INSTALL_PREFIX python2 python-pip2 python python-pip3 python2-pandas python2-seaborn python-pandas python-seaborn 
 	$PKG_INSTALL_PREFIX"g" --needed build-devel
 
 	# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
