@@ -54,7 +54,7 @@ if [ ! -d $HOME/edxDL ]; then
 fi
 
 # git pull and install dotfiles
-cd $HOME
+cd "$HOME"
 if [ -d ./dotfiles/ ]; then
     if [ -d ./dotfiles~/ ]; then
         rm -rf ./dotfiles~/
