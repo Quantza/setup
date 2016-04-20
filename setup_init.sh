@@ -1,5 +1,9 @@
 #!/bin/bash
 
+OLDDIR="$PWD"
+
+cd $HOME
+
 # Initial Tools
 
 #http://stackoverflow.com/questions/228544/how-to-tell-if-a-string-is-not-defined-in-a-bash-shell-script
@@ -132,4 +136,6 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-intel	
 	
 fi
+
+cd "$OLDDIR"
 

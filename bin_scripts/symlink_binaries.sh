@@ -1,5 +1,7 @@
 #!/bin/bash
 
+OLDDIR="$PWD"
+
 # Source: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
 # Checks that current directory name and working directory are equivalent
 # One liner: DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -53,3 +55,5 @@ symlink_binary_execs () {
 ls -f $DIR | while read -r file; do symlink_binary_execs $file; done
 
 echo "---Finished symlinking!---"
+
+cd "$OLDDIR"
