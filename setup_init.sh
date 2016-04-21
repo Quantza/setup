@@ -153,6 +153,7 @@ elif [ "$DISTRO_ID" == "cygwin" ]; then
 	# Install apt-cyg (OLD: https://github.com/kou1okada/apt-cyg)
 	# https://github.com/pi0/cyg
 	CYG_REPO_NAME="cyg"
+	MY_GIT_REPO_DIR="$HOME"
 	CYG_REPO_DIR="$MY_GIT_REPO_DIR"/"$CYG_REPO_NAME"
 	if [ ! -d $CYG_REPO_DIR ]; then
 	    cd $MY_GIT_REPO_DIR

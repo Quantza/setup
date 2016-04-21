@@ -3,19 +3,19 @@
 
 OLDDIR="$PWD"
 
-cd $HOME
+cd "$HOME"
 
 if [ "$DISTRO_ID" == "arch" ]; then
 	mkdir "$HOME"/Downloads
 	mkdir "$HOME"/Documents
 fi
 
-MY_BIN_DIR="$HOME/bin"
+MY_BIN_DIR="$HOME""/bin"
 if [ ! -d $MY_BIN_DIR ]; then
     mkdir $MY_BIN_DIR
 fi
 
-MY_DEV_DIR="$HOME/dev"
+MY_DEV_DIR="$HOME""/dev"
 if [ ! -d $MY_DEV_DIR ]; then
     mkdir $MY_DEV_DIR
 fi
@@ -24,16 +24,16 @@ if [ ! -d $MY_DEV_DIR/temp ]; then
     mkdir $MY_DEV_DIR/temp
 fi
 
-if [ ! -d $HOME/go ]; then
-    mkdir $HOME/go
+if [ ! -d "$HOME/"go ]; then
+    mkdir "$HOME/"go
 fi
 
-if [ ! -d $HOME/logs ]; then
-    mkdir $HOME/logs
+if [ ! -d "$HOME/"logs ]; then
+    mkdir "$HOME/"logs
 fi
 
-if [ ! -d $HOME/.ssh ]; then
-    mkdir $HOME/.ssh
+if [ ! -d "$HOME/".ssh ]; then
+    mkdir "$HOME/".ssh
 fi
 
 MY_GIT_REPO_DIR="$HOME/GitRepos"
@@ -41,16 +41,16 @@ if [ ! -d $MY_GIT_REPO_DIR ]; then
     mkdir $MY_GIT_REPO_DIR
 fi
 
-if [ ! -d $HOME/Projects ]; then
-    mkdir $HOME/Projects
+if [ ! -d "$HOME/"Projects ]; then
+    mkdir "$HOME/"Projects
 fi
 
-if [ ! -d $HOME/courseraDL ]; then
-    mkdir $HOME/courseraDL
+if [ ! -d "$HOME/"courseraDL ]; then
+    mkdir "$HOME/"courseraDL
 fi
 
-if [ ! -d $HOME/edxDL ]; then
-    mkdir $HOME/edxDL
+if [ ! -d "$HOME/"edxDL ]; then
+    mkdir "$HOME/"edxDL
 fi
 
 # git pull and install dotfiles
@@ -105,8 +105,8 @@ if [ -d .tools/ ]; then
     mv .tools .tools~
 fi
 
-if [ -f $HOME/cygwin-trigger ]; then
-	rm -rf $HOME/cygwin-trigger
+if [ -f "$HOME/"cygwin-trigger ]; then
+	rm -rf "$HOME/"cygwin-trigger
 fi
 
 git config --global user.name "Quantza"
@@ -121,8 +121,8 @@ ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.theanorc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sb dotfiles/site.cfg .
-ln -sb $HOME/dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
-ln -sb $HOME/dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
+ln -sb "$HOME/"dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
+ln -sb "$HOME/"dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
 ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/matplotlib ./.config/matplotlib
 ln -sf dotfiles/.tmux .
@@ -138,7 +138,7 @@ else
     #chmod -vR 644 ~/.ssh/*.pub
 fi
 
-chmod -vR 600 $HOME/.ssh/config
-chmod -R 0700 $HOME/dotfiles/.tools/
+chmod -vR 600 "$HOME/".ssh/config
+chmod -R 0700 "$HOME/"dotfiles/.tools/
 
 cd "$OLDDIR"
