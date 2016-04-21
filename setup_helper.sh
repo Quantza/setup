@@ -71,7 +71,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX haskell-platform
 
         # Install jabref
-        $PKG_INSTALL_PREFIX jabref 
+        $PKG_INSTALL_PREFIX jabref
 
 	# Texlive
 	# Remove old files
@@ -117,6 +117,26 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	# Install texworks
 	$PKG_INSTALL_PREFIX texworks
+
+        # Install virtualbox -->  change number to match current version - e.g. 5.0
+
+        #Oracle
+        '''
+        sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_release -cs)' contrib non-free' > /etc/apt/sources.list.d/virtualbox.list" && wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install virtualbox-5.0
+        '''
+
+        #Ubuntu
+        $PKG_INSTALL_PREFIX virtualbox-qt virtualbox-dkms linux-headers-generic
+
+        cd "$MY_DEV_DIR"
+        mkdir vbox
+        cd vbox
+
+        VBOX_EXT_PACK_NAME="Oracle_VM_VirtualBox_Extension_Pack-5.0.18-106667.vbox-extpack"
+        wget http://download.virtualbox.org/virtualbox/5.0.18/"$VBOX_EXT_PACK_NAME"
+
+        sudo VBoxManage extpack install "$VBOX_EXT_PACK_NAME"
+        
 
 	# Install boost
 	$PKG_INSTALL_PREFIX build-essential g++ python-dev autotools-dev libicu-dev build-essential libbz2-dev libboost-all-dev
@@ -279,6 +299,19 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	texlive-games texlive-genericextra texlive-htmlxml texlive-humanities texlive-latexextra \
 	texlive-music texlive-pictures texlive-plainextra texlive-pstricks texlive-publishers texlive-science
 	'''
+
+        #Install virtualbox
+        $PKG_INSTALL_PREFIX qt4 virtualbox virtualbox-host-dkms linux-headers net-tools
+
+        sudo dkms autoinstall
+
+        sudo dkms install vboxhost/$(pacman -Q virtualbox|awk '{print $2}'|sed 's/\-.\+//') -k $(uname -rm|sed 's/\ /\//')
+
+        sudo gpasswd -a "$USER" vboxusers
+
+        $PKG_INSTALL_PREFIX virtualbox-guest-iso
+
+        $YAOURT_INSTALL_PREFIX virtualbox-ext-oracle
 
 	# Install boost
 	$PKG_INSTALL_PREFIX boost
