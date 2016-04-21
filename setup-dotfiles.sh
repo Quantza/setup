@@ -105,8 +105,8 @@ if [ -d .tools/ ]; then
     mv .tools .tools~
 fi
 
-if [ -f $HOME/start-agent-trigger ]; then
-	rm -rf $HOME/start-agent-trigger
+if [ -f $HOME/cygwin-trigger ]; then
+	rm -rf $HOME/cygwin-trigger
 fi
 
 git config --global user.name "Quantza"
