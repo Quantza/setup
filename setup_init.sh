@@ -27,8 +27,8 @@ function isVarEmpty {
 export -f isVarDefined
 export -f isVarEmpty
 
-chmod a+x ./determine_and_configure_linux_distro.sh
-source ./determine_and_configure_linux_distro.sh
+chmod a+x "$OLDDIR"/determine_and_configure_linux_distro.sh
+source "$OLDDIR"/determine_and_configure_linux_distro.sh
 
 # Ubuntu ppas, and Arch config/repos
 
@@ -39,12 +39,12 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	git config --global user.name "Quantza"
 	git config --global user.email "post2base@outlook.com"
 
-	chmod a+x ./bin_scripts/symlink_binaries.sh
-	source ./bin_scripts/symlink_binaries.sh
+	chmod a+x "$OLDDIR"/bin_scripts/symlink_binaries.sh
+	source "$OLDDIR"/bin_scripts/symlink_binaries.sh
 
 	# git pull and install dotfiles
-	chmod +x ./setup-dotfiles.sh
-	source ./setup-dotfiles.sh
+	chmod +x "$OLDDIR"/setup-dotfiles.sh
+	source "$OLDDIR"/setup-dotfiles.sh
 
 	sudo bash -c 'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse" >> /etc/apt/sources.list'
 
@@ -81,14 +81,14 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	git config --global user.name "Quantza"
 	git config --global user.email "post2base@outlook.com"
 
-	chmod a+x ./bin_scripts/symlink_binaries.sh
-	source ./bin_scripts/symlink_binaries.sh
+	chmod a+x "$OLDDIR"/bin_scripts/symlink_binaries.sh
+	source "$OLDDIR"/bin_scripts/symlink_binaries.sh
 
 	# git pull and install dotfiles
-	chmod +x ./setup-dotfiles.sh
-	source ./setup-dotfiles.sh
+	chmod +x "$OLDDIR"/setup-dotfiles.sh
+	source "$OLDDIR"/setup-dotfiles.sh
 
-	echo "Enable multilib repository, by uncommenting the multilib] section in '/etc/pacman.conf' (BOTH LINES!!)"
+	echo "Enable multilib repository, by uncommenting the [multilib] section in '/etc/pacman.conf' (BOTH LINES!!)"
 	sudo nano "/etc/pacman.conf"
 
 	# Locale
@@ -97,7 +97,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	sudo locale-gen "en_GB.UTF-8"
 	
 	# sudo update-locale LC_ALL=en_GB.UTF-8 LANG=en_GB.UTF-8
-	
+
 	#echo "export LANGUAGE=en_US.UTF-8
 	#export LANG=en_US.UTF-8
 	#export LC_ALL=en_US.UTF-8">>~/.bashrc_custom
@@ -150,17 +150,18 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	sudo $PKG_INSTALL_PREFIX"s" | grep lib32-intel
 
 elif [ "$DISTRO_ID" == "cygwin" ]; then
-	# Install apt-cyg
+	# Install apt-cyg (OLD: https://github.com/kou1okada/apt-cyg)
 	# https://github.com/pi0/cyg
 	CYG_REPO_NAME="cyg"
 	CYG_REPO_DIR="$MY_GIT_REPO_DIR"/"$CYG_REPO_NAME"
 	if [ ! -d $CYG_REPO_DIR ]; then
 	    cd $MY_GIT_REPO_DIR
 	    git clone https://github.com/pi0/cyg.git "$CYG_REPO_NAME"
-	    ln -s "$CYG_REPO_DIR"/"apt-cyg" /usr/local/bin/
+	    ln -s "$("$CYG_REPO_DIR"/"cyg")" /usr/local/bin/
 	else
 	    cd $CYG_REPO_DIR
 	    git pull
+	fi
 fi
 
 cd "$OLDDIR"
