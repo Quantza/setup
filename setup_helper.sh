@@ -220,6 +220,17 @@ Name[en_US]=Qt-Creator">>"$QT_CREATOR_SHORTCUT_LOCATION"'
 
 	#sudo update-mime-database /usr/share/mime
 
+	# qTox
+
+	echo "deb https://pkg.tox.chat/debian nightly $(lsb_release -cs)" | sudo tee /etc/apt/sources.list.d/tox.list
+	wget -qO - https://pkg.tox.chat/debian/pkg.gpg.key | sudo apt-key add -
+	sudo apt-get install apt-transport-https
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX qtox
+
+	# See all available packages
+	# cat /var/lib/apt/lists/pkg.tox.chat* | grep "Package: "
+
 elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Install other related things...
@@ -293,6 +304,9 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# OCR tools
 	$PKG_INSTALL_PREFIX tesseract tesseract-data-eng
 	$YAOURT_INSTALL_PREFIX gimagereader ocropy
+
+	# qTox
+	$PKG_INSTALL_PREFIX qtox
 	
 	'''
 	$PKG_INSTALL_PREFIX texlive-core texlive-bibtexextra texlive-fontsextra texlive-formatsextra \
