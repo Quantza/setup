@@ -1,8 +1,10 @@
 #!/bin/bash
 
-OLDDIR="$PWD"
+if [ $(isVarDefined $OLDDIR) -eq 0 ]; then
+	OLDDIR="$PWD";
+fi
 
-echo "OLDDIR 1 IS HERE: $OLDDIR"
+echo "OLDDIR 1b IS HERE: $OLDDIR"
 
 # Determine OS platform
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")

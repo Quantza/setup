@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ ! $(isVarDefined $MY_BIN_DIR) ]; then
+if [ $(isVarDefined $MY_BIN_DIR) -eq 0 ]; then
 	MY_BIN_DIR="$HOME/bin";
 fi
 
-if [ ! $(isVarDefined $MY_GIT_REPO_DIR) ]; then
+if [ $(isVarDefined $MY_GIT_REPO_DIR) -eq 0 ]; then
 	MY_GIT_REPO_DIR="$HOME/GitRepos";
 fi
 

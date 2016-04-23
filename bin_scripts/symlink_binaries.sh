@@ -1,6 +1,8 @@
 #!/bin/bash
 
-OLDDIR="$PWD"
+if [ $(isVarDefined $OLDDIR) -eq 0 ]; then
+	OLDDIR="$PWD";
+fi
 
 echo "OLDDIR 2 IS HERE: $OLDDIR"
 

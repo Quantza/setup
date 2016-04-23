@@ -1,36 +1,43 @@
 #!/bin/bash
 
-OLDDIR="$PWD"
-
-echo "OLDDIR 0 IS HERE: $OLDDIR"
-
-cd $HOME
-
 # Initial Tools
 
 #http://stackoverflow.com/questions/228544/how-to-tell-if-a-string-is-not-defined-in-a-bash-shell-script
 
 function isVarDefined {
+	local result=0
 	if [ -z "${VAR+xxx}" ]; then
-		return 0;
-	else
-		return 1;
+		result=1
 	fi
+	return $result
 }
 
 function isVarEmpty {
+	local result=0
 	if [ -z "${VAR-}" ] && [ "${VAR+xxx}" = "xxx" ]; then
-		return 1;
-	else
-		return 0;
+		result=1
 	fi
+	return $result
 }
 
 export -f isVarDefined
 export -f isVarEmpty
 
+isVarDefined $PWD
+echo "sfefr$?"
+if [ $? -eq 0 ]; then
+	OLDDIR="$PWD";
+	echo "OLDDIR 1aINVALID IS HERE: $OLDDIR"
+fi
+
+echo "OLDDIR 1aVALID IS HERE: $OLDDIR"
+
+cd $HOME
+
 chmod a+x "$OLDDIR"/determine_and_configure_linux_distro.sh
 source "$OLDDIR"/determine_and_configure_linux_distro.sh
+
+echo "OLDDIR 1c IS HERE: $OLDDIR"
 
 # Ubuntu ppas, and Arch config/repos
 

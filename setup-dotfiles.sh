@@ -1,7 +1,9 @@
 #!/bin/bash
 # Simple setup-dotfiles.sh for pulling and configuring dotfiles
 
-OLDDIR="$PWD"
+if [ $(isVarDefined $OLDDIR) -eq 0 ]; then
+	OLDDIR="$PWD";
+fi
 
 echo "OLDDIR 3 IS HERE: $OLDDIR"
 
