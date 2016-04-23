@@ -2,6 +2,8 @@
 
 OLDDIR="$PWD"
 
+echo "OLDDIR 2 IS HERE: $OLDDIR"
+
 # Source: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
 # Checks that current directory name and working directory are equivalent
 # One liner: DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )

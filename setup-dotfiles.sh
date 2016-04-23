@@ -3,6 +3,8 @@
 
 OLDDIR="$PWD"
 
+echo "OLDDIR 3 IS HERE: $OLDDIR"
+
 cd "$HOME"
 
 if [ "$DISTRO_ID" == "arch" ]; then

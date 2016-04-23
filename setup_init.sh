@@ -2,6 +2,8 @@
 
 OLDDIR="$PWD"
 
+echo "OLDDIR 0 IS HERE: $OLDDIR"
+
 cd $HOME
 
 # Initial Tools
@@ -39,12 +41,8 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	git config --global user.name "Quantza"
 	git config --global user.email "post2base@outlook.com"
 
-	echo "HOME IS HERE 1: $OLDDIR"
-
 	chmod a+x "$OLDDIR"/bin_scripts/symlink_binaries.sh
 	source "$OLDDIR"/bin_scripts/symlink_binaries.sh
-
-	echo "HOME IS HERE 2: $OLDDIR"
 
 	# git pull and install dotfiles
 	chmod +x "$OLDDIR"/setup-dotfiles.sh

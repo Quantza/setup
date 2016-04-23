@@ -2,6 +2,8 @@
 
 OLDDIR="$PWD"
 
+echo "OLDDIR 1 IS HERE: $OLDDIR"
+
 # Determine OS platform
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 # If Linux, try to determine specific distribution
