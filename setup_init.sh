@@ -24,8 +24,9 @@ export -f isVarDefined
 export -f isVarEmpty
 
 isVarDefined $PWD
-echo "sfefr$?"
-if [ $? -eq 0 ]; then
+RESULT=$?
+echo "sfefr_$RESULT"
+if [ $RESULT -eq 0 ]; then
 	OLDDIR="$PWD";
 	echo "OLDDIR 1aINVALID IS HERE: $OLDDIR"
 fi
