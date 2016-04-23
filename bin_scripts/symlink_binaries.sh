@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ $(isVarDefined $OLDDIR) -eq 0 ]; then
+isVarDefined $OLDDIR
+if [ $? -eq 0 ]; then
 	OLDDIR="$PWD";
+	echo "OLDDIR 2 INVALID IS HERE: $OLDDIR"
 fi
-
-echo "OLDDIR 2 IS HERE: $OLDDIR"
 
 # Source: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
 # Checks that current directory name and working directory are equivalent

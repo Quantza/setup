@@ -3,8 +3,9 @@
 # NVIDIA CUDA
 # Setup install
 
-if [ ! $(isVarDefined $MY_DEV_DIR) ]; then
-	MY_DEV_DIR="$HOME/dev";
+isVarDefined "$MY_DEV_DIR"
+if [ $? -eq 0 ]; then
+	export MY_DEV_DIR="$HOME/dev";
 fi
 
 CUDA75_DIR=$MY_DEV_DIR/cuda7.5

@@ -1,11 +1,13 @@
 #!/bin/bash
 
-if [ ! $(isVarDefined $MY_BIN_DIR) ]; then
-	MY_BIN_DIR="$HOME/bin";
+isVarDefined "$MY_BIN_DIR"
+if [ $? -eq 0 ]; then
+	export MY_BIN_DIR="$HOME/bin";
 fi
 
-if [ ! $(isVarDefined $MY_GIT_REPO_DIR) ]; then
-	MY_GIT_REPO_DIR="$HOME/GitRepos";
+isVarDefined "$MY_GIT_REPO_DIR"
+if [ $? -eq 0 ]; then
+        export MY_GIT_REPO_DIR="$HOME/GitRepos";
 fi
 
 echo Updating and building go-ethereum, cpp-ethereum and mist-wallet...

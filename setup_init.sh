@@ -6,7 +6,7 @@
 
 function isVarDefined {
 	local result=0
-	if [ -z "${VAR+xxx}" ]; then
+	if [ -z "${1+xxx}" ]; then
 		result=1
 	fi
 	return $result
@@ -14,7 +14,7 @@ function isVarDefined {
 
 function isVarEmpty {
 	local result=0
-	if [ -z "${VAR-}" ] && [ "${VAR+xxx}" = "xxx" ]; then
+	if [ -z "${1-}" ] && [ "${1+xxx}" = "xxx" ]; then
 		result=1
 	fi
 	return $result
@@ -23,15 +23,13 @@ function isVarEmpty {
 export -f isVarDefined
 export -f isVarEmpty
 
-isVarDefined $PWD
-RESULT=$?
-echo "sfefr_$RESULT"
-if [ $RESULT -eq 0 ]; then
+isVarDefined $OLDDIR
+if [ $? -eq 0 ]; then
 	OLDDIR="$PWD";
-	echo "OLDDIR 1aINVALID IS HERE: $OLDDIR"
+	echo "OLDDIR 1a INVALID IS HERE: $OLDDIR"
 fi
 
-echo "OLDDIR 1aVALID IS HERE: $OLDDIR"
+echo "OLDDIR 1a VALID IS HERE: $OLDDIR"
 
 cd $HOME
 

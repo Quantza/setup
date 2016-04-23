@@ -1,11 +1,11 @@
 #!/bin/bash
 # Simple setup-dotfiles.sh for pulling and configuring dotfiles
 
-if [ $(isVarDefined $OLDDIR) -eq 0 ]; then
+isVarDefined $OLDDIR
+if [ $? -eq 0 ]; then
 	OLDDIR="$PWD";
+	echo "OLDDIR 3 INVALID IS HERE: $OLDDIR"
 fi
-
-echo "OLDDIR 3 IS HERE: $OLDDIR"
 
 cd "$HOME"
 

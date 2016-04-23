@@ -2,7 +2,7 @@
 # Simple setup.sh for configuring Ubuntu 14.04 and derivatives,
 # for headless setup.
 
-export OLDDIR="$PWD"
+OLDDIR="$PWD"
 
 chmod a+x ./setup_init.sh
 source ./setup_init.sh
