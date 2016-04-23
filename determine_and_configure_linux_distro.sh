@@ -1,5 +1,7 @@
 #!/bin/bash
 
+OLDDIR="$PWD"
+
 # Determine OS platform
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 # If Linux, try to determine specific distribution
@@ -49,3 +51,5 @@ elif [ -f "$HOME"/"cygwin-trigger" ]; then
 	export PKG_FIND_PREFIX="apt-cyg find"
     export DISTRO_ID="cygwin"
 fi
+
+cd "$OLDDIR"
