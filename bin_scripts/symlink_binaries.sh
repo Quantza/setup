@@ -10,8 +10,9 @@ fi
 # Checks that current directory name and working directory are equivalent
 # One liner: DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-if [ ! $(isVarDefined "$MY_BIN_DIR") ]; then
-    export MY_BIN_DIR="$HOME/bin";
+isVarDefined "$MY_BIN_DIR"
+if [ $? -eq 0 ]; then
+	export MY_BIN_DIR="$HOME/bin";
 fi
 
 SYMLINKDIR="$MY_BIN_DIR"
@@ -28,9 +29,6 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
   [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-
-#ln -sb $DIR/autobuild_eth.sh $HOME/bin/autobuild_eth
-#ln -sb $DIR/autoupdate_eth.sh $HOME/bin/autoupdate_eth
 
 symlink_binary_execs () {
 	
