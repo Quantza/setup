@@ -20,7 +20,7 @@ gem install bundler
 $PKG_INSTALL_PREFIX chkrootkit rkhunter
 
 # Install docky, tmux, tilda
-$PKG_INSTALL_PREFIX docky, tmux, tilda
+$PKG_INSTALL_PREFIX docky tmux tilda
 
 # Install yubikey software
 $PKG_INSTALL_PREFIX libpam-yubico yubikey-personalization-gui yubikey-neo-manager
@@ -460,7 +460,8 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 fi
 
-if [ $(isVarDefined "$VIRTUALENVWRAPPER_PREFIX") ]; then
+isVarDefined "$VIRTUALENVWRAPPER_PREFIX"
+if [ $? -eq 0 ]; then
 	if [ -f "$VIRTUALENVWRAPPER_PREFIX"_lazy.sh  ]; then
 		export VIRTUALENVWRAPPER_SCRIPT="$VIRTUALENVWRAPPER_PREFIX""_lazy.sh"
 		source "$VIRTUALENVWRAPPER_SCRIPT"
