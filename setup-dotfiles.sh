@@ -108,8 +108,8 @@ if [ -d .tools/ ]; then
     mv .tools .tools~
 fi
 
-if [ -f "$HOME/"cygwin-trigger ]; then
-	rm -rf "$HOME/"cygwin-trigger
+if [ -f "$HOME"/cygwin-trigger ]; then
+	rm -rf "$HOME"/cygwin-trigger
 fi
 
 git config --global user.name "Quantza"
@@ -124,8 +124,8 @@ ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.theanorc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sb dotfiles/site.cfg .
-ln -sb "$HOME/"dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
-ln -sb "$HOME/"dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
+ln -sb "$HOME"/dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
+ln -sb "$HOME"/dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
 ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/matplotlib ./.config/matplotlib
 ln -sf dotfiles/.tmux .
@@ -134,14 +134,14 @@ ln -sf dotfiles/.vagrant.d .
 
 if [ -d .ssh/ ]
 then
-    cp -R .ssh .ssh.old
+    cp -R .ssh .ssh~
     cp dotfiles/.ssh/config ~/.ssh
 else
     cp -R dotfiles/.ssh .
     #chmod -vR 644 ~/.ssh/*.pub
 fi
 
-chmod -vR 600 "$HOME/".ssh/config
-chmod -R 0700 "$HOME/"dotfiles/.tools/
+chmod -vR 600 "$HOME"/.ssh/config
+chmod -R 0700 "$HOME"/dotfiles/.tools/
 
 cd "$OLDDIR"
