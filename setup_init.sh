@@ -24,9 +24,8 @@ export -f isVarDefined
 export -f isVarEmpty
 
 isVarDefined "$OLDDIR"
-if [ $? -eq 1 ]; then
+if [ $? -gt 0 ]; then
 	OLDDIR="$PWD";
-	echo "OLDDIR 1a INVALID IS HERE: $OLDDIR"
 fi
 
 cd $HOME

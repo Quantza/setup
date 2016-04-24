@@ -1,7 +1,7 @@
 #!/bin/bash
 
 isVarDefined "$OLDDIR"
-if [ $? -eq 1 ]; then
+if [ $? -gt 0 ]; then
 	OLDDIR="$PWD";
 fi
 
