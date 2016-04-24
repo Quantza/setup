@@ -47,9 +47,17 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX  gcc gdb automake cmake cmake-qt-gui libmagick++-dev libgtk2.0-dev \
 	libxft-dev libgnutls-dev libdbus-1-dev libgif-dev texinfo libxpm-dev libacl1 libacl1-dev build-essential aptitude
 	#$PKG_INSTALL_PREFIX build-dep build-essential
-	cd $MY_GIT_REPO_DIR
-	git clone git://git.savannah.gnu.org/emacs.git
-	cd emacs
+
+	EMACS_DEV_DIR="$MY_GIT_REPO_DIR"/emacs
+	if [ ! -d $EMACS_DEV_DIR ]; then
+	    cd $MY_GIT_REPO_DIR
+	    git clone git://git.savannah.gnu.org/emacs.git
+		cd emacs
+	else
+	    cd $EMACS_DEV_DIR
+	    git pull
+	fi
+
 	GIT_COMMON_DIR=$MY_GIT_REPO_DIR/emacs
 	make
 	sudo ./src/emacs &
