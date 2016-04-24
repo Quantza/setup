@@ -23,20 +23,16 @@ function isVarEmpty {
 export -f isVarDefined
 export -f isVarEmpty
 
-isVarDefined $OLDDIR
-if [ $? -eq 0 ]; then
+isVarDefined "$OLDDIR"
+if [ $? -eq 1 ]; then
 	OLDDIR="$PWD";
 	echo "OLDDIR 1a INVALID IS HERE: $OLDDIR"
 fi
-
-echo "OLDDIR 1a VALID IS HERE: $OLDDIR"
 
 cd $HOME
 
 chmod a+x "$OLDDIR"/determine_and_configure_linux_distro.sh
 source "$OLDDIR"/determine_and_configure_linux_distro.sh
-
-echo "OLDDIR 1c IS HERE: $OLDDIR"
 
 # Ubuntu ppas, and Arch config/repos
 

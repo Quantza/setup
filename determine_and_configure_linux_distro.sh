@@ -1,9 +1,8 @@
 #!/bin/bash
 
-isVarDefined $OLDDIR
-if [ $? -eq 0 ]; then
+isVarDefined "$OLDDIR"
+if [ $? -eq 1 ]; then
 	OLDDIR="$PWD";
-	echo "OLDDIR 1b INVALID IS HERE: $OLDDIR"
 fi
 
 # Determine OS platform

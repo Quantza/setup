@@ -1,9 +1,8 @@
 #!/bin/bash
 
-isVarDefined $OLDDIR
-if [ $? -eq 0 ]; then
+isVarDefined "$OLDDIR"
+if [ $? -eq 1 ]; then
 	OLDDIR="$PWD";
-	echo "OLDDIR 2 INVALID IS HERE: $OLDDIR"
 fi
 
 # Source: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
