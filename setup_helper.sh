@@ -26,7 +26,7 @@ $PKG_INSTALL_PREFIX docky tmux tilda
 $PKG_INSTALL_PREFIX libpam-yubico yubikey-personalization-gui yubikey-neo-manager
 
 # Install wine
-$PKG_INSTALL_PREFIX wine wine-tricks
+$PKG_INSTALL_PREFIX wine winetricks
 
 # limit login attempts per attempt - ssh
 $PKG_INSTALL_PREFIX fail2ban
@@ -54,6 +54,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	make
 	sudo ./src/emacs &
 	ln -sb $MY_GIT_REPO_DIR/emacs $MY_BIN_DIR/emacs
+	sudo make install
 	unset GIT_COMMON_DIR
 
 	# libgtop for system monitoring, and other apps
