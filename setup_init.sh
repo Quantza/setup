@@ -28,7 +28,7 @@ if [ $? -gt 0 ]; then
 	OLDDIR="$PWD";
 fi
 
-cd $HOME
+cd "$HOME"
 
 chmod a+x "$OLDDIR"/determine_and_configure_linux_distro.sh
 source "$OLDDIR"/determine_and_configure_linux_distro.sh

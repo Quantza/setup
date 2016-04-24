@@ -1,6 +1,9 @@
 #!/bin/bash
 
-OLDDIR="$PWD"
+isVarDefined "$OLDDIR"
+if [ $? -gt 0 ]; then
+	OLDDIR="$PWD";
+fi
 
 cd "$HOME"
 

@@ -1,6 +1,9 @@
 #!/bin/bash
 
-OLDDIR="$PWD"
+isVarDefined "$OLDDIR"
+if [ $? -gt 0 ]; then
+	OLDDIR="$PWD";
+fi
 
 cd "$HOME"
 
@@ -507,6 +510,14 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
 	$PKG_INSTALL_PREFIX python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
 
+	# Clone and install go-ethereum and cpp-ethereum...
+	chmod +x "$OLDDIR"/bin_scripts/autobuild_eth.sh
+	source "$OLDDIR"/bin_scripts/autobuild_eth.sh
+
+	# Download and install CUDA...
+	chmod +x "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+	source "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+
 elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Onedrive-d cont...
@@ -555,11 +566,11 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 #$PKG_INSTALL_PREFIX cpp-ethereum mix
 
 # Clone and install go-ethereum and cpp-ethereum...
-chmod +x "$OLDDIR"/bin_scripts/autobuild_eth.sh
-source "$OLDDIR"/bin_scripts/autobuild_eth.sh
+#chmod +x "$OLDDIR"/bin_scripts/autobuild_eth.sh
+#source "$OLDDIR"/bin_scripts/autobuild_eth.sh
 
 # Download and install CUDA...
-chmod +x "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
-source "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+#chmod +x "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+#source "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
 
 #unset DISTRO_ID
