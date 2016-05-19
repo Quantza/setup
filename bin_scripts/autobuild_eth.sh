@@ -52,6 +52,7 @@ echo ---go-ethereum was compiled successfully---
 echo ---cpp-ethereum---
 cd $MY_GIT_REPO_DIR
 git clone --recursive https://github.com/ethereum/webthree-umbrella.git cpp-ethereum
+#git clone --recursive https://github.com/bobsummerwill/cpp-ethereum.git cpp-ethereum
 cd cpp-ethereum
 git checkout develop
 #git checkout release
@@ -83,6 +84,11 @@ chmod +x "$MY_GIT_REPO_DIR"/"$ETHMINER_SUFFIX"
 echo ---cpp-ethereum was compiled successfully---
 
 echo ---mist-wallet---
+# Source: https://github.com/ethereum/mist
+cd $HOME
+curl https://install.meteor.com/ | sh
+npm install -g electron-prebuilt@0.37.2
+
 cd $MY_GIT_REPO_DIR
 git clone https://github.com/ethereum/mist.git
 cd mist

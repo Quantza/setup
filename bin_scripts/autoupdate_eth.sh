@@ -54,10 +54,14 @@ chmod +x "$MY_GIT_REPO_DIR"/"$ETHMINER_SUFFIX"
 echo ---cpp-ethereum was compiled successfully---
 
 echo ---mist-wallet---
+# Source: https://github.com/ethereum/mist
+cd $HOME
+# Need this, if not installed: #curl https://install.meteor.com/ | sh
+npm install -g electron-prebuilt@0.37.2
+
 cd $MY_GIT_REPO_DIR
-git clone https://github.com/ethereum/mist.git
 cd mist
-git submodule update --init
+git pull && git submodule update
 npm install
 
 echo ---mist-wallet was compiled successfully---
