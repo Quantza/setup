@@ -399,7 +399,8 @@ curl -sSf https://static.rust-lang.org/rustup.sh | sh
 cd $MY_DEV_DIR/temp
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
 $PKG_REFRESH_PREFIX 
-$PKG_INSTALL_PREFIX esl-erlang elixir
+$PKG_INSTALL_PREFIX esl-erlang
+$PKG_INSTALL_PREFIX elixir
 export PATH="$PATH:$(which elixir)"
 cd $MY_DEV_DIR/temp && rm -rf *.deb
 
