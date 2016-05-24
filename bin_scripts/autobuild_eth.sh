@@ -51,8 +51,8 @@ echo ---go-ethereum was compiled successfully---
 
 echo ---cpp-ethereum---
 cd $MY_GIT_REPO_DIR
-git clone --recursive https://github.com/ethereum/webthree-umbrella.git cpp-ethereum
-#git clone --recursive https://github.com/bobsummerwill/cpp-ethereum.git cpp-ethereum
+#git clone --recursive https://github.com/ethereum/webthree-umbrella.git cpp-ethereum
+git clone --recursive https://github.com/bobsummerwill/cpp-ethereum.git
 cd cpp-ethereum
 git checkout develop
 #git checkout release
