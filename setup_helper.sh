@@ -85,7 +85,17 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX haskell-platform
 
 	# Install jabref
-	$PKG_INSTALL_PREFIX jabref
+	#https://github.com/JabRef/jabref/wiki/Guidelines-for-setting-up-a-local-workspace
+	#http://www.fosshub.com/JabRef.html
+
+	# Outdated v2.x, rather than 3.x
+	#$PKG_INSTALL_PREFIX jabref
+
+	# Install latest jabref (for now...)
+	JABREF_VER="3.3"
+	JABREFJAR_NAME = "jabref.jar"
+	wget -q http://www.fosshub.com/JabRef.html/JabRef-"$JABREF_VER"".jar" -O "$MY_BIN_DIR""/""$JABREFJAR_NAME"
+	java -jar "$MY_BIN_DIR""/""$JABREFJAR_NAME"
 
 	# Install texworks
 	$PKG_ADD_REPO_PREFIX ppa:texworks/stable
