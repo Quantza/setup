@@ -19,6 +19,8 @@ which ruby
 
 gem install bundler
 
+WGET_CMD="wget -qO-"
+
 # rootkit scanners
 $PKG_INSTALL_PREFIX chkrootkit rkhunter
 
@@ -90,6 +92,11 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_REFRESH_PREFIX
 	$PKG_INSTALL_PREFIX texworks texlive
 
+	MENDELEYPKG_NAME="mendeleydesktop-latest.deb"
+	wget -q https://www.mendeley.com/repositories/ubuntu/stable/amd64/mendeleydesktop-latest -O "$MY_DEV_DIR""/""$MENDELEYPKG_NAME"
+	$PKG_INSTALL_DEB_PREFIX $MENDELEYPKG_NAME
+	$PKG_REFRESH_PREFIX
+
   # Install virtualbox -->  change number to match current version - e.g. 5.0
 
   #Oracle
@@ -105,7 +112,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
   cd vbox
 
   VBOX_EXT_PACK_NAME="Oracle_VM_VirtualBox_Extension_Pack-5.0.18-106667.vbox-extpack"
-  wget http://download.virtualbox.org/virtualbox/5.0.18/"$VBOX_EXT_PACK_NAME"
+  $WGET_CMD http://download.virtualbox.org/virtualbox/5.0.18/"$VBOX_EXT_PACK_NAME"
 
   sudo VBoxManage extpack install "$VBOX_EXT_PACK_NAME"
 
@@ -147,7 +154,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# http://wiki.qt.io/Install_Qt_5_on_Ubuntu
 
 	cd $MY_DEV_DIR"/temp"
-	wget -qO- http://download.qt.io/official_releases/qt/5.6/5.6.0/qt-opensource-linux-x64-5.6.0.run
+	$WGET_CMD -qO- http://download.qt.io/official_releases/qt/5.6/5.6.0/qt-opensource-linux-x64-5.6.0.run
 
 	chmod +x qt-opensource-linux*
 	sudo ./qt-opensource-linux-x64-5.6.0.run
@@ -368,7 +375,7 @@ else
 		rm install-tl-unx.tar.gz
 	fi
 
-	wget -qO- http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+	$WGET_CMD http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 	tar -xzvf install-tl-unx.tar.gz
 	cd install-tl-*
 	chmod +x install-tl
@@ -389,7 +396,7 @@ $PKG_INSTALL_PREFIX libopenblas-dev gfortran
 
 # Set up Clojure with leiningen
 cd $MY_BIN_DIR
-wget -qO- https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+$WGET_CMD https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 chmod a+x $MY_BIN_DIR/lein
 lein
 
@@ -422,7 +429,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX libxslt-dev
 
 	# Download the latest pip package from source
-	wget -qO- https://bootstrap.pypa.io/get-pip.py | sudo python3
+	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo python3
 
 	# Use pip to upgrade setuptools
 	sudo -H pip install --upgrade setuptools
@@ -455,7 +462,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX libx32-libxml2 lib32-libxslt
 
 	# Download the latest pip package from source
-	wget -qO- https://bootstrap.pypa.io/get-pip.py | sudo python
+	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo python
 
 	# Use pip to upgrade setuptools
 	sudo pip2 install --upgrade setuptools
@@ -547,8 +554,8 @@ fi
 # miniconda: http://conda.pydata.org/miniconda.html
 
 #cd $MY_BIN_DIR
-#wget -qO- https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
-#wget -qO- https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+#$WGET_CMD https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+#$WGET_CMD https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
 #chmod +x Miniconda2-latest-Linux-x86_64.sh
 #chmod +x Miniconda3-latest-Linux-x86_64.sh
