@@ -101,7 +101,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	TEXSTUDIOWEBPKG_NAME="$TEXSTUDIO_VER""_""$ARCH_TMP"".deb"
 	TEXSTUDIOPKG_NAME="texstudio-latest.deb"
 	wget -q http://download.opensuse.org/repositories/home:/jsundermeyer/"$TEXSTUDIO_ARCH_TMP""/""$TEXSTUDIOWEBPKG_NAME" -O "$MY_DEV_DIR""/""$TEXSTUDIOPKG_NAME"
-	$PKG_INSTALL_PREFIX qt5-default qt5-image-formats-plugins qt5-doc qt5-doc-html qtbase5-dev qtbase5-dev-tools
+	$PKG_INSTALL_PREFIX qt5-default qt5-image-formats-plugins qt5-doc qt5-doc-html qtbase5-dev qtbase5-dev-tools libqt5core5a
 	$PKG_INSTALL_DEB_PREFIX "$MY_DEV_DIR""/""$TEXSTUDIOPKG_NAME"
 
 	MENDELEYPKG_NAME="mendeleydesktop-latest.deb"
