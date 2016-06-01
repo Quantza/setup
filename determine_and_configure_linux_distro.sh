@@ -38,7 +38,10 @@ IS_UBUNTU=$?
 if (( $IS_UBUNTU == 0 )) || (( $IS_LINUX_MINT == 0 )); then
 	export PKG_INSTALL_PREFIX="sudo apt-get install -y"
 	export PKG_REFRESH_PREFIX="sudo apt-get update"
-	export PKG_INSTALL_DEB_PREFIX="sudo gebi"
+	export PKG_FIND_PREFIX="sudo apt-cache search"
+	#export PKG_INSTALL_DEB_PREFIX="sudo gebi"
+	export PKG_INSTALL_DEB_PREFIX="sudo dpkg -i"
+	export PKG_ADD_REPO_PREFIX="sudo add-apt-repository"
 	export DISTRO_ID="ubuntu"
 elif (( $IS_ARCH == 0 )); then
 	export PKG_INSTALL_PREFIX="sudo pacman -S"
@@ -52,7 +55,7 @@ elif [ -f "$HOME"/"cygwin-trigger" ]; then
 	export PKG_INSTALL_PREFIX="apt-cyg install"
 	export PKG_REFRESH_PREFIX="apt-cyg update"
 	export PKG_FIND_PREFIX="apt-cyg find"
-    export DISTRO_ID="cygwin"
+	export DISTRO_ID="cygwin"
 fi
 
 cd "$OLDDIR"

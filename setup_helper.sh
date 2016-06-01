@@ -46,7 +46,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install emacs24.x
 	#--Build commands for ubuntu--
 	# https://lars.ingebrigtsen.no/2014/11/13/welcome-new-emacs-developers/
-	
+
 	$PKG_INSTALL_PREFIX  gcc gdb automake cmake cmake-qt-gui libmagick++-dev libgtk2.0-dev \
 	libxft-dev libgnutls-dev libdbus-1-dev libgif-dev texinfo libxpm-dev libacl1 libacl1-dev build-essential aptitude
 	#$PKG_INSTALL_PREFIX build-dep build-essential
@@ -82,8 +82,10 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install Haskell
 	$PKG_INSTALL_PREFIX haskell-platform
 
-        # Install jabref
-        $PKG_INSTALL_PREFIX jabref
+	# Install jabref
+	$PKG_INSTALL_PREFIX jabref
+
+	'''
 
 	# Texlive
 	# Remove old files
@@ -127,6 +129,10 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	cd "$HOME"
 	#PATH=/usr/local/texlive/2015:$PATH
 
+	'''
+
+
+
 	# Install texworks
 	$PKG_INSTALL_PREFIX texworks
 
@@ -148,7 +154,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
         wget http://download.virtualbox.org/virtualbox/5.0.18/"$VBOX_EXT_PACK_NAME"
 
         sudo VBoxManage extpack install "$VBOX_EXT_PACK_NAME"
-        
+
 
 	# Install boost
 	$PKG_INSTALL_PREFIX build-essential g++ python-dev autotools-dev libicu-dev build-essential libbz2-dev libboost-all-dev
@@ -168,7 +174,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	mkdir $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
 
 	# GLFW
-	
+
 	cd $MY_DEV_DIR/"$GLFW_INSTALL_SUFFIX"
 	cmake $MY_GIT_REPO_DIR/"$GLFW_INSTALL_SUFFIX"
 
@@ -185,7 +191,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	# Qt
 	# http://wiki.qt.io/Install_Qt_5_on_Ubuntu
-	
+
 	cd $MY_DEV_DIR"/temp"
 	wget -qO- http://download.qt.io/official_releases/qt/5.6/5.6.0/qt-opensource-linux-x64-5.6.0.run
 
@@ -210,17 +216,17 @@ Icon=(Install folder of QT)/5.4/Src/qtdoc/doc/images/landing/icon_QtCreator_78x7
 Name[en_US]=Qt-Creator">>"$QT_CREATOR_SHORTCUT_LOCATION"'
 
 	'''
-	
+
 	QT_CREATOR_DIR="$HOME/.local/share/applications"
 
 	cp $QT_CREATOR_SHORTCUT_LOCATION "$QT_CREATOR_DIR"/"$QT_CREATOR_SHORTCUT_NAME"
-	
+
 	export QT_DEFAULTS_LIST="$QT_CREATOR_DIR"/"defaults.list"
 
 	touch "$QT_DEFAULTS_LIST"
 
 	'''
-	
+
 	#bash -c ' echo "text/qtcreator=Qt-Creator.desktop;">>"$DEFAULTS_LIST"'
 	#unset DEFAULTS_LIST
 
@@ -251,7 +257,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# emacs
 	$PKG_INSTALL_PREFIX --needed build-devel emacs
 	# emacs-nox (without X11 support)
-	
+
 	# For gparted
 	$PKG_INSTALL_PREFIX --needed gparted part mtools btrfs-progs exfat-utils dosfstools ntfs-3g
 
@@ -269,7 +275,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Install Haskell
 	$PKG_INSTALL_PREFIX ghc cabal-install haddock happy alex
-	
+
 	# For cinnamon
 	$PKG_INSTALL_PREFIX xorg-server xorg-xinit xorg-utils xorg-server-utils mesa xorg-twm xterm xorg-xclock
 
@@ -287,7 +293,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# Codecs
 	sudo $PKG_INSTALL_PREFIX a52dec faac faad2 flac jasper lame libdca libdv \
 	libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer0.10-plugins
-	
+
 	# libreoffice
 	sudo $PKG_INSTALL_PREFIX libreoffice
 
@@ -309,7 +315,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# intellij
 	$PKG_INSTALL_PREFIX intellij-idea-libs intellij-idea-community-edition
-	
+
 	# Visual studio code
 	$YAOURT_INSTALL_PREFIX visual-studio-code acroread
 
@@ -319,7 +325,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# qTox
 	$PKG_INSTALL_PREFIX qtox
-	
+
 	'''
 	$PKG_INSTALL_PREFIX texlive-core texlive-bibtexextra texlive-fontsextra texlive-formatsextra \
 	texlive-games texlive-genericextra texlive-htmlxml texlive-humanities texlive-latexextra \
@@ -341,7 +347,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Install boost
 	$PKG_INSTALL_PREFIX boost
-	
+
 	# For GLFW and SFML
 
 	$PKG_INSTALL_PREFIX --needed libevent doxygen xorg-server-dev glu mesa glew glm openal libsndfile xrandr libjpg-turbo freetype2
@@ -358,7 +364,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	mkdir $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
 
 	# GLFW
-	
+
 	cd $MY_DEV_DIR/"$GLFW_INSTALL_SUFFIX"
 	cmake $MY_GIT_REPO_DIR/"$GLFW_INSTALL_SUFFIX"
 
@@ -398,7 +404,7 @@ curl -sSf https://static.rust-lang.org/rustup.sh | sh
 # Install elixir
 cd $MY_DEV_DIR/temp
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
-$PKG_REFRESH_PREFIX 
+$PKG_REFRESH_PREFIX
 $PKG_INSTALL_PREFIX esl-erlang
 $PKG_INSTALL_PREFIX elixir
 export PATH="$PATH:$(which elixir)"
@@ -407,7 +413,7 @@ cd $MY_DEV_DIR/temp && rm -rf *.deb
 # Install python
 if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential pandas
-	
+
 	# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
 	sudo pip install --upgrade pip
 	sudo pip3 install --upgrade pip
@@ -440,9 +446,9 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	export WORKON_HOME="$HOME"/.virtualenvs
 	export PROJECT_HOME="$HOME"/Projects
 	VIRTUALENVWRAPPER_PREFIX="/usr/local/bin/virtualenvwrapper"
-	
+
 elif [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_INSTALL_PREFIX python2 python-pip2 python python-pip3 python2-pandas python2-seaborn python-pandas python-seaborn 
+	$PKG_INSTALL_PREFIX python2 python-pip2 python python-pip3 python2-pandas python2-seaborn python-pandas python-seaborn
 	$PKG_INSTALL_PREFIX"g" --needed build-devel
 
 	# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
@@ -506,7 +512,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	sudo -H pip install coursera-dl pyopenssl requests jupyter
 	deactivate
 	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
-	
+
 	# Numpy and Scipy
 	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
 	$PKG_INSTALL_PREFIX python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
@@ -560,10 +566,10 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 # cpp-ethereum dependencies
 # https://github.com/ethereum/webthree-umbrella
 
-#sudo add-apt-repository ppa:ethereum/ethereum-qt
-#sudo add-apt-repository ppa:ethereum/ethereum
-#sudo add-apt-repository ppa:ethereum/ethereum-dev
-#$PKG_REFRESH_PREFIX 
+#sudo $PKG_ADD_REPO_PREFIX ppa:ethereum/ethereum-qt
+#sudo $PKG_ADD_REPO_PREFIX ppa:ethereum/ethereum
+#sudo $PKG_ADD_REPO_PREFIX ppa:ethereum/ethereum-dev
+#$PKG_REFRESH_PREFIX
 #$PKG_INSTALL_PREFIX cpp-ethereum mix
 
 # Clone and install go-ethereum and cpp-ethereum...

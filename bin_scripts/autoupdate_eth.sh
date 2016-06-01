@@ -31,7 +31,7 @@ cd build
 
 # Compile enough for normal usage and with support for the full chain explorer
 cmake ..
-#cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUNDLE=user -DFATDB=1 -DETHASHCL=1 
+#cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUNDLE=user -DFATDB=1 -DETHASHCL=1
 
 # 4 threads # Full processor(s) == make -j$(nproc)
 make -j4

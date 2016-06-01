@@ -19,14 +19,14 @@ sudo apt-get -y install language-pack-en-base
 sudo dpkg-reconfigure locales
 sudo apt-get -y install software-properties-common
 
-sudo add-apt-repository "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main"
+sudo $PKG_ADD_REPO_PREFIX "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main"
 wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
 sudo apt-get -y update
 sudo apt-get -y install llvm-3.7-dev
 
-sudo add-apt-repository -y ppa:ethereum/ethereum-qt
-sudo add-apt-repository -y ppa:ethereum/ethereum
-sudo add-apt-repository -y ppa:ethereum/ethereum-dev
+sudo $PKG_ADD_REPO_PREFIX -y ppa:ethereum/ethereum-qt
+sudo $PKG_ADD_REPO_PREFIX -y ppa:ethereum/ethereum
+sudo $PKG_ADD_REPO_PREFIX -y ppa:ethereum/ethereum-dev
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
@@ -61,7 +61,7 @@ cd build
 
 # Compile enough for normal usage and with support for the full chain explorer
 cmake ..
-#cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUNDLE=user -DFATDB=1 -DETHASHCL=1 
+#cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUNDLE=user -DFATDB=1 -DETHASHCL=1
 
 # 4 threads # Full processor(s) == make -j$(nproc)
 make -j4
