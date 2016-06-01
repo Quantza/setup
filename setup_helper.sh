@@ -85,7 +85,14 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX haskell-platform
 
 	# Install open-jdk
-	$PKG_INSTALL_PREFIX openjdk-8-jre
+	# http://askubuntu.com/questions/464755/how-to-install-openjdk-8-on-14-04-lts
+
+	# For Ubuntu 14.10 and later
+	# $PKG_INSTALL_PREFIX openjdk-8-jre
+
+	$PKG_ADD_REPO_PREFIX ppa:webupd8team/java -y
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX oracle-java8-installer oracle-java8-set-default
 
 	# Install jabref
 	#https://github.com/JabRef/jabref/wiki/Guidelines-for-setting-up-a-local-workspace
