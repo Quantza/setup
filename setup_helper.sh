@@ -90,7 +90,20 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install texworks
 	$PKG_ADD_REPO_PREFIX ppa:texworks/stable
 	$PKG_REFRESH_PREFIX
-	$PKG_INSTALL_PREFIX texworks texlive
+	$PKG_INSTALL_PREFIX texlive texmacs texworks
+
+	# Install TexStudio
+	# http://texstudio.sourceforge.net/#download
+
+	ARCH_TMP="amd64"
+	TEXSTUDIO_ARCH_TMP="xUbuntu_14.04/""$ARCH_TMP"
+	TEXSTUDIO_VER="texstudio-qt4_2.11.0-1.1"
+	TEXSTUDIOWEBPKG_NAME="$TEXSTUDIO_VER""_""$ARCH_TMP"".deb"
+	TEXSTUDIOPKG_NAME="texstudio-latest.deb"
+	wget -q http://download.opensuse.org/repositories/home:/jsundermeyer/"$TEXSTUDIO_ARCH_TMP""/""$TEXSTUDIOWEBPKG_NAME" -O "$MY_DEV_DIR""/""$TEXSTUDIOPKG_NAME"
+	$PKG_INSTALL_DEB_PREFIX
+	$PKG_INSTALL_DEB_PREFIX $TEXSTUDIOPKG_NAME
+
 
 	MENDELEYPKG_NAME="mendeleydesktop-latest.deb"
 	wget -q https://www.mendeley.com/repositories/ubuntu/stable/amd64/mendeleydesktop-latest -O "$MY_DEV_DIR""/""$MENDELEYPKG_NAME"
@@ -265,7 +278,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX evince kdegraphics-okular
 
 	# Texlive, editors, and calibre
-	$PKG_INSTALL_PREFIX texlive-most texmacs auctex texstudio calibre
+	$PKG_INSTALL_PREFIX texlive-most texmacs auctex texworks texstudio calibre
 	$YAOURT_INSTALL_PREFIX jabref gedit-latex
 
 	# emacs org-mode
