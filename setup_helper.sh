@@ -85,75 +85,29 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install jabref
 	$PKG_INSTALL_PREFIX jabref
 
-	'''
-
-	# Texlive
-	# Remove old files
-	CURRENT_TEX_LIVE_VERSION="2015"
-	TEX_INSTALL_DIR="/usr/local/texlive/""$CURRENT_TEX_LIVE_VERSION"
-	TEX_USER_DIR="$HOME/.texlive""$CURRENT_TEX_LIVE_VERSION"
-
-	if [ ! -d $TEX_INSTALL_DIR ]; then
-		rm -rf $TEX_INSTALL_DIR
-	fi
-
-	if [ ! -d $TEX_USER_DIR ]; then
-		rm -rf $TEX_USER_DIR
-	fi
-
-	# Setup install
-	TEX_DIR=$MY_DEV_DIR"/texlive"
-	TEX_INSTALL_FILES=$TEX_DIR"/install"
-
-	if [ ! -d $TEX_DIR ]; then
-		mkdir $TEX_DIR
-	fi
-
-	if [ ! -d $TEX_INSTALL_FILES ]; then
-		mkdir $TEX_INSTALL_FILES
-	fi
-
-	# Get and install tex-live
-	cd $TEX_INSTALL_FILES
-
-	if [ -f install-tl-unx.tar.gz ]; then
-		rm install-tl-unx.tar.gz
-	fi
-
-	wget -qO- http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-	tar -xzvf install-tl-unx.tar.gz
-	cd install-tl-*
-	chmod +x install-tl
-	sudo ./install-tl -gui text
-
-	cd "$HOME"
-	#PATH=/usr/local/texlive/2015:$PATH
-
-	'''
-
-
-
 	# Install texworks
-	$PKG_INSTALL_PREFIX texworks
+	$PKG_ADD_REPO_PREFIX ppa:texworks/stable
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX texworks texlive
 
-        # Install virtualbox -->  change number to match current version - e.g. 5.0
+  # Install virtualbox -->  change number to match current version - e.g. 5.0
 
-        #Oracle
-        '''
-        sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_release -cs)' contrib non-free' > /etc/apt/sources.list.d/virtualbox.list" && wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install virtualbox-5.0
-        '''
+  #Oracle
+  '''
+  sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_release -cs)' contrib non-free' > /etc/apt/sources.list.d/virtualbox.list" && wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install virtualbox-5.0
+  '''
 
-        #Ubuntu
-        $PKG_INSTALL_PREFIX virtualbox-qt virtualbox-dkms linux-headers-generic
+  #Ubuntu
+  $PKG_INSTALL_PREFIX virtualbox-qt virtualbox-dkms linux-headers-generic
 
-        cd "$MY_DEV_DIR"
-        mkdir vbox
-        cd vbox
+  cd "$MY_DEV_DIR"
+  mkdir vbox
+  cd vbox
 
-        VBOX_EXT_PACK_NAME="Oracle_VM_VirtualBox_Extension_Pack-5.0.18-106667.vbox-extpack"
-        wget http://download.virtualbox.org/virtualbox/5.0.18/"$VBOX_EXT_PACK_NAME"
+  VBOX_EXT_PACK_NAME="Oracle_VM_VirtualBox_Extension_Pack-5.0.18-106667.vbox-extpack"
+  wget http://download.virtualbox.org/virtualbox/5.0.18/"$VBOX_EXT_PACK_NAME"
 
-        sudo VBoxManage extpack install "$VBOX_EXT_PACK_NAME"
+  sudo VBoxManage extpack install "$VBOX_EXT_PACK_NAME"
 
 
 	# Install boost
@@ -332,18 +286,18 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	texlive-music texlive-pictures texlive-plainextra texlive-pstricks texlive-publishers texlive-science
 	'''
 
-        #Install virtualbox
-        $PKG_INSTALL_PREFIX qt4 virtualbox virtualbox-host-dkms linux-headers net-tools
+  #Install virtualbox
+  $PKG_INSTALL_PREFIX qt4 virtualbox virtualbox-host-dkms linux-headers net-tools
 
-        sudo dkms autoinstall
+  sudo dkms autoinstall
 
-        sudo dkms install vboxhost/$(pacman -Q virtualbox|awk '{print $2}'|sed 's/\-.\+//') -k $(uname -rm|sed 's/\ /\//')
+  sudo dkms install vboxhost/$(pacman -Q virtualbox|awk '{print $2}'|sed 's/\-.\+//') -k $(uname -rm|sed 's/\ /\//')
 
-        sudo gpasswd -a "$USER" vboxusers
+  sudo gpasswd -a "$USER" vboxusers
 
-        $PKG_INSTALL_PREFIX virtualbox-guest-iso
+  $PKG_INSTALL_PREFIX virtualbox-guest-iso
 
-        $YAOURT_INSTALL_PREFIX virtualbox-ext-oracle
+  $YAOURT_INSTALL_PREFIX virtualbox-ext-oracle
 
 	# Install boost
 	$PKG_INSTALL_PREFIX boost
@@ -380,6 +334,48 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# https://wiki.archlinux.org/index.php/Qt
 	$PKG_INSTALL_PREFIX qt5-base qt5-doc qt4 qt4-doc qtchooser
 
+else
+	# Texlive
+	# Remove old files
+	CURRENT_TEX_LIVE_VERSION="2015"
+	TEX_INSTALL_DIR="/usr/local/texlive/""$CURRENT_TEX_LIVE_VERSION"
+	TEX_USER_DIR="$HOME/.texlive""$CURRENT_TEX_LIVE_VERSION"
+
+	if [ ! -d $TEX_INSTALL_DIR ]; then
+		rm -rf $TEX_INSTALL_DIR
+	fi
+
+	if [ ! -d $TEX_USER_DIR ]; then
+		rm -rf $TEX_USER_DIR
+	fi
+
+	# Setup install
+	TEX_DIR=$MY_DEV_DIR"/texlive"
+	TEX_INSTALL_FILES=$TEX_DIR"/install"
+
+	if [ ! -d $TEX_DIR ]; then
+		mkdir $TEX_DIR
+	fi
+
+	if [ ! -d $TEX_INSTALL_FILES ]; then
+		mkdir $TEX_INSTALL_FILES
+	fi
+
+	# Get and install tex-live
+	cd $TEX_INSTALL_FILES
+
+	if [ -f install-tl-unx.tar.gz ]; then
+		rm install-tl-unx.tar.gz
+	fi
+
+	wget -qO- http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+	tar -xzvf install-tl-unx.tar.gz
+	cd install-tl-*
+	chmod +x install-tl
+	sudo ./install-tl -gui text
+
+	cd "$HOME"
+	#PATH=/usr/local/texlive/2015:$PATH
 fi
 
 # OpenSSH, OpenPGP and rsync
@@ -412,11 +408,11 @@ cd $MY_DEV_DIR/temp && rm -rf *.deb
 
 # Install python
 if [ "$DISTRO_ID" == "ubuntu" ]; then
-	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential pandas
+	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
 
 	# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
-	sudo pip install --upgrade pip
-	sudo pip3 install --upgrade pip
+	sudo -H pip install --upgrade pip
+	sudo -H pip3 install --upgrade pip
 
 	# Python IDLE editor
 	$PKG_INSTALL_PREFIX idle-python2* idle-python3* python-tk
@@ -429,8 +425,8 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	wget -qO- https://bootstrap.pypa.io/get-pip.py | sudo python3
 
 	# Use pip to upgrade setuptools
-	sudo pip install --upgrade setuptools
-	sudo pip3 install --upgrade setuptools
+	sudo -H pip install --upgrade setuptools
+	sudo -H pip3 install --upgrade setuptools
 
 	# virtualenv
 	sudo -H pip install virtualenv
@@ -439,8 +435,8 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	sudo -H pip3 install virtualenv
 	sudo -H pip3 install virtualenvwrapper
 
-	sudo pip install jupyter
-	sudo pip3 install jupyter
+	sudo -H pip install jupyter
+	sudo -H pip3 install jupyter
 
 	#http://virtualenvwrapper.readthedocs.org/en/latest/install.html#lazy-loading
 	export WORKON_HOME="$HOME"/.virtualenvs
