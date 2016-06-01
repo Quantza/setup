@@ -84,6 +84,9 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install Haskell
 	$PKG_INSTALL_PREFIX haskell-platform
 
+	# Install open-jdk
+	$PKG_INSTALL_PREFIX openjdk-8-jre
+
 	# Install jabref
 	#https://github.com/JabRef/jabref/wiki/Guidelines-for-setting-up-a-local-workspace
 	#http://www.fosshub.com/JabRef.html
@@ -93,7 +96,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	# Install latest jabref (for now...)
 	JABREF_VER="3.3"
-	JABREFJAR_NAME = "jabref.jar"
+	JABREFJAR_NAME="jabref.jar"
 	wget -q http://www.fosshub.com/JabRef.html/JabRef-"$JABREF_VER"".jar" -O "$MY_BIN_DIR""/""$JABREFJAR_NAME"
 	java -jar "$MY_BIN_DIR""/""$JABREFJAR_NAME"
 
