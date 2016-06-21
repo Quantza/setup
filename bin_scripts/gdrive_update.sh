@@ -9,7 +9,7 @@ fi
 
 echo "Updating gdrive"
 cd "$GDRIVE_GRIVE_DIR"
-grive -a
+grive
 echo "Done"
 
 cd "$OLDDIR"
