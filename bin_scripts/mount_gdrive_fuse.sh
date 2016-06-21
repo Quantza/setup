@@ -8,7 +8,7 @@ if [ ! -d $GDRIVE_FUSE_DIR ]; then
 fi
 
 echo "Mounting gdrive OCaml-FUSE filesystem"
-google-drive-ocamlfuse "$GDRIVE_FUSE_DIR"
+google-drive-ocamlfuse "$GDRIVE_FUSE_DIR" -o nonempty
 echo "Done"
 
 cd "$OLDDIR"
