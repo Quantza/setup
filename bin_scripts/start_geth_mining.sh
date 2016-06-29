@@ -18,5 +18,5 @@ else
 	echo "Using ""$THREAD_COUNT"" threads to mine."
 fi
 
-geth --genesis "$1" --mine --minerthreads="$THREAD_COUNT" 2>>~/logs/geth_mining.log
-
+#geth_dev --genesis "$1" --datadir "/media/quantza-lab/DATA/Ethereum" --mine --minerthreads="$THREAD_COUNT" 2>>~/logs/geth_mining.log
+geth_dev --datadir "/media/quantza-lab/DATA/Ethereum" --mine --minerthreads="$THREAD_COUNT" 2>>~/logs/geth_mining.log
