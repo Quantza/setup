@@ -36,8 +36,9 @@ echo "$DISTRO" | grep -qi "Ubuntu"
 IS_UBUNTU=$?
 
 if (( $IS_UBUNTU == 0 )) || (( $IS_LINUX_MINT == 0 )); then
-	export PKG_INSTALL_PREFIX="sudo apt-get install -y"
-	export PKG_REFRESH_PREFIX="sudo apt-get update"
+	export PKG_INSTALL_PREFIX="sudo apt-get -y install"
+	export PKG_REFRESH_PREFIX="sudo apt-get -y update"
+	export PKG_UPGRADE_PREFIX="sudo apt-get -y upgrade"
 	export PKG_FIND_PREFIX="sudo apt-cache search"
 	#export PKG_INSTALL_DEB_PREFIX="sudo gebi"
 	export PKG_INSTALL_DEB_PREFIX="sudo dpkg -i"
@@ -46,10 +47,11 @@ if (( $IS_UBUNTU == 0 )) || (( $IS_LINUX_MINT == 0 )); then
 elif (( $IS_ARCH == 0 )); then
 	export PKG_INSTALL_PREFIX="sudo pacman -S"
 	export PKG_REFRESH_PREFIX="sudo pacman -Sy"
+	export PKG_UPGRADE_PREFIX="sudo pacman -Syu"
 	export PKG_FIND_PREFIX="sudo pacman -Ss"
 	export DISTRO_ID="arch"
 	export PKG_INSTALL_SRC_PREFIX="sudo pacman -U"
-	export YAOURT_INSTALL_PREFIX="sudo yaourt -S"
+	export YAOURT_INSTALL_PREFIX="yaourt -S"
 elif [ -f "$HOME"/"cygwin-trigger" ]; then
 	# cygwin
 	export PKG_INSTALL_PREFIX="apt-cyg install"

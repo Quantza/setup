@@ -12,6 +12,28 @@ fi
 
 echo Updating and building go-ethereum, cpp-ethereum and mist-wallet...
 
+echo ---cpp-ethereum---
+cd $MY_GIT_REPO_DIR/cpp-ethereum
+git pull
+git submodule update --init
+git checkout develop
+#git checkout release
+mkdir -p build && cd build
+
+if [ "$DISTRO_ID" == "arch" ]; then
+    # create build files and specify Ethereum installation folder
+    cmake .. -DCMAKE_INSTALL_PREFIX=/opt/eth
+else
+    # create build files
+    cmake ..
+fi
+
+# 4 threads # Full processor(s) == make -j$(nproc)
+make -j4
+
+sudo make install
+echo ---cpp-ethereum was compiled successfully---
+
 echo ---go-ethereum---
 cd $MY_GIT_REPO_DIR/go-ethereum
 make clean
@@ -19,22 +41,6 @@ git pull
 #git checkout release/1.3.6
 make geth
 echo ---go-ethereum was compiled successfully---
-
-echo ---cpp-ethereum---
-cd $MY_GIT_REPO_DIR/cpp-ethereum
-git pull
-git submodule update --init
-git checkout develop
-#git checkout release
-mkdir build
-cd build
-
-# Compile enough for normal usage and with support for the full chain explorer
-cmake ..
-#cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUNDLE=user -DFATDB=1 -DETHASHCL=1
-
-# 4 threads # Full processor(s) == make -j$(nproc)
-make -j4
 
 GETH_SUFFIX=go-ethereum/build/bin/geth
 ETH_SUFFIX=cpp-ethereum/build/eth/eth
@@ -50,8 +56,7 @@ chmod +x "$MY_GIT_REPO_DIR"/"$GETH_SUFFIX"
 chmod +x "$MY_GIT_REPO_DIR"/"$ETH_SUFFIX"
 #chmod +x "$MY_GIT_REPO_DIR"/"$ALETH_SUFFIX"
 chmod +x "$MY_GIT_REPO_DIR"/"$ETHMINER_SUFFIX"
-
-echo ---cpp-ethereum was compiled successfully---
+echo ---finished creating symlinks---
 
 echo ---mist-wallet---
 # Source: https://github.com/ethereum/mist
