@@ -39,6 +39,10 @@ if [ ! -d "$HOME/".ssh ]; then
     mkdir "$HOME/".ssh
 fi
 
+if [ ! -d "$HOME/".vpn ]; then
+    mkdir "$HOME/".vpn
+fi
+
 MY_GIT_REPO_DIR="$HOME/GitRepos"
 if [ ! -d $MY_GIT_REPO_DIR ]; then
     mkdir $MY_GIT_REPO_DIR
@@ -124,6 +128,7 @@ ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.theanorc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sb dotfiles/site.cfg .
+ln -sb dotfiles/.vpn/client.conf "$HOME"/.vpn/client.conf
 ln -sb "$HOME"/dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
 ln -sb "$HOME"/dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
 ln -sf dotfiles/.emacs.d .
@@ -131,6 +136,7 @@ ln -sf dotfiles/matplotlib ./.config/matplotlib
 ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
 ln -sf dotfiles/.vagrant.d .
+
 
 if [ -d .ssh/ ]
 then
