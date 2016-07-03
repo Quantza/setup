@@ -43,6 +43,14 @@ if [ ! -d "$HOME/".vpn ]; then
     mkdir "$HOME/".vpn
 fi
 
+if [ ! -d "$HOME/"grive ]; then
+    mkdir "$HOME/"grive
+fi
+
+if [ ! -d "$HOME/"grive-fuse ]; then
+    mkdir "$HOME/"grive-fuse
+fi
+
 MY_GIT_REPO_DIR="$HOME/GitRepos"
 if [ ! -d $MY_GIT_REPO_DIR ]; then
     mkdir $MY_GIT_REPO_DIR

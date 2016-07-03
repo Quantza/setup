@@ -373,6 +373,10 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# https://wiki.archlinux.org/index.php/Qt
 	$PKG_INSTALL_PREFIX qt5-base qt5-doc qt4 qt4-doc qtchooser
 
+	# Google Drive: grive2 and google-drive-ocamlfuse
+	$YAOURT_INSTALL_PREFIX grive
+	$YAOURT_INSTALL_PREFIX google-drive-ocamlfuse
+
 else
 	# Texlive
 	# Remove old files
