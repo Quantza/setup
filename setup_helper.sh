@@ -297,8 +297,8 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX evince kdegraphics-okular
 
 	# Texlive, editors, and calibre
-	$PKG_INSTALL_PREFIX texlive-most texmacs auctex texworks texstudio calibre
-	$YAOURT_INSTALL_PREFIX jabref gedit-latex
+	$PKG_INSTALL_PREFIX texlive-most texmacs auctex texstudio calibre
+	$YAOURT_INSTALL_PREFIX texworks jabref gedit-latex
 
 	# emacs org-mode
 	$YAOURT_INSTALL_PREFIX emacs-org-mode
@@ -530,9 +530,9 @@ if [ $? -eq 0 ]; then
 fi
 
 # Onedrive-d
-cd $MY_GIT_REPO_DIR
-git clone https://github.com/xybu/onedrive-d.git
-cd onedrive-d
+#cd $MY_GIT_REPO_DIR
+#git clone https://github.com/xybu/onedrive-d.git
+#cd onedrive-d
 
 if [ "$DISTRO_ID" == "ubuntu" ]; then
 
