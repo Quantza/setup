@@ -80,6 +80,7 @@ if [ "$DISTRO_ID" == "arch" ]; then
     echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/eth/lib" >> ~/.bashrc
     source ~/.bashrc
 fi
+echo ---cpp-ethereum was compiled successfully---
 
 echo ---go-ethereum---
 $PKG_INSTALL_PREFIX build-essential libgmp3-dev golang
@@ -104,8 +105,7 @@ chmod +x "$MY_GIT_REPO_DIR"/"$GETH_SUFFIX"
 chmod +x "$MY_GIT_REPO_DIR"/"$ETH_SUFFIX"
 #chmod +x "$MY_GIT_REPO_DIR"/"$ALETH_SUFFIX"
 chmod +x "$MY_GIT_REPO_DIR"/"$ETHMINER_SUFFIX"
-
-echo ---cpp-ethereum was compiled successfully---
+echo ---finished creating symlinks---
 
 echo ---mist-wallet---
 # Source: https://github.com/ethereum/mist
