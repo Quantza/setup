@@ -38,7 +38,8 @@ echo ---go-ethereum---
 cd $MY_GIT_REPO_DIR/go-ethereum
 make clean
 git pull
-#git checkout release/1.3.6
+git checkout master
+#git checkout develop
 make geth
 echo ---go-ethereum was compiled successfully---
 
