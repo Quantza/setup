@@ -445,9 +445,10 @@ curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
 # Install elixir
 cd $MY_DEV_DIR/temp
-wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
+wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
+sudo apt-key add erlang_solutions.asc
 $PKG_REFRESH_PREFIX
-$PKG_INSTALL_PREFIX esl-erlang
+$PKG_INSTALL_PREFIX erlang erlang-nox
 $PKG_INSTALL_PREFIX elixir
 export PATH="$PATH:$(which elixir)"
 cd $MY_DEV_DIR/temp && rm -rf *.deb
@@ -464,7 +465,8 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX libxslt-dev
 
 	# Download the latest pip package from source
-	python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
+	#python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
+	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo -H python
 	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo -H python3
 
 	# Use pip to upgrade setuptools
