@@ -72,8 +72,20 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	# libgtop for system monitoring, and other apps
 	$PKG_INSTALL_PREFIX gir1.2-gtop-2.0 pulseaudio pavucontrol \
-	gnome-terminal firefox vlc unzip unrar p7zip pidgin skype deluge \
+	bleachbit gnome-terminal firefox unzip unrar p7zip pidgin skype deluge \
 	smplayer qmmp gimp xfburn thunderbird gedit gnome-system-monitor
+
+	$PKG_INSTALL_PREFIX synaptic pepperflashplugin-nonfree chromium-bsu vlc browser-plugin-vlc inkscape qbittorrent aria2 \
+	mint-meta-codecs mint-backgrounds-*
+	sudo dpkg-reconfigure pepperflashplugin-nonfree
+
+	$PKG_ADD_REPO_PREFIX ppa:ravefinity-project/ppa -y
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX ambiance-flat-colors radiance-flat-colors
+
+	$PKG_ADD_REPO_PREFIX ppa:snwh/pulp -y
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX paper-icon-theme paper-gtk-theme
 
 	# Webupd8
 	$PKG_INSTALL_PREFIX sublime-text atom
@@ -133,11 +145,11 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
   # Install virtualbox -->  change number to match current version - e.g. 5.0
 
-  #Oracle
- 
+  # Oracle
+
   #sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_release -cs)' contrib non-free' > /etc/apt/sources.list.d/virtualbox.list" && wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install virtualbox-5.0
 
-  #Ubuntu
+  # Ubuntu
   $PKG_INSTALL_PREFIX virtualbox-qt virtualbox-dkms linux-headers-generic
 
   cd "$MY_DEV_DIR"
@@ -146,8 +158,19 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
   VBOX_EXT_PACK_NAME="Oracle_VM_VirtualBox_Extension_Pack-5.0.18-106667.vbox-extpack"
   $WGET_CMD http://download.virtualbox.org/virtualbox/5.0.18/"$VBOX_EXT_PACK_NAME"  &> /dev/null
-
   sudo VBoxManage extpack install "$VBOX_EXT_PACK_NAME"
+
+	PW_SAFE_VERSION="0.99"
+	PW_SAFE_VERSION_EXT="0.99.0-BETA.amd64"
+	PW_SAFE_LINUX_DIR="Linux-BETA"
+	PW_SAFE_DISTRO_VER="xubuntu16"
+	PW_SAFE_DEB_FILE="passwordsafe-""$PW_SAFE_DISTRO_VER""-""$PW_SAFE_VERSION_EXT"".deb"
+	$WGET_CMD http://downloads.sourceforge.net/project/passwordsafe/"$PW_SAFE_LINUX_DIR"/"$PW_SAFE_VERSION"/"$PW_SAFE_DEB_FILE"
+	$PKG_INSTALL_DEB_PREFIX "$PW_SAFE_DEB_FILE"
+
+	cd "$MY_DEV_DIR"
+	sudo apt-get install libxerces-c
+
 
 
 	# Install boost
@@ -548,7 +571,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	#chmod +x "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
 	#source "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
-	
+
 	# Download and install CUDA...
 	$PKG_INSTALL_PREFIX nvidia-cuda-toolkit
 
