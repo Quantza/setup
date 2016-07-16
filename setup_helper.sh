@@ -455,8 +455,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX idle-python2* idle-python3* python-tk
 
 	#For lxml
-	$PKG_INSTALL_PREFIX libxml2-dev
-	$PKG_INSTALL_PREFIX libxslt-dev
+	$PKG_INSTALL_PREFIX libxml2-dev libxslt-dev
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX python2 python
@@ -476,17 +475,17 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo -H python3
 
 	# Use pip to upgrade setuptools
-	sudo -H pip install --upgrade setuptools
+	sudo -H pip2 install --upgrade setuptools
 	sudo -H pip3 install --upgrade setuptools
 
-	sudo -H pip install --upgrade pip
+	sudo -H pip2 install --upgrade pip
 	sudo -H pip3 install --upgrade pip
 
 	# virtualenv - python2
-	sudo -H pip install virtualenv virtualenvwrapper
+	sudo -H pip2 install virtualenv virtualenvwrapper
 
-	sudo -H pip install "$PIP_PACKAGES"
-	sudo -H pip3 install "$PIP_PACKAGES"
+	sudo -H pip2 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
+	sudo -H pip3 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 	# Download the latest pip package from source
@@ -504,8 +503,8 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# virtualenv - python2
 	sudo -H pip2 install virtualenv virtualenvwrapper
 
-	sudo -H pip install "$PIP_PACKAGES"
-	sudo -H pip3 install "$PIP_PACKAGES"
+	sudo -H pip install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
+	sudo -H pip3 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
 
 fi
 
