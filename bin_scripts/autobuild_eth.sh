@@ -117,6 +117,7 @@ npm install -g electron-prebuilt@0.37.2
 cd $MY_GIT_REPO_DIR
 git clone https://github.com/ethereum/mist.git
 cd mist
+git checkout master
 git submodule update --init
 npm install
 

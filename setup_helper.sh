@@ -110,13 +110,15 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install texworks
 	$PKG_ADD_REPO_PREFIX ppa:texworks/stable
 	$PKG_REFRESH_PREFIX
-	$PKG_INSTALL_PREFIX texlive texmacs texworks
+	$PKG_INSTALL_PREFIX texmacs texworks
+
+	# ADD Texlive!
 
 	# Install TexStudio
 	# http://texstudio.sourceforge.net/#download
 
 	ARCH_TMP="amd64"
-	TEXSTUDIO_ARCH_TMP="xUbuntu_14.04/""$ARCH_TMP"
+	TEXSTUDIO_ARCH_TMP="xUbuntu_16.04/""$ARCH_TMP"
 	TEXSTUDIO_VER="texstudio_2.11.0-1.1"
 	TEXSTUDIOWEBPKG_NAME="$TEXSTUDIO_VER""_""$ARCH_TMP"".deb"
 	TEXSTUDIOPKG_NAME="texstudio-latest.deb"
@@ -132,9 +134,8 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
   # Install virtualbox -->  change number to match current version - e.g. 5.0
 
   #Oracle
-  '''
-  sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_release -cs)' contrib non-free' > /etc/apt/sources.list.d/virtualbox.list" && wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install virtualbox-5.0
-  '''
+ 
+  #sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_release -cs)' contrib non-free' > /etc/apt/sources.list.d/virtualbox.list" && wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install virtualbox-5.0
 
   #Ubuntu
   $PKG_INSTALL_PREFIX virtualbox-qt virtualbox-dkms linux-headers-generic
@@ -241,6 +242,10 @@ Name[en_US]=Qt-Creator">>"$QT_CREATOR_SHORTCUT_LOCATION"'
 
 	# See all available packages
 	# cat /var/lib/apt/lists/pkg.tox.chat* | grep "Package: "
+	$PKG_ADD_REPO_PREFIX ppa:nilarimogard/webupd8
+	$PKG_ADD_REPO_PREFIX ppa:alessandro-strada/ppa
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX grive google-drive-ocamlfuse
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 
@@ -449,11 +454,7 @@ cd $MY_DEV_DIR/temp && rm -rf *.deb
 
 # Install python
 if [ "$DISTRO_ID" == "ubuntu" ]; then
-	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
-
-	# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
-	sudo -H pip install --upgrade pip
-	sudo -H pip3 install --upgrade pip
+	$PKG_INSTALL_PREFIX python python-dev python3 python3-dev build-essential
 
 	# Python IDLE editor
 	$PKG_INSTALL_PREFIX idle-python2* idle-python3* python-tk
@@ -463,7 +464,8 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX libxslt-dev
 
 	# Download the latest pip package from source
-	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo python3
+	python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
+	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo -H python3
 
 	# Use pip to upgrade setuptools
 	sudo -H pip install --upgrade setuptools
@@ -472,9 +474,6 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# virtualenv
 	sudo -H pip install virtualenv
 	sudo -H pip install virtualenvwrapper
-
-	sudo -H pip3 install virtualenv
-	sudo -H pip3 install virtualenvwrapper
 
 	sudo -H pip install jupyter
 	sudo -H pip3 install jupyter
@@ -535,8 +534,8 @@ fi
 if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	# Onedrive-d cont...
-	python3 setup.py build
-	sudo python3 setup.py install
+	#python3 setup.py build
+	#sudo python3 setup.py install
 
 	cd "$HOME"
 
@@ -544,11 +543,6 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	pip install -U pip
 	sudo -H pip install coursera-dl pyopenssl requests jupyter
 	deactivate
-	mkvirtualenv --python=/usr/bin/python3 --no-site-packages py3venv
-	pip install -U pip
-	sudo -H pip install coursera-dl pyopenssl requests jupyter
-	deactivate
-	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
 
 	# Numpy and Scipy
 	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
@@ -558,9 +552,11 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	chmod +x "$OLDDIR"/bin_scripts/autobuild_eth.sh
 	source "$OLDDIR"/bin_scripts/autobuild_eth.sh
 
+	#chmod +x "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+	#source "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+	
 	# Download and install CUDA...
-	chmod +x "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
-	source "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+	$PKG_INSTALL_PREFIX nvidia-cuda-toolkit
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 

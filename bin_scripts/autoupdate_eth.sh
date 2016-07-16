@@ -68,6 +68,8 @@ npm install -g electron-prebuilt@0.37.2
 
 cd $MY_GIT_REPO_DIR
 cd mist
+git pull
+git checkout master
 git pull && git submodule update
 npm install
 
