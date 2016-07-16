@@ -503,8 +503,8 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# virtualenv - python2
 	sudo -H pip2 install virtualenv virtualenvwrapper
 
+	sudo -H pip2 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
 	sudo -H pip install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
-	sudo -H pip3 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
 
 fi
 
