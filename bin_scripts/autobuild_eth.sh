@@ -87,7 +87,8 @@ $PKG_INSTALL_PREFIX build-essential libgmp3-dev golang
 cd $MY_GIT_REPO_DIR
 git clone https://github.com/ethereum/go-ethereum
 cd go-ethereum
-#git checkout release/1.3.6
+git checkout master
+#git checkout develop
 make geth
 echo ---go-ethereum was compiled successfully---
 
@@ -116,6 +117,7 @@ npm install -g electron-prebuilt@0.37.2
 cd $MY_GIT_REPO_DIR
 git clone https://github.com/ethereum/mist.git
 cd mist
+git checkout master
 git submodule update --init
 npm install
 

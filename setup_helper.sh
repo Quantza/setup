@@ -72,8 +72,32 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	# libgtop for system monitoring, and other apps
 	$PKG_INSTALL_PREFIX gir1.2-gtop-2.0 pulseaudio pavucontrol \
-	gnome-terminal firefox vlc unzip unrar p7zip pidgin skype deluge \
+	bleachbit gnome-terminal firefox unzip unrar p7zip pidgin skype deluge \
 	smplayer qmmp gimp xfburn thunderbird gedit gnome-system-monitor
+
+	$PKG_INSTALL_PREFIX synaptic pepperflashplugin-nonfree chromium-bsu vlc browser-plugin-vlc inkscape qbittorrent aria2 \
+	mint-meta-codecs mint-backgrounds-*
+	sudo dpkg-reconfigure pepperflashplugin-nonfree
+
+	$PKG_ADD_REPO_PREFIX ppa:ravefinity-project/ppa -y
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX ambiance-flat-colors radiance-flat-colors
+
+	$PKG_ADD_REPO_PREFIX ppa:snwh/pulp -y
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX paper-icon-theme paper-gtk-theme
+
+	#sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list"
+	#wget http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key
+	#sudo apt-key add - < Release.key
+	#$PKG_REFRESH_PREFIX
+	#sudo apt-get install arc-theme
+
+	$PKG_INSTALL_PREFIX autoconf automake pkg-config libgtk-3-dev
+	cd $MY_GIT_REPO_DIR
+	git clone https://github.com/horst3180/arc-theme --depth 1 && cd arc-theme
+	./autogen.sh --prefix=/usr
+	sudo make install
 
 	# Webupd8
 	$PKG_INSTALL_PREFIX sublime-text atom
@@ -104,39 +128,40 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Install latest jabref (for now...)
 	JABREF_VER="3.3"
 	JABREFJAR_NAME="jabref.jar"
-	wget -q http://www.fosshub.com/JabRef.html/JabRef-"$JABREF_VER"".jar" -O "$MY_BIN_DIR""/""$JABREFJAR_NAME"
+	$WGET_CMD http://www.fosshub.com/JabRef.html/JabRef-"$JABREF_VER"".jar" -O "$MY_BIN_DIR""/""$JABREFJAR_NAME"
 	java -jar "$MY_BIN_DIR""/""$JABREFJAR_NAME"
 
 	# Install texworks
 	$PKG_ADD_REPO_PREFIX ppa:texworks/stable
 	$PKG_REFRESH_PREFIX
-	$PKG_INSTALL_PREFIX texlive texmacs texworks
+	$PKG_INSTALL_PREFIX texmacs texworks
+
+	# ADD Texlive!
 
 	# Install TexStudio
 	# http://texstudio.sourceforge.net/#download
 
 	ARCH_TMP="amd64"
-	TEXSTUDIO_ARCH_TMP="xUbuntu_14.04/""$ARCH_TMP"
+	TEXSTUDIO_ARCH_TMP="xUbuntu_16.04/""$ARCH_TMP"
 	TEXSTUDIO_VER="texstudio_2.11.0-1.1"
 	TEXSTUDIOWEBPKG_NAME="$TEXSTUDIO_VER""_""$ARCH_TMP"".deb"
 	TEXSTUDIOPKG_NAME="texstudio-latest.deb"
-	wget -q http://download.opensuse.org/repositories/home:/jsundermeyer/"$TEXSTUDIO_ARCH_TMP""/""$TEXSTUDIOWEBPKG_NAME" -O "$MY_DEV_DIR""/""$TEXSTUDIOPKG_NAME"
+	$WGET_CMD http://download.opensuse.org/repositories/home:/jsundermeyer/"$TEXSTUDIO_ARCH_TMP""/""$TEXSTUDIOWEBPKG_NAME" "$MY_DEV_DIR""/""$TEXSTUDIOPKG_NAME" &> /dev/null
 	$PKG_INSTALL_PREFIX qt5-default qt5-image-formats-plugins qt5-doc qt5-doc-html qtbase5-dev qtbase5-dev-tools libqt5core5a
 	$PKG_INSTALL_DEB_PREFIX "$MY_DEV_DIR""/""$TEXSTUDIOPKG_NAME"
 
 	MENDELEYPKG_NAME="mendeleydesktop-latest.deb"
-	wget -q https://www.mendeley.com/repositories/ubuntu/stable/amd64/mendeleydesktop-latest -O "$MY_DEV_DIR""/""$MENDELEYPKG_NAME"
+	$WGET_CMD https://www.mendeley.com/repositories/ubuntu/stable/amd64/mendeleydesktop-latest "$MY_DEV_DIR""/""$MENDELEYPKG_NAME" &> /dev/null
 	$PKG_INSTALL_DEB_PREFIX "$MY_DEV_DIR""/""$MENDELEYPKG_NAME"
 	$PKG_REFRESH_PREFIX
 
   # Install virtualbox -->  change number to match current version - e.g. 5.0
 
-  #Oracle
-  '''
-  sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_release -cs)' contrib non-free' > /etc/apt/sources.list.d/virtualbox.list" && wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install virtualbox-5.0
-  '''
+  # Oracle
 
-  #Ubuntu
+  #sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_release -cs)' contrib non-free' > /etc/apt/sources.list.d/virtualbox.list" && wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install virtualbox-5.0
+
+  # Ubuntu
   $PKG_INSTALL_PREFIX virtualbox-qt virtualbox-dkms linux-headers-generic
 
   cd "$MY_DEV_DIR"
@@ -144,9 +169,20 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
   cd vbox
 
   VBOX_EXT_PACK_NAME="Oracle_VM_VirtualBox_Extension_Pack-5.0.18-106667.vbox-extpack"
-  $WGET_CMD http://download.virtualbox.org/virtualbox/5.0.18/"$VBOX_EXT_PACK_NAME"
-
+  $WGET_CMD http://download.virtualbox.org/virtualbox/5.0.18/"$VBOX_EXT_PACK_NAME"  &> /dev/null
   sudo VBoxManage extpack install "$VBOX_EXT_PACK_NAME"
+
+	PW_SAFE_VERSION="0.99"
+	PW_SAFE_VERSION_EXT="0.99.0-BETA.amd64"
+	PW_SAFE_LINUX_DIR="Linux-BETA"
+	PW_SAFE_DISTRO_VER="xubuntu16"
+	PW_SAFE_DEB_FILE="passwordsafe-""$PW_SAFE_DISTRO_VER""-""$PW_SAFE_VERSION_EXT"".deb"
+	$WGET_CMD http://downloads.sourceforge.net/project/passwordsafe/"$PW_SAFE_LINUX_DIR"/"$PW_SAFE_VERSION"/"$PW_SAFE_DEB_FILE"
+	$PKG_INSTALL_DEB_PREFIX "$PW_SAFE_DEB_FILE"
+
+	cd "$MY_DEV_DIR"
+	sudo apt-get install libxerces-c
+
 
 
 	# Install boost
@@ -155,7 +191,6 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# For GLFW and SFML
 	$PKG_INSTALL_PREFIX libevent-pthreads-2.0.5 doxygen xorg-dev libglu1-mesa-dev mesa-common-dev
 
-	'''
 	SFML_INSTALL_SUFFIX="sfml"
 	GLFW_INSTALL_SUFFIX="glfw"
 
@@ -175,9 +210,6 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	cd $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
 	cmake $MY_GIT_REPO_DIR/"$SFML_INSTALL_SUFFIX"
-	'''
-
-	$PKG_INSTALL_PREFIX glfw sfml glm glew
 
 	# codeblocks
 	$PKG_INSTALL_PREFIX codeblocks
@@ -186,7 +218,7 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# http://wiki.qt.io/Install_Qt_5_on_Ubuntu
 
 	cd $MY_DEV_DIR"/temp"
-	$WGET_CMD -qO- http://download.qt.io/official_releases/qt/5.6/5.6.0/qt-opensource-linux-x64-5.6.0.run
+	$WGET_CMD http://download.qt.io/official_releases/qt/5.6/5.6.0/qt-opensource-linux-x64-5.6.0.run  &> /dev/null
 
 	chmod +x qt-opensource-linux*
 	sudo ./qt-opensource-linux-x64-5.6.0.run
@@ -234,13 +266,17 @@ Name[en_US]=Qt-Creator">>"$QT_CREATOR_SHORTCUT_LOCATION"'
 	# qTox
 
 	echo "deb https://pkg.tox.chat/debian nightly $(lsb_release -cs)" | sudo tee /etc/apt/sources.list.d/tox.list
-	wget -qO - https://pkg.tox.chat/debian/pkg.gpg.key | sudo apt-key add -
+	$WGET_CMD https://pkg.tox.chat/debian/pkg.gpg.key | sudo apt-key add -
 	sudo apt-get install apt-transport-https
 	$PKG_REFRESH_PREFIX
 	$PKG_INSTALL_PREFIX qtox
 
 	# See all available packages
 	# cat /var/lib/apt/lists/pkg.tox.chat* | grep "Package: "
+	$PKG_ADD_REPO_PREFIX ppa:nilarimogard/webupd8
+	$PKG_ADD_REPO_PREFIX ppa:alessandro-strada/ppa
+	$PKG_REFRESH_PREFIX
+	$PKG_INSTALL_PREFIX grive google-drive-ocamlfuse
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 
@@ -343,27 +379,25 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	$PKG_INSTALL_PREFIX --needed libevent doxygen xorg-server-dev glu mesa glew glm openal libsndfile xrandr libjpg-turbo freetype2
 
-	'''
-	SFML_INSTALL_SUFFIX="sfml"
-	GLFW_INSTALL_SUFFIX="glfw"
+	#SFML_INSTALL_SUFFIX="sfml"
+	#GLFW_INSTALL_SUFFIX="glfw"
 
-	cd $MY_GIT_REPO_DIR
-	git clone --recursive https://github.com/glfw/glfw.git glfw
-	git clone --recursive https://github.com/SFML/SFML.git sfml
+	#cd $MY_GIT_REPO_DIR
+	#git clone --recursive https://github.com/glfw/glfw.git glfw
+	#git clone --recursive https://github.com/SFML/SFML.git sfml
 
-	mkdir $MY_DEV_DIR/"$GLFW_INSTALL_SUFFIX"
-	mkdir $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
+	#mkdir $MY_DEV_DIR/"$GLFW_INSTALL_SUFFIX"
+	#mkdir $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
 
 	# GLFW
 
-	cd $MY_DEV_DIR/"$GLFW_INSTALL_SUFFIX"
-	cmake $MY_GIT_REPO_DIR/"$GLFW_INSTALL_SUFFIX"
+	#cd $MY_DEV_DIR/"$GLFW_INSTALL_SUFFIX"
+	#cmake $MY_GIT_REPO_DIR/"$GLFW_INSTALL_SUFFIX"
 
 	# SFML
 
-	cd $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
-	cmake $MY_GIT_REPO_DIR/"$SFML_INSTALL_SUFFIX"
-	'''
+	#cd $MY_DEV_DIR/"$SFML_INSTALL_SUFFIX"
+	#cmake $MY_GIT_REPO_DIR/"$SFML_INSTALL_SUFFIX"
 
 	$PKG_INSTALL_PREFIX --needed glfw sfml
 
@@ -409,7 +443,7 @@ else
 		rm install-tl-unx.tar.gz
 	fi
 
-	$WGET_CMD http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+	$WGET_CMD http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz &> /dev/null
 	tar -xzvf install-tl-unx.tar.gz
 	cd install-tl-*
 	chmod +x install-tl
@@ -430,7 +464,7 @@ $PKG_INSTALL_PREFIX libopenblas-dev gfortran
 
 # Set up Clojure with leiningen
 cd $MY_BIN_DIR
-$WGET_CMD https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+$WGET_CMD https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein &> /dev/null
 chmod a+x $MY_BIN_DIR/lein
 lein
 
@@ -440,81 +474,79 @@ curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
 # Install elixir
 cd $MY_DEV_DIR/temp
-wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
+$WGET_CMD http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc &> /dev/null
+sudo apt-key add erlang_solutions.asc
 $PKG_REFRESH_PREFIX
-$PKG_INSTALL_PREFIX esl-erlang
+$PKG_INSTALL_PREFIX erlang erlang-nox
 $PKG_INSTALL_PREFIX elixir
 export PATH="$PATH:$(which elixir)"
 cd $MY_DEV_DIR/temp && rm -rf *.deb
 
 # Install python
 if [ "$DISTRO_ID" == "ubuntu" ]; then
-	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
-
-	# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
-	sudo -H pip install --upgrade pip
-	sudo -H pip3 install --upgrade pip
+	$PKG_INSTALL_PREFIX python python-dev python3 python3-dev build-essential
 
 	# Python IDLE editor
 	$PKG_INSTALL_PREFIX idle-python2* idle-python3* python-tk
 
 	#For lxml
-	$PKG_INSTALL_PREFIX libxml2-dev
-	$PKG_INSTALL_PREFIX libxslt-dev
-
-	# Download the latest pip package from source
-	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo python3
-
-	# Use pip to upgrade setuptools
-	sudo -H pip install --upgrade setuptools
-	sudo -H pip3 install --upgrade setuptools
-
-	# virtualenv
-	sudo -H pip install virtualenv
-	sudo -H pip install virtualenvwrapper
-
-	sudo -H pip3 install virtualenv
-	sudo -H pip3 install virtualenvwrapper
-
-	sudo -H pip install jupyter
-	sudo -H pip3 install jupyter
-
-	#http://virtualenvwrapper.readthedocs.org/en/latest/install.html#lazy-loading
-	export WORKON_HOME="$HOME"/.virtualenvs
-	export PROJECT_HOME="$HOME"/Projects
-	VIRTUALENVWRAPPER_PREFIX="/usr/local/bin/virtualenvwrapper"
+	$PKG_INSTALL_PREFIX libxml2-dev libxslt-dev
 
 elif [ "$DISTRO_ID" == "arch" ]; then
-	$PKG_INSTALL_PREFIX python2 python-pip2 python python-pip3 python2-pandas python2-seaborn python-pandas python-seaborn
+	$PKG_INSTALL_PREFIX python2 python
 	$PKG_INSTALL_PREFIX"g" --needed build-devel
-
-	# python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
-	sudo pip2 install --upgrade pip
-	sudo pip install --upgrade pip
 
 	# For lxml
 	$PKG_INSTALL_PREFIX libx32-libxml2 lib32-libxslt
+fi
 
+PIP_PACKAGES="pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn"
+
+# Install python
+if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# Download the latest pip package from source
-	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo python
+	#python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
+	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo -H python
+	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo -H python3
 
 	# Use pip to upgrade setuptools
-	sudo pip2 install --upgrade setuptools
-	sudo pip install --upgrade setuptools
+	sudo -H pip2 install --upgrade setuptools
+	sudo -H pip3 install --upgrade setuptools
 
-	# virtualenv
-	$PKG_INSTALL_PREFIX python2-virtualenv python-virtualenv python-virtualenvwrapper python2-virtualenvwrapper
-	sudo -H pip2 install virtualenvwrapper
-	sudo -H pip install virtualenvwrapper
+	sudo -H pip2 install --upgrade pip
+	sudo -H pip3 install --upgrade pip
 
-	sudo pip2 install jupyter
-	sudo pip install jupyter
+	# virtualenv - python2
+	sudo -H pip2 install virtualenv virtualenvwrapper
 
-	export WORKON_HOME="$HOME"/.virtualenvs
-	export PROJECT_HOME="$HOME"/Projects
-	VIRTUALENVWRAPPER_PREFIX="/usr/bin/virtualenvwrapper"
+	sudo -H pip2 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
+	sudo -H pip3 install pyopenssl requests youtube-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
+
+elif [ "$DISTRO_ID" == "arch" ]; then
+	# Download the latest pip package from source
+	#python < <(curl -s -S -L https://bootstrap.pypa.io/get-pip.py)
+	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo -H python2
+	$WGET_CMD https://bootstrap.pypa.io/get-pip.py | sudo -H python
+
+	# Use pip to upgrade setuptools
+	sudo -H pip2 install --upgrade setuptools
+	sudo -H pip install --upgrade setuptools
+
+	sudo -H pip2 install --upgrade pip
+	sudo -H pip install --upgrade pip
+
+	# virtualenv - python2
+	sudo -H pip2 install virtualenv virtualenvwrapper
+
+	sudo -H pip2 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
+	sudo -H pip install pyopenssl requests youtube-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
 
 fi
+
+
+export WORKON_HOME="$HOME"/.virtualenvs
+export PROJECT_HOME="$HOME"/Projects
+VIRTUALENVWRAPPER_PREFIX="/usr/bin/virtualenvwrapper"
 
 isVarDefined "$VIRTUALENVWRAPPER_PREFIX"
 if [ $? -eq 0 ]; then
@@ -535,8 +567,8 @@ fi
 if [ "$DISTRO_ID" == "ubuntu" ]; then
 
 	# Onedrive-d cont...
-	python3 setup.py build
-	sudo python3 setup.py install
+	#python3 setup.py build
+	#sudo python3 setup.py install
 
 	cd "$HOME"
 
@@ -544,29 +576,22 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	pip install -U pip
 	sudo -H pip install coursera-dl pyopenssl requests jupyter
 	deactivate
-	mkvirtualenv --python=/usr/bin/python3 --no-site-packages py3venv
-	pip install -U pip
-	sudo -H pip install coursera-dl pyopenssl requests jupyter
-	deactivate
-	$PKG_INSTALL_PREFIX python python-dev python-pip python3 python3-dev python3-pip build-essential
-
-	# Numpy and Scipy
-	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py
-	$PKG_INSTALL_PREFIX python3-numpy python3-scipy python3-matplotlib python3-pandas python3-nose python3-h5py
 
 	# Clone and install go-ethereum and cpp-ethereum...
 	chmod +x "$OLDDIR"/bin_scripts/autobuild_eth.sh
 	source "$OLDDIR"/bin_scripts/autobuild_eth.sh
 
+	#chmod +x "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+	#source "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+
 	# Download and install CUDA...
-	chmod +x "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
-	source "$OLDDIR"/bin_scripts/autoinstall_cuda.sh
+	$PKG_INSTALL_PREFIX nvidia-cuda-toolkit
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Onedrive-d cont...
-	python setup.py build
-	sudo python setup.py install
+	#python setup.py build
+	#sudo python setup.py install
 
 	cd "$HOME"
 
@@ -574,22 +599,16 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	pip install -U pip
 	sudo -H pip install coursera-dl pyopenssl requests jupyter
 	deactivate
-	virtualenv --python=/usr/bin/python --no-site-packages py3venv
-	pip install -U pip
-	sudo -H pip install coursera-dl pyopenssl requests jupyter
-	deactivate
 
-	# Numpy and Scipy + jupyter or ipython
-	$PKG_INSTALL_PREFIX python2-numpy python2-scipy python2-matplotlib python2-pandas python2-nose python2-h5py ipython2-notebook
-	$PKG_INSTALL_PREFIX python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose python-h5py jupyter-notebook
-
+	# Download and install CUDA...
+	$PKG_INSTALL_PREFIX nvidia-cuda-toolkit
 fi
 
 # miniconda: http://conda.pydata.org/miniconda.html
 
 #cd $MY_BIN_DIR
-#$WGET_CMD https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
-#$WGET_CMD https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+#$WGET_CMD https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh &> /dev/null
+#$WGET_CMD https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh &> /dev/null
 
 #chmod +x Miniconda2-latest-Linux-x86_64.sh
 #chmod +x Miniconda3-latest-Linux-x86_64.sh
@@ -598,7 +617,7 @@ fi
 
 # Install Heroku toolbelt
 # https://toolbelt.heroku.com/debian
-wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+$WGET_CMD https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
 # cpp-ethereum dependencies
 # https://github.com/ethereum/webthree-umbrella

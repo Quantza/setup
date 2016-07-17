@@ -38,7 +38,9 @@ echo ---go-ethereum---
 cd $MY_GIT_REPO_DIR/go-ethereum
 make clean
 git pull
-#git checkout release/1.3.6
+git checkout master
+#git checkout develop
+git pull
 make geth
 echo ---go-ethereum was compiled successfully---
 
@@ -66,6 +68,9 @@ npm install -g electron-prebuilt@0.37.2
 
 cd $MY_GIT_REPO_DIR
 cd mist
+git pull
+git checkout master
+#git checkout develop
 git pull && git submodule update
 npm install
 
