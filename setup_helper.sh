@@ -285,8 +285,6 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Codecs
 	sudo $PKG_INSTALL_PREFIX a52dec faac faad2 flac jasper lame libdca libdv \
-	libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer0.10-plugins
-
 	# libreoffice
 	sudo $PKG_INSTALL_PREFIX libreoffice
 
