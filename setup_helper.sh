@@ -87,6 +87,12 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_REFRESH_PREFIX
 	$PKG_INSTALL_PREFIX paper-icon-theme paper-gtk-theme
 
+	sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list"
+	wget http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key
+	sudo apt-key add - < Release.key
+
+	sudo apt-get install arc-theme
+
 	# Webupd8
 	$PKG_INSTALL_PREFIX sublime-text atom
 
