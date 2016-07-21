@@ -39,8 +39,8 @@ cd $MY_GIT_REPO_DIR/go-ethereum
 make clean
 git pull
 git checkout master
-git pull
 #git checkout develop
+git pull
 make geth
 echo ---go-ethereum was compiled successfully---
 
@@ -70,6 +70,7 @@ cd $MY_GIT_REPO_DIR
 cd mist
 git pull
 git checkout master
+#git checkout develop
 git pull && git submodule update
 npm install
 

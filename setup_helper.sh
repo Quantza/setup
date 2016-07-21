@@ -177,8 +177,6 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	cd "$MY_DEV_DIR"
 	sudo apt-get install libxerces-c
 
-
-
 	# Install boost
 	$PKG_INSTALL_PREFIX build-essential g++ python-dev autotools-dev libicu-dev build-essential libbz2-dev libboost-all-dev
 
@@ -276,6 +274,9 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 
 	# Install other related things...
 	$YAOURT_INSTALL_PREFIX gdm3setup ntfs-config
+
+	# calculators
+	$YAOURT_INSTALL_PREFIX gnome-calculator libqalculate qalculate-gtk
 
 	# emacs
 	$PKG_INSTALL_PREFIX --needed build-devel emacs
@@ -536,7 +537,6 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	sudo -H pip install pyopenssl requests youtube-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn
 
 fi
-
 
 export WORKON_HOME="$HOME"/.virtualenvs
 export PROJECT_HOME="$HOME"/Projects
