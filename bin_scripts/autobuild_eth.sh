@@ -37,26 +37,26 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
     libargtable2-dev libedit-dev mesa-common-dev ocl-icd-libopencl1 opencl-headers\
     libgoogle-perftools-dev qtbase5-dev qt5-default qtdeclarative5-dev \
     libqt5webkit5-dev libqt5webengine5-dev ocl-icd-dev libv8-dev libz-dev
-    
+
     $PKG_INSTALL_PREFIX libjson-rpc-cpp-dev
     $PKG_INSTALL_PREFIX qml-module-qtquick-controls qml-module-qtwebengine
 elif [ "$DISTRO_ID" == "arch" ]; then
     $PKG_REFRESH_PREFIX git base-devel cmake boost crypto++ leveldb llvm miniupnpc libcl opencl-headers libmicrohttpd qt5-base qt5-webengine
-    
+
     "$YAOURT_INSTALL_PREFIX"y libjson-rpc-cpp
 fi
 
 echo ---cpp-ethereum---
 cd $MY_GIT_REPO_DIR
-    
+
 git clone --recursive https://github.com/ethereum/webthree-umbrella.git cpp-ethereum
-#git clone --recursive https://github.com/ethereum/cpp-ethereum.git
-    
+#git clone --recursive https://github.com/ethereum/cpp-ethereum.git cpp-ethereum
+
 cd cpp-ethereum
-    
+
 git checkout develop
 #git checkout release
-    
+
 # make a build folder and enter into it
 mkdir -p build && cd build
 
@@ -71,7 +71,7 @@ fi
 
 # 4 threads # Processor with 4 cores == make -j$(nproc)
 make -j 4
-    
+
 # install the resulting binaries, shared libraries and header files into /opt
 sudo make install
 
@@ -83,13 +83,15 @@ fi
 echo ---cpp-ethereum was compiled successfully---
 
 echo ---go-ethereum---
-$PKG_INSTALL_PREFIX build-essential libgmp3-dev golang
+$PKG_INSTALL_PREFIX git go gcc gmp
 cd $MY_GIT_REPO_DIR
-git clone https://github.com/ethereum/go-ethereum
+git clone --recursive https://github.com/ethereum/go-ethereum go-ethereum
 cd go-ethereum
 git checkout master
 #git checkout develop
+gvm use go1.4
 make geth
+gvm use go1.6
 echo ---go-ethereum was compiled successfully---
 
 GETH_SUFFIX=go-ethereum/build/bin/geth
