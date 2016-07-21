@@ -64,9 +64,10 @@ source $HOME/.gvm/scripts/gvm
 # Using go language v1.4.x
 gvm install go1.4 -B
 gvm use go1.4
-export GOROOT_BOOTSTRAP=$GOROOT
-gvm install go1.5
-gvm use go1.5 --default
+export GOROOT_BOOTSTRAP="/home/"$USER"/.gvm/gos/go1.4"
+#gvm use go1.4 --default
+gvm install go1.6
+gvm use go1.6 --default
 gvm list
 
 # Install rvm (for Ruby)
@@ -74,6 +75,3 @@ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB8
 \curl -sSL https://get.rvm.io | bash -s stable
 
 cd "$OLDDIR"
-
-
-
