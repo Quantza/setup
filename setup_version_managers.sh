@@ -13,8 +13,9 @@ cd "$HOME"
 # https://nodejs.org/
 # Install nvm: node-version manager (for npm)
 # https://github.com/creationix/nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
-source "$HOME"/.nvm/nvm.sh
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.3/install.sh | bash
+command -v nvm
+#source "$HOME"/.nvm/nvm.sh
 
 # Install nvm
 nvm install node
