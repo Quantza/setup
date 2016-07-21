@@ -31,10 +31,10 @@ nvm which node
 
 # Install jshint to allow checking of JS code within emacs
 # http://jshint.com/
-sudo npm install -g jshint
+npm install -g jshint
 
 # Web app framework
-sudo npm install -g express
+npm install -g express
 
 # Install restler, cheerio and commander for node.js
 
