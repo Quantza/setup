@@ -1,4 +1,4 @@
 #!/bin/bash
 
-geth --datadir "/media/STORAGE/Ethereum" console
+geth --datadir "/media/STORAGE/Ethereum" --ipcpath $HOME/.ethereum/geth.ipc console
 echo "Exited."
