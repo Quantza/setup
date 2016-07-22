@@ -50,7 +50,7 @@ echo ---cpp-ethereum---
 cd $MY_GIT_REPO_DIR
 
 git clone --recursive https://github.com/ethereum/webthree-umbrella.git cpp-ethereum
-#git clone --recursive https://github.com/ethereum/cpp-ethereum.git cpp-ethereum
+#git clone --recursive https://github.com/ethereum/cpp-ethereum.git
 
 cd cpp-ethereum
 
@@ -83,15 +83,13 @@ fi
 echo ---cpp-ethereum was compiled successfully---
 
 echo ---go-ethereum---
-$PKG_INSTALL_PREFIX git go gcc gmp
+$PKG_INSTALL_PREFIX build-essential libgmp3-dev golang
 cd $MY_GIT_REPO_DIR
-git clone --recursive https://github.com/ethereum/go-ethereum go-ethereum
+git clone https://github.com/ethereum/go-ethereum
 cd go-ethereum
 git checkout master
 #git checkout develop
-gvm use go1.4
 make geth
-gvm use go1.6
 echo ---go-ethereum was compiled successfully---
 
 GETH_SUFFIX=go-ethereum/build/bin/geth
@@ -99,10 +97,10 @@ ETH_SUFFIX=cpp-ethereum/build/eth/eth
 ALETH_SUFFIX=cpp-ethereum/build/alethzero/alethzero
 ETHMINER_SUFFIX=cpp-ethereum/build/libethereum/ethminer
 
-ln -sb "$MY_GIT_REPO_DIR"/"$GETH_SUFFIX" "$MY_BIN_DIR"/geth_dev
-ln -sb "$MY_GIT_REPO_DIR"/"$ETH_SUFFIX" "$MY_BIN_DIR"/eth_dev
-ln -sb "$MY_GIT_REPO_DIR"/"$ALETH_SUFFIX" "$MY_BIN_DIR"/alethzero_dev
-ln -sb "$MY_GIT_REPO_DIR"/"$ETHMINER_SUFFIX" "$MY_BIN_DIR"/ethminer_dev
+ln -sb "$MY_GIT_REPO_DIR"/"$GETH_SUFFIX" "$MY_BIN_DIR"/geth
+ln -sb "$MY_GIT_REPO_DIR"/"$ETH_SUFFIX" "$MY_BIN_DIR"/eth
+ln -sb "$MY_GIT_REPO_DIR"/"$ALETH_SUFFIX" "$MY_BIN_DIR"/alethzero
+ln -sb "$MY_GIT_REPO_DIR"/"$ETHMINER_SUFFIX" "$MY_BIN_DIR"/ethminer
 
 chmod +x "$MY_GIT_REPO_DIR"/"$GETH_SUFFIX"
 chmod +x "$MY_GIT_REPO_DIR"/"$ETH_SUFFIX"

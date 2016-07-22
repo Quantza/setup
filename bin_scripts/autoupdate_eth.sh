@@ -49,10 +49,10 @@ ETH_SUFFIX=cpp-ethereum/build/eth/eth
 ALETH_SUFFIX=cpp-ethereum/build/alethzero/alethzero
 ETHMINER_SUFFIX=cpp-ethereum/build/libethereum/ethminer
 
-ln -sb "$MY_GIT_REPO_DIR"/"$GETH_SUFFIX" "$MY_BIN_DIR"/geth_dev
-ln -sb "$MY_GIT_REPO_DIR"/"$ETH_SUFFIX" "$MY_BIN_DIR"/eth_dev
-ln -sb "$MY_GIT_REPO_DIR"/"$ALETH_SUFFIX" "$MY_BIN_DIR"/alethzero_dev
-ln -sb "$MY_GIT_REPO_DIR"/"$ETHMINER_SUFFIX" "$MY_BIN_DIR"/ethminer_dev
+ln -sb "$MY_GIT_REPO_DIR"/"$GETH_SUFFIX" "$MY_BIN_DIR"/geth
+ln -sb "$MY_GIT_REPO_DIR"/"$ETH_SUFFIX" "$MY_BIN_DIR"/eth
+ln -sb "$MY_GIT_REPO_DIR"/"$ALETH_SUFFIX" "$MY_BIN_DIR"/alethzero
+ln -sb "$MY_GIT_REPO_DIR"/"$ETHMINER_SUFFIX" "$MY_BIN_DIR"/ethminer
 
 chmod +x "$MY_GIT_REPO_DIR"/"$GETH_SUFFIX"
 chmod +x "$MY_GIT_REPO_DIR"/"$ETH_SUFFIX"
