@@ -39,9 +39,9 @@ if [ ! -d "$HOME/".ssh ]; then
     mkdir "$HOME/".ssh
 fi
 
-if [ ! -d "$HOME/".vpn ]; then
-    mkdir "$HOME/".vpn
-fi
+#if [ ! -d "$HOME/".vpn ]; then
+#    mkdir "$HOME/".vpn
+#fi
 
 if [ ! -d "$HOME/"grive ]; then
     mkdir "$HOME/"grive
@@ -106,6 +106,20 @@ if [ -d .tmux/ ]; then
     mv .tmux .tmux~
 fi
 
+if [ -d ./.aws/ ]; then
+    if [ -d ./.aws~/ ]; then
+        rm -rf ./.aws~/
+    fi
+    mv .aws .aws~
+fi
+
+if [ -d ./.vpn/ ]; then
+    if [ -d ./.vpn~/ ]; then
+        rm -rf ./.vpn~/
+    fi
+    mv .vpn .vpn~
+fi
+
 if [ -d .vagrant.d/ ]; then
     if [ -d ./.vagrant.d~/ ]; then
         rm -rf ./.vagrant.d~/
@@ -140,11 +154,12 @@ ln -sb dotfiles/.vpn/client.conf "$HOME"/.vpn/client.conf
 ln -sb "$HOME"/dotfiles/tools.sh "$MY_BIN_DIR"/tools_menu
 ln -sb "$HOME"/dotfiles/determine_and_configure_linux_distro.sh "$MY_BIN_DIR"/det_conf_linux_dist
 ln -sf dotfiles/.emacs.d .
+ln -sf dotfiles/.aws .
+ln -sf dotfiles/.vpn .
 ln -sf dotfiles/matplotlib ./.config/matplotlib
 ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
 ln -sf dotfiles/.vagrant.d .
-
 
 if [ -d .ssh/ ]
 then
