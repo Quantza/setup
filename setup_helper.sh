@@ -514,8 +514,8 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	# virtualenv - python2
 	sudo -H pip2 install virtualenv virtualenvwrapper
 
-	sudo -H pip2 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto
-	sudo -H pip3 install pyopenssl requests youtube-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto3
+	sudo -H pip2 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto jinja2
+	sudo -H pip3 install pyopenssl requests youtube-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto3 jinja2
 
 elif [ "$DISTRO_ID" == "arch" ]; then
 	# Download the latest pip package from source
@@ -533,8 +533,8 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# virtualenv - python2
 	sudo -H pip2 install virtualenv virtualenvwrapper
 
-	sudo -H pip2 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto
-	sudo -H pip install pyopenssl requests youtube-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto3
+	sudo -H pip2 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto jinja2
+	sudo -H pip install pyopenssl requests youtube-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto3 jinja2
 
 fi
 
