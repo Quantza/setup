@@ -118,7 +118,8 @@ npm install -g gulp
 cd $MY_GIT_REPO_DIR
 git clone https://github.com/ethereum/mist.git
 cd mist
-git checkout master
+#git checkout master
+git checkout develop
 git submodule update --init
 npm install
 gulp update-nodes

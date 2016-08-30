@@ -70,8 +70,8 @@ npm install -g gulp
 cd $MY_GIT_REPO_DIR
 cd mist
 git pull
-git checkout master
-#git checkout develop
+#git checkout master
+git checkout develop
 git pull && git submodule update
 npm install
 gulp update-nodes
