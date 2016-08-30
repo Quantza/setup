@@ -65,6 +65,7 @@ echo ---mist-wallet---
 cd $HOME
 # Need this, if not installed: #curl https://install.meteor.com/ | sh
 npm install -g electron-prebuilt@0.37.2
+npm install -g gulp
 
 cd $MY_GIT_REPO_DIR
 cd mist
