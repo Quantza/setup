@@ -120,5 +120,6 @@ cd mist
 git checkout master
 git submodule update --init
 npm install
+gulp update-nodes
 
 echo ---mist-wallet was compiled successfully---
