@@ -54,7 +54,11 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	#$PKG_INSTALL_PREFIX build-dep build-essential
 	
 	# Install fonts
-	$PKG_INSTALL_PREFIX adobe-source-code-pro-fonts adobe-source-sans-pro-fonts adobe-source-serif-pro-fonts otf-fira-sans ttf-fira-sans ttf-fira-mono ttf-fira-mono font-bh-ttf ttf-google-fonts-git ttf-clear-sans ttf-dejavu ttf-gentium ttf-junicode ttf-liberation ttf-linux-libertine ttf-noto ttf-opensans ttf-roboto ttf-ms-fonts ttf-vista-fonts ttf-ms-win10 ttf-ubuntu-font-family noto-fonts
+	$PKG_INSTALL_PREFIX otf-fira-sans ttf-fira-sans ttf-fira-mono ttf-fira-mono font-bh-ttf ttf-google-fonts-git ttf-clear-sans ttf-dejavu ttf-gentium ttf-junicode ttf-liberation ttf-linux-libertine ttf-opensans ttf-roboto ttf-ms-fonts ttf-ubuntu-font-family noto-fonts
+
+	#$PKG_INSTALL_PREFIX adobe-source-code-pro-fonts adobe-source-sans-pro-fonts adobe-source-serif-pro-fonts
+
+	#$PKG_INSTALL_PREFIX ttf-noto
 
 	EMACS_DEV_DIR="$MY_GIT_REPO_DIR"/emacs
 	if [ ! -d $EMACS_DEV_DIR ]; then
