@@ -128,6 +128,9 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	cd yaourt && makepkg
 	sudo pacman -U yaourt*.pkg.tar.xz
 
+	chmod a+x "$OLDDIR"/pacaur_install.sh
+	source "$OLDDIR"/pacaur_install.sh
+
 	# List drivers
 	
 	## Nvidia ##

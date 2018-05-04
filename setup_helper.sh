@@ -52,6 +52,9 @@ if [ "$DISTRO_ID" == "ubuntu" ]; then
 	$PKG_INSTALL_PREFIX  gcc gdb automake cmake cmake-qt-gui libmagick++-dev libgtk2.0-dev \
 	libxft-dev libgnutls-dev libdbus-1-dev libgif-dev texinfo libxpm-dev libacl1 libacl1-dev build-essential aptitude
 	#$PKG_INSTALL_PREFIX build-dep build-essential
+	
+	# Install fonts
+	$PKG_INSTALL_PREFIX adobe-source-code-pro-fonts adobe-source-sans-pro-fonts adobe-source-serif-pro-fonts otf-fira-sans ttf-fira-sans ttf-fira-mono ttf-fira-mono font-bh-ttf ttf-google-fonts-git ttf-clear-sans ttf-dejavu ttf-gentium ttf-junicode ttf-liberation ttf-linux-libertine ttf-noto ttf-opensans ttf-roboto ttf-ms-fonts ttf-vista-fonts ttf-ms-win10 ttf-ubuntu-font-family noto-fonts
 
 	EMACS_DEV_DIR="$MY_GIT_REPO_DIR"/emacs
 	if [ ! -d $EMACS_DEV_DIR ]; then
@@ -325,7 +328,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	# Install pdf readers
 	$PKG_INSTALL_PREFIX evince kdegraphics-okular
 
-	# Texlive, editors, and calibre
+	# Texlive, editors, and calibreY
 	$PKG_INSTALL_PREFIX texlive-most texmacs auctex texstudio calibre
 	$YAOURT_INSTALL_PREFIX texworks jabref gedit-latex
 
@@ -401,7 +404,7 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	$PKG_INSTALL_PREFIX qt5-base qt5-doc qt4 qt4-doc qtchooser
 
 	# Google Drive: grive2 and google-drive-ocamlfuse
-	$YAOURT_INSTALL_PREFIX grive
+	$YAOURT_INSTALL_PREFIX grive numix-themes numix-themes-darkblue mint-cinnamon-themes numix-themes-blue-git faenza-icon-theme 
 	$YAOURT_INSTALL_PREFIX google-drive-ocamlfuse
 
 else
@@ -531,9 +534,9 @@ elif [ "$DISTRO_ID" == "arch" ]; then
 	sudo -H pip install --upgrade pip
 
 	# virtualenv - python2
-	sudo -H pip2 install virtualenv virtualenvwrapper
+	sudo -H pip2 install virtualenv
 
-	sudo -H pip2 install pyopenssl requests youtube-dl coursera-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto jinja2
+	sudo -H pip2 install pyopenssl requests youtube-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto jinja2
 	sudo -H pip install pyopenssl requests youtube-dl pyopenssl requests jupyter numpy scipy matplotlib pandas sympy nose h5py seaborn boto3 jinja2
 
 fi
